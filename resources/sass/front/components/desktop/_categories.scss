@@ -1,0 +1,33 @@
+.categories {
+    padding: 5%;
+    width: 90%;
+    background-color: #353540;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+
+    .category {
+
+        button {
+            background-color: #cacaca;
+            border-radius: 8px;
+            border: none;
+            opacity: 70%;
+            padding: 4%;
+            cursor: pointer;
+    
+            h4 {
+                color: #000000;
+                text-align: center;
+            }
+        }
+    
+        button:hover {
+            background-color: #997500;
+            box-shadow: 0 12px 16px 0 #ffffff62, 0 18px 50px 0 #ffffff62;
+    
+            h4 {
+                color: #ffffff;
+            }
+        }
+    }
+}

@@ -1,0 +1,37 @@
+.form {
+    width: 90%;
+    margin: 5%;
+
+    label {
+        color: hsl(0, 0%, 100%);
+        display: block;
+        font-weight: bold;
+        text-decoration: underline;
+        margin: 1rem auto;
+        width: fit-content;
+    }
+
+    .select-tabs {
+        background-color: hsl(240, 9%, 40%);
+        width: 100%;
+    }
+
+    .contents {
+    
+        .content {
+            background-color: hsl(240, 9%, 40%);
+            width: 100%;
+            height: fit-content;
+            display: none;
+    
+            p {
+                padding: 1rem;
+            }
+    
+            &.active {
+                background-color: hsl(46, 100%, 20%);
+                display: block;
+            }
+        }
+    }
+}

@@ -1,0 +1,133 @@
+// Señalar que me pondré a depurar el tema de los nombres para las clases, porque elementos que
+// se llaman top o right en la versión de escritorio encajan, mientras que en la de móvil ya no concuerdan.
+
+.panel {
+    background-color: hsl(240, 9%, 23%);
+    width: 92%;
+    padding: 1rem 4%;
+
+    .desktop-two-columns,
+    .desktop-two-columns-aside {
+        flex-direction: column;
+    }
+
+    .panel-header {
+        background-color: hsl(46, 100%, 20%);
+        padding: 0 5%;
+        width: 90%;
+
+        .panel-header-title {
+            display: flex;
+            justify-content: flex-start;
+            padding-top: 1rem;
+        }
+
+        .panel-header-hamburger {
+            display: flex;
+            justify-content: flex-end;
+
+            .hamburger {
+                top: -1.8rem;
+            }
+        }
+    }
+
+    .panel-aside {
+        border-left: .2rem solid hsl(46, 100%, 30%);
+        border-right: .2rem solid hsl(46, 100%, 30%);
+        margin: 1rem auto;
+        width: 60%;
+
+        ul {
+
+            li {
+                color: hsl(0, 0%, 100%);
+            }
+        }
+    }
+
+    .panel-main {
+
+        .box-options {
+
+            ul {
+
+                li {
+                    background-color: hsl(46, 100%, 20%);
+                    cursor: pointer;
+                    margin: .4rem;
+                    padding: .8rem;
+                }
+
+                li:active {
+                    background-color: hsl(46, 100%, 30%);
+                }
+            }
+        }
+
+        .tool-options {
+
+            ul {
+                display: flex;
+                justify-content: space-evenly;
+
+                li {
+                    margin: .2rem;
+
+                    svg {
+                        color: hsl(46, 100%, 20%);
+                        cursor: pointer;
+                        width: 30%;
+                    }
+
+                    svg:active {
+                        color: hsl(46, 100%, 30%);
+                    }
+                }
+            }
+        }
+
+        .panel-main-form {
+            margin: 0 5%;
+            width: 90%;
+
+            label {
+                color: hsl(0, 0%, 100%);
+                margin: .4rem 0;
+            }
+
+            .form-category,
+            .form-name {
+                display: flex;
+                flex-direction: column;
+            }
+
+            select {
+                background: none;
+                border: none;
+                border-bottom: .1rem solid hsl(46, 100%, 20%);
+                color: hsl(0, 0%, 100%);
+                margin: 1rem 0;
+
+                option {
+                    background-color: hsl(240, 9%, 23%);
+                    color: hsl(0, 0%, 100%);
+                }
+            }
+
+            input:focus,
+            select:focus {
+                border: .1rem solid hsl(46, 100%, 30%);
+                border-radius: 1rem;
+                border-style: none;
+            }
+
+            .panel-title {
+
+                span {
+                    background-color: hsl(46, 100%, 20%);
+                }
+            }
+        }
+    }
+}

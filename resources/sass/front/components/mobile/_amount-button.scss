@@ -1,0 +1,33 @@
+.amount-button {
+    align-items: center;
+    display: flex;
+
+    .plus, .minus {
+        display: flex;
+        background-color: hsl(0, 0%, 100%);
+
+        button {
+            background-color: hsl(46, 100%, 20%);
+            color: hsl(240, 9%, 80%);
+            cursor: pointer;
+            padding: .4rem 1rem;
+            text-align: center;
+            width: 2.4rem;
+        }
+    }
+
+    .amount-style {
+        display: flex;
+        background-color: hsl(240, 9%, 40%);
+
+        input {
+            background-color: hsl(240, 9%, 40%);
+            border: none;
+            color: hsl(0, 0%, 100%);
+            font-weight: bold;
+            padding: .4rem 0;
+            text-align: center;
+            width: 1.2rem;
+        }
+    }
+}

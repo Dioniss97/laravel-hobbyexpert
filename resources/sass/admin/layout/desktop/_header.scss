@@ -1,0 +1,46 @@
+header {
+    background-color: hsl(240, 9%, 23%);
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    width: 90%;
+    margin: 1rem auto 0rem auto;
+    padding: 2% 0;
+
+    .header-logo {
+        display: flex;
+        justify-content: space-between;
+
+        .header-logo-title {
+            text-decoration: 4px underline hsl(46, 100%, 20%);;
+            margin-bottom: 2%;
+
+            h1 {
+                color: hsl(46, 100%, 30%);
+            }
+        }
+
+        .header-logo-img {
+            padding: 8%;
+        }
+    }
+
+    .header-menu {
+        margin-top: 1.8rem;
+    }
+
+    .header-menu ul li {
+        color: hsl(0, 0%, 100%);
+        margin: auto;
+        border-bottom: .16em solid hsl(46, 100%, 20%);
+    }
+
+    .header-menu ul li:hover {
+        border-bottom: .16em solid hsl(240, 9%, 23%);
+        cursor: pointer;
+    }
+
+    .header-menu ul {
+        display: flex;
+        justify-content: space-between;
+    }
+}

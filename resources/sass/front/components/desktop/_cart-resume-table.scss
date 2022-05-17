@@ -1,0 +1,65 @@
+.cart-resume-table {
+    border: 2px solid hsl(46, 100%, 30%);
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1rem;
+    margin-left: auto;
+    padding: 2rem 5%;
+    width: 90%;
+
+    .cart-buttons {
+        display: flex;
+        justify-content: flex-end;
+        padding: 1rem;
+
+        button {
+            background-color: hsl(46, 100%, 20%);
+            border-radius: 1rem;
+            color: hsl(240, 9%, 80%);
+            cursor: pointer;
+            padding: 1rem;
+            margin: .4rem 1rem;
+        }
+
+        button:hover {
+            opacity: .7;
+            transition: .6s;
+        }
+
+        .purchase-button {
+
+        }
+
+        .cancel-button {
+
+        }
+    }
+
+    table {
+        
+        caption {
+            color: hsl(0, 0%, 100%);
+            font-weight: bold;
+        }
+
+        tr {
+
+            th,td {
+                border-left: 2px solid hsl(46, 18%, 31%);
+                border-right: 2px solid hsl(46, 18%, 31%);
+                padding: 1rem 2rem;
+            }
+
+            th {
+                color: hsl(46, 100%, 30%);
+                text-decoration: underline;
+            }
+
+            td {
+                color: hsl(0, 0%, 100%);
+            }
+        }
+    }
+}

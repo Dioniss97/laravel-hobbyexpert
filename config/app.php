@@ -186,6 +186,8 @@ return [
          * Package Service Providers...
          */
 
+        Jenssegers\Agent\AgentServiceProvider::class,
+
         /*
          * Application Service Providers...
          */
@@ -194,7 +196,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
+        App\Providers\AgentServiceProvider::class,
     ],
 
     /*
@@ -209,6 +211,9 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
+
+        'Agent' => Jenssegers\Agent\Facades\Agent::class,
+
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),
 

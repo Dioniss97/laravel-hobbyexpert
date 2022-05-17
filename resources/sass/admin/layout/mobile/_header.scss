@@ -1,0 +1,25 @@
+header {
+    background-color: hsl(240, 9%, 23%);
+    padding: 1rem 10%;
+    width: 80%;
+
+    .header-logo {
+        display: flex;
+        justify-content: space-between;
+
+        .header-logo-title {
+            text-decoration: 4px underline hsl(46, 100%, 20%);
+            margin-bottom: 2rem;
+
+            h1 {
+                text-align: center;
+                color: hsl(46, 100%, 30%);
+            }
+        }
+
+        .header-logo-img {
+            margin: .5rem 0 .5rem auto;
+            width: 60%;
+        }
+    }
+}

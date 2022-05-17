@@ -1,0 +1,43 @@
+@keyframes translate {
+
+    from {
+        transform: translateX(-60rem);
+    }
+
+    to {
+        transform: translateX(60rem);
+    }
+}
+
+.notification {
+    animation: 5s linear translate;
+    align-items: center;
+    background-color: hsl(120, 40%, 20%);
+    border-radius: 6rem;
+    display: none;
+    font-size: 2rem;
+    opacity: .7;
+    padding: .6rem;
+    position: absolute;
+    text-align: center;
+    top: 14%;
+    left: 40%;
+    width: auto;
+    height: 4rem;
+
+    p {
+        color: hsl(0, 0%, 100%);
+        margin-top: .6rem;
+    }
+
+    &.success {
+        // animation: 1s linear translate; Tratando de que cada vez que tenga que aparecer el mensaje lo haga trasladandose desde arriba
+        display: block;
+    }
+
+    &.error {
+        // animation: 1s linear translate;
+        background-color: hsl(0, 100%, 50%);
+        display: block;
+    }
+}

@@ -1,0 +1,85 @@
+.product-view {
+    background-color: hsl(240, 9%, 23%);
+    border-top: .4em solid hsl(46, 100%, 20%);
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    padding: 4% 5%;
+    width: 90%;
+
+    .product-view-slider {
+        margin: 2rem 13%;
+        width: 74%;
+
+        .product-view-slider-image {
+
+            cursor: pointer;
+            border: .2rem solid hsl(46, 100%, 20%);
+            border-radius: 6px;
+            padding: 1rem;
+
+            img {
+                width: 100%;
+            }
+        }
+    }
+
+    .product-view-info {
+        margin: 2rem auto;
+        width: 94%;
+
+        .product-view-info-price {
+            background-color: hsl(240, 9%, 40%);
+            border-radius: 8px;
+            margin-right: auto;
+            padding: .4rem;
+            width: fit-content;
+
+            span {
+                color: hsl(46, 100%, 36%);
+                font-size: 1.2rem;
+                font-weight: bold;
+            }
+        }
+
+        .product-view-info-description {
+            
+            p {
+                font-size: .8rem;
+                text-indent: 2rem;
+            }
+        }
+
+        .product-view-info-amount {
+            align-items: center;
+            display: flex;
+            justify-content: space-evenly;
+
+            .amount-title {
+                color: hsl(0, 0%, 100%);
+                font-weight: bold;
+            }
+        }
+
+        .product-view-info-add-to-cart {
+            display: flex;
+            justify-content: center;
+
+            .add-to-cart-button {
+
+                button {
+                    background: linear-gradient(to top, hsl(46, 100%, 30%), hsl(240, 9%, 23%));
+                    border: 2px solid hsl(0, 0%, 50%);
+                    border-radius: 10px;
+                    color: hsl(0, 0%, 100%);
+                    margin-top: 8%;
+                    padding: 10%;
+                    width: 100%;
+                }
+            }
+        }
+    }
+
+    .product-view-info > div {
+        margin: 1rem 0;
+    }
+}

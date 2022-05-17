@@ -1,0 +1,46 @@
+.slider {
+    background-color: #353540;
+
+    .slider-image{
+        width: 100%;
+    }
+
+    .slider-title {
+
+        position: absolute;
+        top: 24%;
+        left: 14%;
+        
+        h4 {
+            background-color: #cacaca;
+            border-radius: 8px;
+            color: #664e00;
+            font-size: 2em;
+            opacity: 70%;
+            padding: 1rem;
+        }
+    }
+
+    .slider-button {
+        position: absolute;
+        bottom: 4%;
+        right: 8%;
+
+        button {
+            border: none;
+            border-radius: 8px;
+            background-color: #997500;
+            color: #353540;
+            cursor: pointer;
+            font-weight: bold;
+            padding: 2rem;
+            transition-duration: 0.4s;
+        }
+        
+        button:hover {
+            background-color: #997500;
+            box-shadow: 0 12px 16px 0 #ffffff62, 0 18px 50px 0 #ffffff62;
+            color: hsl(0, 0%, 100%);
+        }
+    }
+}

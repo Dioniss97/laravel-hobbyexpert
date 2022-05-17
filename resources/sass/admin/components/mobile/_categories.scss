@@ -1,0 +1,25 @@
+.categories {
+    padding: 5%;
+    width: 90%;
+    background-color: #353540;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+
+    .category {
+        margin: 1rem 0;
+
+        button {
+            background-color: #cacaca;
+            border-radius: 8px;
+            border: none;
+            opacity: 70%;
+            padding: 4%;
+            cursor: pointer;
+    
+            h4 {
+                color: #000000;
+                text-align: center;
+            }
+        }
+    }
+}

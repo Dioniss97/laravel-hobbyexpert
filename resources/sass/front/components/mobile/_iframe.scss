@@ -1,0 +1,13 @@
+.mapouter {
+    position: relative;
+    text-align: right;
+    margin: 0 auto;
+    width: 80%;
+    border: .8em solid #808080;
+    border-radius: 1rem;
+}
+
+.gmap_canvas {
+    overflow: hidden;
+    background: none !important;
+}

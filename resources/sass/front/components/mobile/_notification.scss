@@ -1,0 +1,40 @@
+@keyframes translate {
+
+    from {
+        transform: translateY(-30rem);
+    }
+
+    to {
+        transform: translateY(30rem);
+    }
+}
+
+.notification {
+    animation: 5s linear translate;
+    align-items: center;
+    background-color: hsl(120, 40%, 20%);
+    border-radius: 6rem;
+    bottom: 18%;
+    display: none;
+    font-size: 2rem;
+    opacity: .6;
+    padding: .6rem;
+    position: absolute;
+    text-align: center;
+    width: fit-content;
+    height: fit-content;
+
+    p {
+        color: hsl(0, 0%, 100%);
+        margin-top: .6rem;
+    }
+
+    &.success {
+        display: block;
+    }
+    
+    &.error {
+        background-color: hsl(0, 100%, 50%);
+        display: block;
+    }
+}

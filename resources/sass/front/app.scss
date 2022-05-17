@@ -1,0 +1,40 @@
+@charset "utf-8";
+
+@import "helpers/variables";
+@import "helpers/mixins";
+
+// Base
+@import "base/normalize";
+@import "base/contents";
+@import "base/typography";
+
+
+// Layout
+@import "layout/desktop/master";
+@import "layout/desktop/header";
+@import "layout/desktop/footer";
+@import "layout/desktop/columns";
+
+// Components
+@import "components/desktop/accordion";
+@import "components/desktop/amount-button";
+@import "components/desktop/categories";
+@import "components/desktop/cart-resume-table";
+@import "components/desktop/ckeditor";
+@import "components/desktop/hamburger";
+@import "components/desktop/iframe";
+@import "components/desktop/notification";
+@import "components/desktop/slider";
+@import "components/desktop/switch-button";
+@import "components/desktop/tabs";
+@import "components/desktop/select-tabs";
+
+// Pages
+@import "pages/home/desktop/home";
+@import "pages/cart/desktop/cart";
+@import "pages/products/desktop/products";
+@import "pages/contact/desktop/contact";
+@import "pages/product/desktop/product";
+@import "pages/checkout/desktop/checkout";
+@import "pages/administration-panel/desktop/administration-panel";
+@import "pages/faqs/desktop/faqs";
