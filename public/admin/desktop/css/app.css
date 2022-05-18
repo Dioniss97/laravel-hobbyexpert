@@ -564,12 +564,7 @@ footer ul li {
   width: 100%;
 }
 
-.faqs {
-  margin: 0 auto;
-  padding: 2rem 0;
-  width: 80%;
-}
-.faqs .faqs-header {
+.faqs-header {
   border: 0.1rem solid hsl(46deg, 100%, 30%);
   border-radius: 1rem;
   margin: 2rem auto;
@@ -577,8 +572,14 @@ footer ul li {
   width: -moz-fit-content;
   width: fit-content;
 }
-.faqs .faqs-header h3 {
+.faqs-header h3 {
   padding: 1rem;
+}
+
+.faqs {
+  margin: 0 auto;
+  padding: 2rem 0;
+  width: 80%;
 }
 .faqs .tab {
   overflow: hidden;

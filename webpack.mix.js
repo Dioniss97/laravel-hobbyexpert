@@ -16,6 +16,6 @@ mix.js('resources/js/front/desktop/app.js', 'public/front/desktop/js/app.js').ve
     .js('resources/js/admin/desktop/app.js', 'public/admin/desktop/js/app.js').version()
     .js('resources/js/admin/mobile/app.js', 'public/admin/mobile/js/app.js').version()
     .sass('resources/sass/front/app.scss', 'public/front/desktop/css/app.css').version()
-    .sass('resources/sass/front/app-mobile.scss', 'public/front/mobile/css/app-mobile.css').version()
+    .sass('resources/sass/front/app-mobile.scss', 'public/front/mobile/css/app.css').version()
     .sass('resources/sass/admin/app.scss', 'public/admin/desktop/css/app.css').version()
-    .sass('resources/sass/admin/app-mobile.scss', 'public/admin/mobile/css/app-mobile.css').version()
+    .sass('resources/sass/admin/app-mobile.scss', 'public/admin/mobile/css/app.css').version()

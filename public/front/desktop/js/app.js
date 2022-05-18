@@ -494,9 +494,9 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
 /******/ 		var installedChunks = {
 /******/ 			"/front/desktop/js/app": 0,
-/******/ 			"admin/mobile/css/app-mobile": 0,
+/******/ 			"admin/mobile/css/app": 0,
 /******/ 			"admin/desktop/css/app": 0,
-/******/ 			"front/mobile/css/app-mobile": 0,
+/******/ 			"front/mobile/css/app": 0,
 /******/ 			"front/desktop/css/app": 0
 /******/ 		};
 /******/ 		
@@ -547,11 +547,11 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	__webpack_require__.O(undefined, ["admin/mobile/css/app-mobile","admin/desktop/css/app","front/mobile/css/app-mobile","front/desktop/css/app"], () => (__webpack_require__("./resources/js/front/desktop/app.js")))
-/******/ 	__webpack_require__.O(undefined, ["admin/mobile/css/app-mobile","admin/desktop/css/app","front/mobile/css/app-mobile","front/desktop/css/app"], () => (__webpack_require__("./resources/sass/front/app.scss")))
-/******/ 	__webpack_require__.O(undefined, ["admin/mobile/css/app-mobile","admin/desktop/css/app","front/mobile/css/app-mobile","front/desktop/css/app"], () => (__webpack_require__("./resources/sass/front/app-mobile.scss")))
-/******/ 	__webpack_require__.O(undefined, ["admin/mobile/css/app-mobile","admin/desktop/css/app","front/mobile/css/app-mobile","front/desktop/css/app"], () => (__webpack_require__("./resources/sass/admin/app.scss")))
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["admin/mobile/css/app-mobile","admin/desktop/css/app","front/mobile/css/app-mobile","front/desktop/css/app"], () => (__webpack_require__("./resources/sass/admin/app-mobile.scss")))
+/******/ 	__webpack_require__.O(undefined, ["admin/mobile/css/app","admin/desktop/css/app","front/mobile/css/app","front/desktop/css/app"], () => (__webpack_require__("./resources/js/front/desktop/app.js")))
+/******/ 	__webpack_require__.O(undefined, ["admin/mobile/css/app","admin/desktop/css/app","front/mobile/css/app","front/desktop/css/app"], () => (__webpack_require__("./resources/sass/front/app.scss")))
+/******/ 	__webpack_require__.O(undefined, ["admin/mobile/css/app","admin/desktop/css/app","front/mobile/css/app","front/desktop/css/app"], () => (__webpack_require__("./resources/sass/front/app-mobile.scss")))
+/******/ 	__webpack_require__.O(undefined, ["admin/mobile/css/app","admin/desktop/css/app","front/mobile/css/app","front/desktop/css/app"], () => (__webpack_require__("./resources/sass/admin/app.scss")))
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["admin/mobile/css/app","admin/desktop/css/app","front/mobile/css/app","front/desktop/css/app"], () => (__webpack_require__("./resources/sass/admin/app-mobile.scss")))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()
