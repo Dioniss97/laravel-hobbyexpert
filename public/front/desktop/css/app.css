@@ -564,7 +564,7 @@ footer ul li {
   width: 100%;
 }
 
-.faqs-header {
+.page-header {
   border: 0.1rem solid hsl(46deg, 100%, 30%);
   border-radius: 1rem;
   margin: 2rem auto;
@@ -572,7 +572,7 @@ footer ul li {
   width: -moz-fit-content;
   width: fit-content;
 }
-.faqs-header h3 {
+.page-header .page-header-title h3 {
   padding: 1rem;
 }
 
