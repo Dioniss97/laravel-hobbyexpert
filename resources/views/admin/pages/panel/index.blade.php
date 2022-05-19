@@ -3,7 +3,7 @@
 @section('description') Página de administración @endsection
 @section('keywords') administración, panel, editar @endsection
 
-@section('title') Panel de administración @endsection
+@section('title') Panel de Administración @endsection
 
 @section('content')
     @if($agent->isDesktop())

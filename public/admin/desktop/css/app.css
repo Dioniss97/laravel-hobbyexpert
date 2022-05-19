@@ -965,22 +965,18 @@ footer ul li {
   width: 5rem;
   height: 2.4rem;
   border-radius: 3rem;
-  background-color: hsl(180deg, 4%, 95%);
+  background-color: red;
   cursor: pointer;
   transition: all 0.3s;
   overflow: hidden;
-  box-shadow: 0px 0px 2px hsla(0deg, 0%, 0%, 0.302);
 }
-
 .switch3 input {
   display: none;
 }
-
 .switch3 input:checked + div {
   left: 48px;
   box-shadow: 0px 0px 0px white;
 }
-
 .switch3 div {
   position: absolute;
   width: 27px;
@@ -992,8 +988,8 @@ footer ul li {
   box-shadow: 0px 0px 1px rgb(150, 150, 150);
   transition: all 0.3s;
 }
-
-.switch3 div:before, .switch3 div:after {
+.switch3 div:before,
+.switch3 div:after {
   position: absolute;
   content: "ON";
   width: 40px;
@@ -1004,22 +1000,23 @@ footer ul li {
   font-weight: bold;
   top: -5px;
 }
-
 .switch3 div:before {
   content: "OFF";
   color: hsl(0deg, 0%, 100%);
   left: 120%;
 }
-
 .switch3 div:after {
   content: "ON";
   right: 100%;
   color: hsl(0deg, 0%, 100%);
 }
-
-.switch3-checked {
+.switch3.switch3-checked {
   background-color: hsl(46deg, 100%, 20%);
   box-shadow: none;
+}
+
+.switch3:hover {
+  background-color: hsl(46deg, 100%, 40%);
 }
 
 .tabs {
@@ -1399,11 +1396,18 @@ footer ul li {
 
 .panel {
   background-color: hsl(240deg, 9%, 23%);
+  width: 90%;
+  margin: auto;
+  padding-bottom: 1rem;
+}
+.panel > div:nth-child(n) {
+  margin: 2% 0;
 }
 .panel .panel-header {
   background-color: hsl(46deg, 100%, 20%);
-  padding: 0 5%;
+  padding: 3% 5%;
   width: 90%;
+  height: 94%;
 }
 .panel .panel-header .panel-header-title {
   display: flex;
@@ -1413,9 +1417,13 @@ footer ul li {
   display: flex;
   justify-content: flex-end;
 }
-.panel .panel-aside {
+.panel .panel-registers {
+  border-top: 0.2rem solid hsl(46deg, 100%, 30%);
+}
+.panel .panel-registers .register {
   border-left: 0.2rem solid hsl(46deg, 100%, 30%);
   border-right: 0.2rem solid hsl(46deg, 100%, 30%);
+  color: hsl(0deg, 0%, 80%);
   margin: 1rem auto;
   width: 90%;
 }
@@ -1424,44 +1432,66 @@ footer ul li {
   display: flex;
   height: 6rem;
 }
-.panel .panel-main .box-options ul li {
+.panel .panel-main .panel-main-options {
+  border-top: 0.2rem solid hsl(46deg, 100%, 30%);
+  border-bottom: 0.2rem solid hsl(46deg, 100%, 30%);
+}
+.panel .panel-main .panel-main-options .box-options {
+  width: 90%;
+  margin: auto;
+}
+.panel .panel-main .panel-main-options .box-options ul {
+  display: flex;
+  justify-content: space-between;
+}
+.panel .panel-main .panel-main-options .box-options ul li {
   background-color: hsl(46deg, 100%, 20%);
   cursor: pointer;
+  padding: 1rem;
+}
+.panel .panel-main .panel-main-options .box-options ul li:hover {
+  background-color: hsl(46deg, 100%, 40%);
+}
+.panel .panel-main .panel-main-options .tool-options {
+  width: 90%;
+  margin: auto;
+}
+.panel .panel-main .panel-main-options .tool-options ul {
+  display: flex;
+  justify-content: space-between;
+}
+.panel .panel-main .panel-main-options .tool-options ul li {
   margin: 0.4rem;
-  padding: 0.8rem;
 }
-.panel .panel-main .box-options ul li:hover {
-  background-color: hsl(46deg, 100%, 30%);
-}
-.panel .panel-main .tool-options ul li {
-  margin: 0.4rem;
-}
-.panel .panel-main .tool-options ul li svg {
+.panel .panel-main .panel-main-options .tool-options ul li svg {
   color: hsl(46deg, 100%, 20%);
-  cursor: pointer;
-  width: 30%;
+  width: 40%;
 }
-.panel .panel-main .tool-options ul li svg:hover {
-  color: hsl(46deg, 100%, 30%);
+.panel .panel-main .panel-main-options .tool-options ul li svg:hover {
+  color: hsl(46deg, 100%, 40%);
+  cursor: pointer;
 }
 .panel .panel-main .panel-main-form {
   margin: 0 5%;
   width: 90%;
 }
 .panel .panel-main .panel-main-form .form-category,
-.panel .panel-main .panel-main-form .form-name {
+.panel .panel-main .panel-main-form .form-name, .panel .panel-main .panel-main-form .form-title, .panel .panel-main .panel-main-form .form-description {
   display: flex;
   flex-direction: column;
 }
 .panel .panel-main .panel-main-form .form-category label,
-.panel .panel-main .panel-main-form .form-name label {
+.panel .panel-main .panel-main-form .form-name label, .panel .panel-main .panel-main-form .form-title label, .panel .panel-main .panel-main-form .form-description label {
   color: hsl(0deg, 0%, 100%);
+  font-weight: bold;
   margin: 0.4rem 0;
 }
 .panel .panel-main .panel-main-form .form-category input,
 .panel .panel-main .panel-main-form .form-category select,
 .panel .panel-main .panel-main-form .form-name input,
-.panel .panel-main .panel-main-form .form-name select {
+.panel .panel-main .panel-main-form .form-name select, .panel .panel-main .panel-main-form .form-title input,
+.panel .panel-main .panel-main-form .form-title select, .panel .panel-main .panel-main-form .form-description input,
+.panel .panel-main .panel-main-form .form-description select {
   background: none;
   border: none;
   border-bottom: 0.1rem solid hsl(46deg, 100%, 20%);
@@ -1471,17 +1501,36 @@ footer ul li {
 .panel .panel-main .panel-main-form .form-category input option,
 .panel .panel-main .panel-main-form .form-category select option,
 .panel .panel-main .panel-main-form .form-name input option,
-.panel .panel-main .panel-main-form .form-name select option {
+.panel .panel-main .panel-main-form .form-name select option, .panel .panel-main .panel-main-form .form-title input option,
+.panel .panel-main .panel-main-form .form-title select option, .panel .panel-main .panel-main-form .form-description input option,
+.panel .panel-main .panel-main-form .form-description select option {
   background-color: hsl(240deg, 9%, 23%);
   color: hsl(0deg, 0%, 100%);
 }
 .panel .panel-main .panel-main-form .form-category input:focus,
 .panel .panel-main .panel-main-form .form-category select:focus,
 .panel .panel-main .panel-main-form .form-name input:focus,
-.panel .panel-main .panel-main-form .form-name select:focus {
-  border: 0.1rem solid hsl(46deg, 100%, 30%);
+.panel .panel-main .panel-main-form .form-name select:focus, .panel .panel-main .panel-main-form .form-title input:focus,
+.panel .panel-main .panel-main-form .form-title select:focus, .panel .panel-main .panel-main-form .form-description input:focus,
+.panel .panel-main .panel-main-form .form-description select:focus {
+  border: 0.1rem solid hsl(46deg, 100%, 40%);
   border-radius: 1rem;
 }
-.panel .panel-main .panel-title span {
+.panel .panel-main .panel-main-form .form-language {
+  background-color: hsl(240deg, 9%, 14%);
+  margin: 1rem 0;
+}
+.panel .panel-main .panel-main-form .form-language button {
   background-color: hsl(46deg, 100%, 20%);
+  padding: 4%;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+}
+.panel .panel-main .panel-main-form .form-language button:hover {
+  background-color: hsl(46deg, 100%, 40%);
+  padding: 4%;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
 }

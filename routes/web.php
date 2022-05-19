@@ -33,8 +33,8 @@ Route::get('/faqs', function () {
     return view('front.pages.faqs.index');
 });
 
-Route::get('/admin/panel', function () {
-    return view('front.pages.panel.index');
+Route::get('/admin-panel', function () {
+    return view('admin.pages.panel.index');
 });
 
 Route::get('/producto', function () {

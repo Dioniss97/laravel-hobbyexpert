@@ -7,8 +7,6 @@ import { renderProduct } from "./product.js";
 import { renderSelectTabs } from "./select-tabs";
 import { renderTabs } from "./tabs.js";
 
-
-
 renderAccordion();
 renderAmount();
 renderCkeditor();

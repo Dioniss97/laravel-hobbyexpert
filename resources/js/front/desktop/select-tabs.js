@@ -1,29 +1,29 @@
 export let renderSelectTabs = () => {
-let contents = document.querySelectorAll(".content");
-let tabsSelects = document.querySelectorAll(".select-tabs");
+    let contents = document.querySelectorAll(".content");
+    let tabsSelects = document.querySelectorAll(".select-tabs");
 
-console.log(contents, tabsSelects);
+    console.log(contents, tabsSelects);
 
-tabsSelects.forEach(tabsSelect => {
+    tabsSelects.forEach(tabsSelect => {
 
-    tabsSelect.addEventListener("change", () => {
+        tabsSelect.addEventListener("change", () => {
 
-        console.log(tabsSelect.selectedIndex, typeof tabsSelect.selectedIndex.toString(), tabsSelect.closest(".form"));
+            console.log(tabsSelect.selectedIndex, typeof tabsSelect.selectedIndex.toString(), tabsSelect.closest(".form"));
 
-        contents.forEach(content => {
+            contents.forEach(content => {
 
-            console.log(content.dataset.target);
+                console.log(content.dataset.target);
 
-            if (tabsSelect.closest(".form") == content.closest(".form")) {
+                if (tabsSelect.closest(".form") == content.closest(".form")) {
 
-                content.classList.remove("active");
+                    content.classList.remove("active");
 
-                if (tabsSelect.selectedIndex.toString() == content.dataset.target) {
+                    if (tabsSelect.selectedIndex.toString() == content.dataset.target) {
 
-                    content.classList.add("active");
+                        content.classList.add("active");
+                    }
                 }
-            }
+            });
         });
     });
-});
 }

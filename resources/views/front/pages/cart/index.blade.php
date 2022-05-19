@@ -1,9 +1,9 @@
 @extends('front.layout.master')
 
+@section('title') Carrito @endsection
+
 @section('description') Esto es el carrito @endsection
 @section('keywords') carrito, comprar @endsection
-
-@section('title') Carrito @endsection
 
 @section('content')
     @if($agent->isDesktop())

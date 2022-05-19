@@ -1,56 +1,66 @@
-.switch3{
+.switch3 {
     position: relative;
     display: inline-block;
     width: 5rem;
     height: 2.4rem;
     border-radius: 3rem;
-    background-color: hsl(180, 4%, 95%);
+    background-color: red;
     cursor: pointer;
     transition: all .3s;
     overflow: hidden;
-    box-shadow: 0px 0px 2px hsla(0, 0%, 0%, 0.302);
-  }
-  .switch3 input{
-    display: none;
-  }
-  .switch3 input:checked + div{
-    left: calc(80px - 32px);
-    box-shadow: 0px 0px 0px white;
-  }
-  .switch3 div{
-    position: absolute;
-    width: 27px;
-    height: 27px;
-    border-radius: 27px;
-    background-color: white;
-    top: 5px;
-    left: 5px;
-    box-shadow: 0px 0px 1px rgb(150,150,150);
-    transition: all .3s;
-  }
-  .switch3 div:before, .switch3 div:after{
-    position: absolute;
-    content: 'ON';
-    width: calc(80px - 40px);
-    height: 2.4rem;
-    line-height: 37px;
-    font-family: 'Varela Round';
-    font-size: 1rem;
-    font-weight: bold;
-    top: -5px;
-  }
-  .switch3 div:before{
-    content: 'OFF';
-    color: hsl(0, 0%, 100%);
-    left: 120%;
-  }
-  .switch3 div:after{
-    content: 'ON';
-    right: 100%;
-    color: hsl(0, 0%, 100%);
-  }
-  
-  .switch3-checked{
-    background-color : hsl(46, 100%, 20%);
-    box-shadow: none;
-  }
+
+    input {
+        display: none;
+    }
+
+    input:checked+div {
+        left: calc(80px - 32px);
+        box-shadow: 0px 0px 0px white;
+    }
+
+    div {
+        position: absolute;
+        width: 27px;
+        height: 27px;
+        border-radius: 27px;
+        background-color: white;
+        top: 5px;
+        left: 5px;
+        box-shadow: 0px 0px 1px rgb(150, 150, 150);
+        transition: all .3s;
+    }
+
+    div:before,
+    div:after {
+        position: absolute;
+        content: 'ON';
+        width: calc(80px - 40px);
+        height: 2.4rem;
+        line-height: 37px;
+        font-family: 'Varela Round';
+        font-size: 1rem;
+        font-weight: bold;
+        top: -5px;
+    }
+
+    div:before {
+        content: 'OFF';
+        color: hsl(0, 0%, 100%);
+        left: 120%;
+    }
+
+    div:after {
+        content: 'ON';
+        right: 100%;
+        color: hsl(0, 0%, 100%);
+    }
+
+    &.switch3-checked {
+        background-color: hsl(46, 100%, 20%);
+        box-shadow: none;
+    }
+}
+
+.switch3:hover {
+    background-color: hsl(46, 100%, 40%);
+}

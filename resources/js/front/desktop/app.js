@@ -6,6 +6,7 @@ import { renderNotification } from "./notification.js";
 import { renderProduct } from "./product.js";
 import { renderSelectTabs } from "./select-tabs";
 import { renderTabs } from "./tabs.js";
+import { renderSwitch } from "./switch-button.js";
 
 
 
@@ -16,4 +17,5 @@ renderHamburger();
 renderNotification();
 renderProduct();
 renderSelectTabs();
+renderSwitch();
 renderTabs();

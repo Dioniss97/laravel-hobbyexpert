@@ -104,6 +104,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _product_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./product.js */ "./resources/js/front/desktop/product.js");
 /* harmony import */ var _select_tabs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./select-tabs */ "./resources/js/front/desktop/select-tabs.js");
 /* harmony import */ var _tabs_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./tabs.js */ "./resources/js/front/desktop/tabs.js");
+/* harmony import */ var _switch_button_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./switch-button.js */ "./resources/js/front/desktop/switch-button.js");
+/* harmony import */ var _switch_button_js__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_switch_button_js__WEBPACK_IMPORTED_MODULE_8__);
+
 
 
 
@@ -119,6 +122,7 @@ __webpack_require__.r(__webpack_exports__);
 (0,_notification_js__WEBPACK_IMPORTED_MODULE_4__.renderNotification)();
 (0,_product_js__WEBPACK_IMPORTED_MODULE_5__.renderProduct)();
 (0,_select_tabs__WEBPACK_IMPORTED_MODULE_6__.renderSelectTabs)();
+(0,_switch_button_js__WEBPACK_IMPORTED_MODULE_8__.renderSwitch)();
 (0,_tabs_js__WEBPACK_IMPORTED_MODULE_7__.renderTabs)();
 
 /***/ }),
@@ -273,6 +277,28 @@ var renderSelectTabs = function renderSelectTabs() {
     });
   });
 };
+
+/***/ }),
+
+/***/ "./resources/js/front/desktop/switch-button.js":
+/*!*****************************************************!*\
+  !*** ./resources/js/front/desktop/switch-button.js ***!
+  \*****************************************************/
+/***/ (() => {
+
+// export let renderSwitch = () => {
+//     let onOff = document.querySelector(".switch3");
+//     // console.log(onOff);
+//     onOff.addEventListener("click", () => {
+//         console.log(onOff.classList);
+//         // onOff.classList.toggle("switch3-checked");
+//         if (onOff.classList() === onOff.classList("switch3-checked")) {
+//             onOff.classList.remove("switch3-checked");
+//         } else {
+//             onOff.classList.add("switch3-checked");
+//         }
+//     });
+// }
 
 /***/ }),
 
