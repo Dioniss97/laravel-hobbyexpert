@@ -1,4 +1,5 @@
 export let renderHamburger = () => {
+    
     let menu = document.getElementById("menu");
     let hamburger = document.getElementById("hamburger");
 

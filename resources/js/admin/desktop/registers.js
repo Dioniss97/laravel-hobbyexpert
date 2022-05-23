@@ -1,0 +1,1 @@
+let registers = document.querySelectorAll('.register');

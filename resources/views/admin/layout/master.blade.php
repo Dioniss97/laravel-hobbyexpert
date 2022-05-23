@@ -15,11 +15,11 @@
 
 <body>
     @include('admin.layout.partials.header')
+
     <main>
         @yield('content')
     </main>
-    
-    @include('admin.layout.partials.footer')
+
     @include('admin.layout.partials.js')
 </body>
 
