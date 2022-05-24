@@ -4,10 +4,14 @@
     <div class="panel">
         <div class="desktop-two-columns-aside">
             <div class="column-aside">
-                @yield('table')
+                <div class="table-container">
+                    @yield('table')
+                </div>
             </div>
             <div class="column-main">
-                @yield('form')
+                <div class="form-container">
+                    @yield('form')
+                </div>
             </div>
         </div>
     </div>

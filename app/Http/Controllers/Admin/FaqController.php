@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\View;
 use App\Http\Controllers\Controller;
 use App\Models\Faq;
 use App\Http\Requests\Admin\FaqRequest;
+use Debugbar;
 
 // Podemos identificar que estamos ante un objeto por la palabra "class"
 // el nombre objeto es "FaqController", el nombre del objeto tiene que
@@ -59,12 +60,15 @@ class FaqController extends Controller
     En este caso estamos accediendo a la propiedad "name" del objeto "faq";
     Si queremos acceder al método de un objeto tenemos que escribir:
     $faq->get();
-    
+    En este caso estamos accediendo al método get del objeto "faq" que es una instancia de la clase Faq. 
     */
 
-    public function __construct(Faq $faq)
+    public function __construct(Faq $faq) // El constructor es el primer método que se ejecuta al instanciar un objeto.
     {
         $this->faq = $faq;
+
+        // Debugbar::info($this->faq); // Muestra la instancia del objeto en consola.
+        // Debugbar::info("hola"); // Debugbar es una librería que nos permite ver información de la aplicación.
     }
     
     public function index()
@@ -78,7 +82,9 @@ class FaqController extends Controller
 
         $view = View::make('admin.pages.faqs.index')
                 ->with('faq', $this->faq)
-                ->with('faqs', $this->faq->get());
+                ->with('faqs', $this->faq->where('active', 1)->get());
+
+                // Debugbar::info($view); // Muestra la vista en consola.
 
         if(request()->ajax()) {
             
@@ -87,7 +93,7 @@ class FaqController extends Controller
             return response()->json([
                 'table' => $sections['table'],
                 'form' => $sections['form'],
-            ]); 
+            ]);
         }
 
         return $view;
@@ -95,19 +101,34 @@ class FaqController extends Controller
 
     public function create()
     {
+        /*
+            En la siguientes líneas estamos creando una variable que se llama view, y que tiene como valor el objeto View.
+            El objeto View medienta un método estático está creando la vista 'admin.pages.faqs.create' que es la que se
+            mostrará en pantalla. Con 'with' le estamos diciendo que le pase la variable 'faq' y que su valor sea el objeto
+            modelo Faq, que como no estamos haciendo ninguna llamada a la base de datos nos devolverá los campos vacíos de la tabla.
+            Por último, renderSections() lo que está haciendo es recargar las sections que tiene la vista (en este caso 'form' y 'table')
+            con los datos procesados. 
+        */
 
        $view = View::make('admin.pages.faqs.index')
         ->with('faq', $this->faq)
-        ->renderSections();
+        ->renderSections(); // renderSections() lo que está haciendo es recargar las sections que tiene la vista
+                            // (en este caso 'form' y 'table') con los datos procesados.
+        Debugbar::info($view['form']);
 
-        return response()->json([
+        /*
+            En la siguiente línea estamos devolviendo una respuesta a la petición AJAX, una petición AJAX hará que una parte de la página
+            se actualice sin necesidad de recargar toda la página. En este caso, la parte que se actualizará es la parte del formulario. Para
+            ello estamos diciendo que la palabra "form" será equivalente a $view['form'], la cual contiene el html del formulario ya actualizado.
+        */
+
+        return response()->json([ // Esta línea devuelve el formulario ya actualizado.
             'form' => $view['form']
         ]);
     }
 
     public function store(FaqRequest $request)
     {            
-        
 
         $user = $this->user->updateOrCreate([
                 'id' => request('id')],[
@@ -149,7 +170,20 @@ class FaqController extends Controller
     }
 
     public function show(Faq $faq){
+        // $view = View::make('admin.pages.faqs.index')
+        // ->with('faq', $faq)
+        // ->with('faqs', $this->faq->where('active', 1)->get());   
+        
+        // if(request()->ajax()) {
 
+        //     $sections = $view->renderSections(); 
+    
+        //     return response()->json([
+        //         'form' => $sections['form'],
+        //     ]); 
+        // }
+                
+        // return $view; [COPILOT]
     }
 
     public function destroy(Faq $faq)
