@@ -177,8 +177,7 @@ var renderForm = function renderForm() {
           diciendo que sendCreateRequest que es una función será asincrona, y se quedará esperando la respuesta de la
           llamada; que es el fetch que tiene un await. 
           
-          Await es una palabra reservada que indica que la función se
-          detendrá hasta que se reciba la respuesta de la llamada.
+          Await es una palabra reservada que indica que la función no se ejecutará hasta que la promesa sea cumplida.
       */
 
       var sendCreateRequest = /*#__PURE__*/function () {
