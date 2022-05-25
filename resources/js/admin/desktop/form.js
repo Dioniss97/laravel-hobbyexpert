@@ -9,7 +9,7 @@ export let renderForm = () => {
         renderForm();
     }), {once: true});
 
-    
+
     if(createButton){
 
         createButton.addEventListener("click", () => {
@@ -60,7 +60,7 @@ export let renderForm = () => {
                 })
                 .then(json => { 
 
-                    formContainer.innerHTML = json.form;
+                    formContainer.innerHTML = json.form; // Si la respuesta es exitosa, vamos a obtener el contenido del formulario.
 
                     /*
                         Cuando hacemos un innerHTML se pierden todos los eventos de javascript, por lo que tenemos que
@@ -71,9 +71,9 @@ export let renderForm = () => {
                     */
                     document.dispatchEvent(new CustomEvent('renderFormModules'));
                 })
-                .catch(error =>  { // Si la llamada falla, se ejecutará el código que esté dentro del catch.
+                .catch(error =>  { // Si la llamada falla, vamos a obtener el error con el método catch.
 
-                    if(error.status == '500'){
+                    if(error.status == '500'){ // Si el error es 500, es un error interno del servidor.
                         console.log(error);
                     };
                 });
@@ -93,11 +93,15 @@ export let renderForm = () => {
                     En las siguientes líneas se obtiene el valor del formulario a través de un objeto FormData
                     y se captura la url que usaremos para enviar los datos al servidor.
                 */
-                
+
                 let data = new FormData(form);
                 let url = form.action;
 
-                /*	
+                for (var pair of data.entries()) { // Se recorre el objeto FormData para obtener los datos del formulario.
+                    console.log(pair[0]+ ', ' + pair[1]); // Se imprimen los datos del formulario.
+                }
+
+                /*
                     En el siguiente valor estamos capturando los datos del ckeditor y se los añadimos a los datos
                     del formData. 
                 */
@@ -116,16 +120,17 @@ export let renderForm = () => {
                 */
     
                 let sendPostRequest = async () => {
-    
+
                     // document.dispatchEvent(new CustomEvent('startWait'));
-                    
-                    let response = await fetch(url, {
+
+                    let response = await fetch(url, { // Esto es una promesa que se quedará esperando hasta que la llamada sea
+                                                     // exitosa o fallida.
                         headers: {
-                            'Accept': 'application/json',
+                            'Accept': 'application/json', // Indicamos que vamos a recibir una respuesta en formato JSON.
                             'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content
                         },
-                        method: 'POST',
-                        body: data
+                        method: 'POST', // En este caso vamos a hacer una llamada POST.
+                        body: data // En el body vamos a pasarle los datos del formulario.
                     })
                     .then(response => {
                     
@@ -135,7 +140,7 @@ export let renderForm = () => {
                     })
                     .then(json => {
 
-                        formContainer.innerHTML = json.form;
+                        formContainer.innerHTML = json.form; // Obtenemos el formulario con los datos actualizados.
 
                         document.dispatchEvent(new CustomEvent('loadTable', {
                             detail: {

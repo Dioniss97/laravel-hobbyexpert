@@ -21,8 +21,8 @@ class FaqController extends Controller
 {
     // Un objeto puede tener propiedades o/y métodos. 
 
-    // La siguiente es una propiedad del objeto, una propiedad es equivalente
-    // a una variable. En este caso estamos declarando la propiedad $user la cual
+    // La siguientde es una propiedad del objeto, una propiedad es equivalente
+    // a una variable. En este caso estamos declarando la propiedad $faq la cual
     // podrá ser usada si escribimos $this->faq, donde "this" significa el propio
     // objeto. Protected en este caso significa que esta propiedad sólo puede ser 
     // usada desde dentro de una función. 
@@ -81,7 +81,7 @@ class FaqController extends Controller
         */
 
         $view = View::make('admin.pages.faqs.index')
-                ->with('faq', $this->faq)
+                ->with('faq', $this->faq) // Friendly reminder: "faq" is the name of the model and "faqs" is the name of the table.
                 ->with('faqs', $this->faq->where('active', 1)->get());
 
                 // Debugbar::info($view); // Muestra la vista en consola.
@@ -127,10 +127,10 @@ class FaqController extends Controller
         ]);
     }
 
-    public function store(FaqRequest $request)
+    public function store(FaqRequest $request) // Inyección de dependencias. 
     {            
 
-        $user = $this->user->updateOrCreate([
+        $faq = $this->faq->updateOrCreate([
                 'id' => request('id')],[
                 'name' => request('name'),
                 'title' => request('title'),
@@ -139,10 +139,10 @@ class FaqController extends Controller
                 'active' => 1,
         ]);
 
-        $view = View::make('admin.faqs.index')
-        ->with('faqs', $this->faq->where('active', 1)->get())
-        ->with('faq', $faq)
-        ->renderSections();        
+        $view = View::make('admin.pages.faqs.index')
+        ->with('faqs', $this->faq->where('active', 1)->get()) // width es un método del objeto (clase) View que rellena la tabla con
+        ->with('faq', $faq)                                  //  los datos de la base de datos dónde active sea igual a 1.
+        ->renderSections();
 
         return response()->json([
             'table' => $view['table'],

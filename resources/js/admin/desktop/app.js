@@ -7,6 +7,7 @@ import { renderProduct } from "./product.js";
 import { renderSelectTabs } from "./select-tabs";
 import { renderTabs } from "./tabs.js";
 import { renderForm } from "./form.js";
+import { renderTable } from "./table.js";
 
 renderAccordion();
 renderAmount();
@@ -17,3 +18,4 @@ renderProduct();
 renderSelectTabs();
 renderTabs();
 renderForm();
+renderTable();

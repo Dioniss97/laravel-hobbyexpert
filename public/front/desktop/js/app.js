@@ -254,18 +254,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "renderSelectTabs": () => (/* binding */ renderSelectTabs)
 /* harmony export */ });
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-
 var renderSelectTabs = function renderSelectTabs() {
   var contents = document.querySelectorAll(".content");
   var tabsSelects = document.querySelectorAll(".select-tabs");
-  console.log(contents, tabsSelects);
   tabsSelects.forEach(function (tabsSelect) {
     tabsSelect.addEventListener("change", function () {
-      console.log(tabsSelect.selectedIndex, _typeof(tabsSelect.selectedIndex.toString()), tabsSelect.closest(".form"));
       contents.forEach(function (content) {
-        console.log(content.dataset.target);
-
         if (tabsSelect.closest(".form") == content.closest(".form")) {
           content.classList.remove("active");
 

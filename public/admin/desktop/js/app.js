@@ -112,14 +112,41 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ckeditor/ckeditor5-build-classic */ "./node_modules/@ckeditor/ckeditor5-build-classic/build/ckeditor.js");
 /* harmony import */ var _ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_0__);
+// import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+// export let renderCkeditor = () => {
+//     let textAreas = document.querySelectorAll(".editor");
+//     document.addEventListener("renderFormModules", (event => {
+//         renderCkeditor();
+//     }), {once: true}); // Y se ejecutará solo una vez.
+//     textAreas.forEach(textArea => {
+//         ClassicEditor.create(textArea)
+//             .then(editor => {
+//                 window.editor = editor;
+//             })
+//             .catch(error => {
+//                 console.error('There was a problem initializing the editor.', error);
+//             });
+//     });
+// }
 
 var renderCkeditor = function renderCkeditor() {
-  var textAreas = document.querySelectorAll(".editor");
-  textAreas.forEach(function (textArea) {
-    _ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_0___default().create(textArea).then(function (editor) {
-      window.editor = editor;
+  document.addEventListener("renderFormModules", function (event) {
+    // Cuando se ejecute el evento renderFormModules,
+    renderCkeditor(); // se ejecutará la función renderCkeditor().
+  }, {
+    once: true
+  }); // Y se ejecutará solo una vez.
+
+  window.ckeditors = [];
+  document.querySelectorAll('.ckeditor').forEach(function (ckeditor) {
+    _ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_0___default().create(ckeditor, {
+      toolbar: {
+        items: ['bold', 'italic', 'link', 'bulletedList', 'numberedList', '|', 'outdent', 'indent', '|', 'blockQuote', 'undo', 'redo']
+      }
+    }).then(function (classicEditor) {
+      ckeditors[ckeditor.name] = classicEditor;
     })["catch"](function (error) {
-      console.error('There was a problem initializing the editor.', error);
+      console.error(error);
     });
   });
 };
@@ -143,13 +170,15 @@ function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArra
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 
 
@@ -204,7 +233,8 @@ var renderForm = function renderForm() {
                     return response.json(); // Si la respuesta es exitosa, vamos a obtener la respuesta en formato JSON con
                     // el método json.
                   }).then(function (json) {
-                    formContainer.innerHTML = json.form;
+                    formContainer.innerHTML = json.form; // Si la respuesta es exitosa, vamos a obtener el contenido del formulario.
+
                     /*
                         Cuando hacemos un innerHTML se pierden todos los eventos de javascript, por lo que tenemos que
                         volver a asignar los eventos a los elementos que hemos creado. Para ello vamos a hacer un evento 
@@ -212,6 +242,8 @@ var renderForm = function renderForm() {
                         En la siguiente línea estamos declarando un evento personalizado que se llamará 'renderFormModules' que 
                         podrá ser escuchado por el resto de archivos. 
                     */
+
+                    // Si la respuesta es exitosa, vamos a obtener el contenido del formulario.
 
                     /*
                         Cuando hacemos un innerHTML se pierden todos los eventos de javascript, por lo que tenemos que
@@ -222,8 +254,9 @@ var renderForm = function renderForm() {
                     */
                     document.dispatchEvent(new CustomEvent('renderFormModules'));
                   })["catch"](function (error) {
-                    // Si la llamada falla, se ejecutará el código que esté dentro del catch.
+                    // Si la llamada falla, vamos a obtener el error con el método catch.
                     if (error.status == '500') {
+                      // Si el error es 500, es un error interno del servidor.
                       console.log(error);
                     }
 
@@ -259,10 +292,26 @@ var renderForm = function renderForm() {
         */
         var data = new FormData(form);
         var url = form.action;
-        /*	
-            En el siguiente valor estamos capturando los datos del ckeditor y se los añadimos a los datos
-            del formData. 
-        */
+
+        var _iterator = _createForOfIteratorHelper(data.entries()),
+            _step;
+
+        try {
+          for (_iterator.s(); !(_step = _iterator.n()).done;) {
+            var pair = _step.value;
+            // Se recorre el objeto FormData para obtener los datos del formulario.
+            console.log(pair[0] + ', ' + pair[1]); // Se imprimen los datos del formulario.
+          }
+          /*
+              En el siguiente valor estamos capturando los datos del ckeditor y se los añadimos a los datos
+              del formData. 
+          */
+
+        } catch (err) {
+          _iterator.e(err);
+        } finally {
+          _iterator.f();
+        }
 
         if (ckeditors != 'null') {
           Object.entries(ckeditors).forEach(function (_ref2) {
@@ -289,17 +338,24 @@ var renderForm = function renderForm() {
                   case 0:
                     _context2.next = 2;
                     return fetch(url, {
+                      // Esto es una promesa que se quedará esperando hasta que la llamada sea
+                      // exitosa o fallida.
                       headers: {
                         'Accept': 'application/json',
+                        // Indicamos que vamos a recibir una respuesta en formato JSON.
                         'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content
                       },
                       method: 'POST',
-                      body: data
+                      // En este caso vamos a hacer una llamada POST.
+                      body: data // En el body vamos a pasarle los datos del formulario.
+
                     }).then(function (response) {
                       if (!response.ok) throw response;
                       return response.json();
                     }).then(function (json) {
-                      formContainer.innerHTML = json.form;
+                      formContainer.innerHTML = json.form; // Obtenemos el formulario con los datos actualizados.
+
+                      // Obtenemos el formulario con los datos actualizados.
                       document.dispatchEvent(new CustomEvent('loadTable', {
                         detail: {
                           table: json.table
@@ -456,18 +512,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "renderSelectTabs": () => (/* binding */ renderSelectTabs)
 /* harmony export */ });
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-
 var renderSelectTabs = function renderSelectTabs() {
   var contents = document.querySelectorAll(".content");
   var tabsSelects = document.querySelectorAll(".select-tabs");
-  console.log(contents, tabsSelects);
   tabsSelects.forEach(function (tabsSelect) {
     tabsSelect.addEventListener("change", function () {
-      console.log(tabsSelect.selectedIndex, _typeof(tabsSelect.selectedIndex.toString()), tabsSelect.closest(".form"));
       contents.forEach(function (content) {
-        console.log(content.dataset.target);
-
         if (tabsSelect.closest(".form") == content.closest(".form")) {
           content.classList.remove("active");
 
@@ -478,6 +528,105 @@ var renderSelectTabs = function renderSelectTabs() {
       });
     });
   });
+};
+
+/***/ }),
+
+/***/ "./resources/js/admin/desktop/table.js":
+/*!*********************************************!*\
+  !*** ./resources/js/admin/desktop/table.js ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "renderTable": () => (/* binding */ renderTable)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+var renderTable = function renderTable() {
+  var tableContainer = document.querySelector(".table-container");
+  var editButtons = document.querySelectorAll(".edit-button");
+  var deleteButtons = document.querySelectorAll(".delete-button");
+  document.addEventListener("loadTable", function (event) {
+    tableContainer.innerHTML = event.detail.table;
+  });
+  document.addEventListener("renderTableModules", function (event) {
+    renderTable();
+  }, {
+    once: true
+  });
+
+  if (editButtons) {
+    editButtons.forEach(function (editButton) {
+      editButton.addEventListener("click", function () {
+        var url = editButton.dataset.url;
+
+        var sendEditRequest = /*#__PURE__*/function () {
+          var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+            var response;
+            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+              while (1) {
+                switch (_context.prev = _context.next) {
+                  case 0:
+                    document.dispatchEvent(new CustomEvent('startWait'));
+                    _context.next = 3;
+                    return fetch(url, {
+                      headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                      },
+                      method: 'GET'
+                    }).then(function (response) {
+                      if (!response.ok) throw response;
+                      return response.json();
+                    }).then(function (json) {
+                      document.dispatchEvent(new CustomEvent('loadForm', {
+                        detail: {
+                          form: json.form
+                        }
+                      }));
+                      document.dispatchEvent(new CustomEvent('renderFormModules'));
+                    })["catch"](function (error) {
+                      if (error.status == '500') {
+                        console.log(error);
+                      }
+
+                      ;
+                    });
+
+                  case 3:
+                    response = _context.sent;
+
+                  case 4:
+                  case "end":
+                    return _context.stop();
+                }
+              }
+            }, _callee);
+          }));
+
+          return function sendEditRequest() {
+            return _ref.apply(this, arguments);
+          };
+        }();
+
+        sendEditRequest();
+      });
+    });
+  }
+
+  if (deleteButtons) {
+    deleteButtons.forEach(function (deleteButton) {
+      deleteButton.addEventListener("click", function () {});
+    });
+  }
 };
 
 /***/ }),
@@ -1386,6 +1535,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _select_tabs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./select-tabs */ "./resources/js/admin/desktop/select-tabs.js");
 /* harmony import */ var _tabs_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./tabs.js */ "./resources/js/admin/desktop/tabs.js");
 /* harmony import */ var _form_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./form.js */ "./resources/js/admin/desktop/form.js");
+/* harmony import */ var _table_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./table.js */ "./resources/js/admin/desktop/table.js");
+
 
 
 
@@ -1404,6 +1555,7 @@ __webpack_require__.r(__webpack_exports__);
 (0,_select_tabs__WEBPACK_IMPORTED_MODULE_6__.renderSelectTabs)();
 (0,_tabs_js__WEBPACK_IMPORTED_MODULE_7__.renderTabs)();
 (0,_form_js__WEBPACK_IMPORTED_MODULE_8__.renderForm)();
+(0,_table_js__WEBPACK_IMPORTED_MODULE_9__.renderTable)();
 })();
 
 /******/ })()
