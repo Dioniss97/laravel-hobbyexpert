@@ -82,8 +82,8 @@ class FaqController extends Controller
 
         $view = View::make('admin.pages.faqs.index')
                 ->with('faq', $this->faq) // Friendly reminder: "faq" is the name of the model and "faqs" is the name of the table.
-                ->with('faqs', $this->faq->where('active', 1)->get());
-
+                ->with('faqs', $this->faq->where('active', 1)->get()); // ORM (Object Relational Mapping) es una librería que nos
+                                                                      // permite acceder a la base de datos desde PHP.
                 // Debugbar::info($view); // Muestra la vista en consola.
 
         if(request()->ajax()) {
@@ -140,7 +140,7 @@ class FaqController extends Controller
         ]);
 
         $view = View::make('admin.pages.faqs.index')
-        ->with('faqs', $this->faq->where('active', 1)->get()) // width es un método del objeto (clase) View que rellena la tabla con
+        ->with('faqs', $this->faq->where('active', 1)->get()) // width es un método del objeto (o clase) View que rellena la tabla con
         ->with('faq', $faq)                                  //  los datos de la base de datos dónde active sea igual a 1.
         ->renderSections();
 
@@ -170,20 +170,7 @@ class FaqController extends Controller
     }
 
     public function show(Faq $faq){
-        // $view = View::make('admin.pages.faqs.index')
-        // ->with('faq', $faq)
-        // ->with('faqs', $this->faq->where('active', 1)->get());   
         
-        // if(request()->ajax()) {
-
-        //     $sections = $view->renderSections(); 
-    
-        //     return response()->json([
-        //         'form' => $sections['form'],
-        //     ]); 
-        // }
-                
-        // return $view; [COPILOT]
     }
 
     public function destroy(Faq $faq)

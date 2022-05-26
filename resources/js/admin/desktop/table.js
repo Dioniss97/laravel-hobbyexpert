@@ -6,7 +6,7 @@ export let renderTable = () => {
     
     document.addEventListener("loadTable",( event =>{
         tableContainer.innerHTML = event.detail.table;
-    }));
+    }), {once: true});
 
     document.addEventListener("renderTableModules",( event =>{
         renderTable();
@@ -69,4 +69,17 @@ export let renderTable = () => {
             });
         });
     }
+
+    let acceptButton = document.querySelectorAll(".accept-button");
+    let canButton = document.querySelectorAll(".cancel-button");
+    let window = document.querySelectorAll(".window-container");
+    let delButton = document.querySelectorAll(".delete-button");
+
+    if(window) {
+        buttons.forEach(button => {
+            button.addEventListener("click", () => {
+                window.classList.add("active");
+            });
+        });
+    };
 };

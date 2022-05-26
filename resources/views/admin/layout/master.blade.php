@@ -18,6 +18,7 @@
     @include('admin.layout.partials.header')
 
     <main>
+        @include('admin.components.desktop.modal_window')
         @yield('content')
     </main>
 

@@ -191,6 +191,11 @@ var renderForm = function renderForm() {
   var storeButton = document.querySelector('.store-button');
   var createButton = document.querySelector('.create-button');
   var forms = document.querySelectorAll('.admin-form');
+  document.addEventListener("loadForm", function (event) {
+    formContainer.innerHTML = event.detail.form;
+  }, {
+    once: true
+  });
   document.addEventListener("renderFormModules", function (event) {
     renderForm();
   }, {
@@ -557,6 +562,8 @@ var renderTable = function renderTable() {
   var deleteButtons = document.querySelectorAll(".delete-button");
   document.addEventListener("loadTable", function (event) {
     tableContainer.innerHTML = event.detail.table;
+  }, {
+    once: true
   });
   document.addEventListener("renderTableModules", function (event) {
     renderTable();
@@ -627,6 +634,21 @@ var renderTable = function renderTable() {
       deleteButton.addEventListener("click", function () {});
     });
   }
+
+  var acceptButton = document.querySelectorAll(".accept-button");
+  var canButton = document.querySelectorAll(".cancel-button");
+  var window = document.querySelectorAll(".window-container");
+  var delButton = document.querySelectorAll(".delete-button");
+
+  if (window) {
+    buttons.forEach(function (button) {
+      button.addEventListener("click", function () {
+        window.classList.add("active");
+      });
+    });
+  }
+
+  ;
 };
 
 /***/ }),

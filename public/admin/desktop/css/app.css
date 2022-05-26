@@ -680,7 +680,7 @@ footer ul li {
   text-align: center;
 }
 .categories .category button:hover {
-  background-color: #997500;
+  background-color: hsl(46deg, 100%, 30%);
   box-shadow: 0 12px 16px 0 rgba(255, 255, 255, 0.3843137255), 0 18px 50px 0 rgba(255, 255, 255, 0.3843137255);
 }
 .categories .category button:hover h4 {
@@ -1054,6 +1054,58 @@ footer ul li {
   display: block;
 }
 
+.window-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  display: block;
+}
+.window-container.active {
+  display: block;
+}
+.window-container .window-contents {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  max-width: 500px;
+  background: #fff;
+  border-radius: 0.6rem;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+}
+.window-container .window-contents .text-content {
+  margin-bottom: 20px;
+}
+.window-container .window-contents .text-content p {
+  color: black;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+.window-container .window-contents .buttons-container {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 20px;
+}
+.window-container .window-contents .buttons-container button {
+  background: none;
+  margin-left: 10px;
+  font-weight: bold;
+  padding: 0.2rem 0.5rem;
+}
+.window-container .window-contents .buttons-container button:hover {
+  background-color: hsl(46deg, 100%, 30%);
+  border-radius: 0.6rem;
+  color: hsl(0deg, 0%, 100%);
+  cursor: pointer;
+}
+
 .cart {
   background-color: hsl(240deg, 9%, 23%);
   border-top: 0.4em solid hsl(46deg, 100%, 20%);
@@ -1377,10 +1429,10 @@ footer ul li {
 .panel > div:nth-child(n) {
   margin: 2% 0;
 }
-.panel .panel-registers {
+.panel .panel-main-table {
   border-top: 0.2rem solid hsl(46deg, 100%, 30%);
 }
-.panel .panel-registers .register {
+.panel .panel-main-table .register {
   border-left: 0.2rem solid hsl(46deg, 100%, 30%);
   border-right: 0.2rem solid hsl(46deg, 100%, 30%);
   color: hsl(0deg, 0%, 100%);
@@ -1388,13 +1440,25 @@ footer ul li {
   padding: 0 auto;
   width: 90%;
 }
-.panel .panel-registers .register ul {
+.panel .panel-main-table .register .register-items {
   background-color: hsl(46deg, 100%, 20%);
   border-radius: 0.4rem;
   opacity: 70%;
   position: relative;
   padding: 0.4rem;
   z-index: 1;
+}
+.panel .panel-main-table .register .register-tools {
+  border-radius: 0.4rem;
+  cursor: pointer;
+  opacity: 70%;
+  position: relative;
+  padding: 0.4rem;
+  z-index: 1;
+}
+.panel .panel-main-table .register .register-tools:hover svg {
+  fill: hsl(46deg, 100%, 30%);
+  transition: 0.4s translate;
 }
 .panel .panel-main ul {
   align-items: center;
