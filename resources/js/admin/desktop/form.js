@@ -1,5 +1,6 @@
 export let renderForm = () => {
 
+    let tableContainer = document.getElementById('.panel-main-table');
     let formContainer = document.querySelector(".form-container");
     let storeButton = document.querySelector('.store-button');
     let createButton = document.querySelector('.create-button');
@@ -12,7 +13,6 @@ export let renderForm = () => {
     document.addEventListener("renderFormModules",( event =>{
         renderForm();
     }), {once: true});
-
 
     if(createButton){
 

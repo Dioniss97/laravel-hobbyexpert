@@ -4,7 +4,7 @@ namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class FaqRequest extends FormRequest
+class ProductRequest extends FormRequest
 {
     public function authorize()
     {
@@ -14,7 +14,10 @@ class FaqRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:3|max:64|regex:/^[a-zA-Z0-9-_]+$/',
+            'name' => 'required|min:1|max:64|regex:/^[a-zA-Z0-9-_]+$/',
+            'description' => 'min:3|max:3000|regex:/^[a-zA-Z0-9-_]+$/',
+            'specs' => 'min:3|max:3000|regex:/^[a-zA-Z0-9-_]+$/',
+            'price' => 'required|min:1|max:32|regex:/^[0-9-_]+$/',
         ];
     }
 
