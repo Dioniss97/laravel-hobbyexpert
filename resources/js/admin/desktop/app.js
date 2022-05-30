@@ -8,6 +8,8 @@ import { renderSelectTabs } from "./select-tabs";
 import { renderTabs } from "./tabs.js";
 import { renderForm } from "./form.js";
 import { renderTable } from "./table.js";
+import {renderModalDelete} from './modalDelete';
+
 
 renderAccordion();
 renderAmount();
@@ -19,3 +21,4 @@ renderSelectTabs();
 renderTabs();
 renderForm();
 renderTable();
+renderModalDelete();

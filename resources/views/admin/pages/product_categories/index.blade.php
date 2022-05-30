@@ -3,24 +3,24 @@
 @section('table')
     <div class="panel-main-table">
         <div class="register">
-            @if(isset($products))
-                @foreach ($products as $product_element)
+            @if(isset($product_categories))
+                @foreach ($product_categories as $product_category_element)
                     <div class="desktop-two-columns-aside">
                         <div class="column-main">
                             <div class="register-items">
-                                <div class="register-item"></div><span>Id: </span>{{$product_element->id}}</li>
-                                <div class="register-item"></div><span>Título: </span>{{$product_element->title}}</li>
-                                <div class="register-item"></div><span>Actualizado el: </span>{{$product_element->updated_at}}</li>
+                                <div class="register-item"></div><span>Id: </span>{{$product_category_element->id}}</li>
+                                <div class="register-item"></div><span>Categoría: </span>{{$product_category_element->title}}</li>
+                                <div class="register-item"></div><span>Creada el: </span>{{$product_category_element->updated_at}}</li>
                             </div>
                         </div>
                         <div class="column-aside">
                             <div class="register-tools">
-                                <div class="register-tool edit-button" data-url="{{route('products_edit', ['product' => $product_element->id])}}">
+                                <div class="register-tool edit-button" data-url="{{route('product_categories_edit', ['productCategory' => $product_category_element->id])}}">
                                     <svg style="width:24px;height:24px" viewBox="0 0 24 24">
                                         <path fill="currentColor" d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" />
                                     </svg>
                                 </div>
-                                <div class="register-tool delete-button" data-url="{{route('products_destroy', ['product' => $product_element->id])}}">
+                                <div class="register-tool delete-button" data-url="{{route('product_categories_destroy', ['productCategory' => $product_category_element->id])}}">
                                     <svg viewBox="0 0 24 24">
                                         <path fill="currentColor" d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z" />
                                     </svg>
@@ -35,8 +35,8 @@
 @endsection
 
 @section('form')
-    @if(isset($product))
-        <form class="admin-form" action="{{route("products_store")}}">
+    @if(isset($product_category))
+        <form class="admin-form" action="{{route("product_categories_store")}}">
             <input type="hidden" name="id">
             <div class="panel-main">
                 <div class="panel-main-options">
@@ -62,7 +62,7 @@
                             <div class="tool-options">
                                 <ul>
                                     <li>
-                                        <div class="tool store-button" data-url="{{route('products_store')}}">
+                                        <div class="tool store-button" data-url="{{route('product_categories_store')}}">
                                             <svg viewBox="0 0 24 24">
                                                 <path fill="currentColor"
                                                     d="M15,9H5V5H15M12,19A3,3 0 0,1 9,16A3,3 0 0,1 12,13A3,3 0 0,1 15,16A3,3 0 0,1 12,19M17,3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V7L17,3Z" />
@@ -70,7 +70,7 @@
                                         </div>
                                     </li>
                                     <li>
-                                        <div class="tool create-button" data-url="{{route('products_create')}}">
+                                        <div class="tool create-button" data-url="{{route('product_categories_create')}}">
                                             <svg viewBox="0 0 24 24">
                                                 <path fill="currentColor"
                                                     d="M19.36,2.72L20.78,4.14L15.06,9.85C16.13,11.39 16.28,13.24 15.38,14.44L9.06,8.12C10.26,7.22 12.11,7.37 13.65,8.44L19.36,2.72M5.93,17.57C3.92,15.56 2.69,13.16 2.35,10.92L7.23,8.83L14.67,16.27L12.58,21.15C10.34,20.81 7.94,19.58 5.93,17.57Z" />
@@ -96,7 +96,7 @@
                         <div class="column">
                             <div class="form-element">
                                 <label for="">Título</label>
-                                <input type="text" name="title" value="{{isset($product->title) ? $product->title : ""}}">
+                                <input type="text" name="title" value="{{isset($product_category->title) ? $product_category->title : ""}}">
                             </div>
                         </div>
                     </div>
@@ -104,7 +104,7 @@
                         <div class="column">
                             <div class="form-element">
                                 <label for="">Nombre</label>
-                                <input type="text" name="name" value="{{isset($product->name) ? $product->name : ""}}">
+                                <input type="text" name="name" value="{{isset($product_category->name) ? $product_category->name : ""}}">
                             </div>
                         </div>
                     </div>
@@ -112,7 +112,7 @@
                         <div class="column">
                             <div class="form-element">
                                 <label for="">Descripción</label>
-                                <textarea name="description" class="ckeditor" cols="30" rows="10">{{isset($product->description) ? $product->description : ""}}</textarea>
+                                <textarea name="description" class="ckeditor" cols="30" rows="10">{{isset($product_category->description) ? $product_category->description : ""}}</textarea>
                             </div>
                         </div>
                     </div>
@@ -120,7 +120,7 @@
                         <div class="column">
                             <div class="form-element">
                                 <label for="">Especificaciones</label>
-                                <textarea name="description" class="ckeditor" cols="30" rows="10">{{isset($product->specs) ? $product->specs : ""}}</textarea>
+                                <textarea name="description" class="ckeditor" cols="30" rows="10">{{isset($product_category->specs) ? $product_category->specs : ""}}</textarea>
                             </div>
                         </div>
                     </div>

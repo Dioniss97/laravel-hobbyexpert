@@ -5,11 +5,13 @@
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.5); // Aquí 
-    z-index: 9999;
-    display: block;
+    z-index: -1;
+    opacity: 0;
+    transition: all 0.5s;
 
     &.active {
-        display: block;
+        opacity: 1;
+        z-index: 9999;
     }
 
     .window-contents {

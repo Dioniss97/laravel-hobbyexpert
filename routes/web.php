@@ -41,9 +41,37 @@ Route::group(['prefix' => 'admin'], function () {
         -- En destroy lo que haremos es borrar un dato de la base de datos 
     */
 
-    Route::resource('products', 'App\Http\Controllers\Admin\ProductController', [
+    Route::resource('usuarios', 'App\Http\Controllers\Admin\UserController', [
         'parameters' => [
-            'products' => 'product', 
+            'usuarios' => 'user',
+        ],
+        'names' => [
+            'index' => 'users',
+            'create' => 'users_created',
+            'edit' => 'users_edit',
+            'show' => 'users_show',
+            'store' => 'users_store',
+            'destroy' => 'users_destroy',
+        ]
+    ]);
+
+    Route::resource('productos/categorias', 'App\Http\Controllers\Admin\ProductCategoryController', [
+        'parameters' => [
+            'categorias' => 'product_category',
+        ],
+        'names' => [
+            'index' => 'product_categories',
+            'create' => 'product_categories_create',
+            'edit' => 'product_categories_edit',
+            'store' => 'product_categories_store',
+            'destroy' => 'product_categories_destroy',
+            'show' => 'product_categories_show',
+        ]
+    ]);
+
+    Route::resource('productos', 'App\Http\Controllers\Admin\ProductController', [
+        'parameters' => [
+            'productos' => 'product', 
         ],
         'names' => [
             'index' => 'products',

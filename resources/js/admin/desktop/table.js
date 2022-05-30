@@ -64,22 +64,13 @@ export let renderTable = () => {
         deleteButtons.forEach(deleteButton => {
 
             deleteButton.addEventListener("click", () => {
-
+                document.dispatchEvent(new CustomEvent('openModalDelete', {
+                    detail: {
+                        url: deleteButton.dataset.url,
+                    }
+                }));
                 
             });
         });
     }
-
-    let acceptButton = document.querySelectorAll(".accept-button");
-    let canButton = document.querySelectorAll(".cancel-button");
-    let window = document.querySelectorAll(".window-container");
-    let delButton = document.querySelectorAll(".delete-button");
-
-    if(window) {
-        buttons.forEach(button => {
-            button.addEventListener("click", () => {
-                window.classList.add("active");
-            });
-        });
-    };
 };
