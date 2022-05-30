@@ -41,6 +41,20 @@ Route::group(['prefix' => 'admin'], function () {
         -- En destroy lo que haremos es borrar un dato de la base de datos 
     */
 
+    Route::resource('contact', 'App\Http\Controllers\Admin\ContactController', [
+        'paremters' => [
+            'index' => 'contact'
+        ],
+        'names' => [
+            'index' => 'contact',
+            'create' => 'contact_create',
+            'edit' => 'contact_edit',
+            'show' => 'contact_show',
+            'store' => 'contact_store',
+            'destroy' => 'contact_destroy'
+        ]
+    ]);
+
     Route::resource('usuarios', 'App\Http\Controllers\Admin\UserController', [
         'parameters' => [
             'usuarios' => 'user',
