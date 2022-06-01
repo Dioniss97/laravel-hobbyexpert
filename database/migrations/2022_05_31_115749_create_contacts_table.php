@@ -16,7 +16,11 @@ return new class extends Migration
         Schema::create('contacts', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+<<<<<<< HEAD
             $table->string('title');
+=======
+            $table->string('surnames');
+>>>>>>> 6ba12f6c69d21fad9f2936f92d52789ea8130092
             $table->string('email');
             $table->string('phone');
             $table->string('message');

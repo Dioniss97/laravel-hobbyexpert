@@ -104,7 +104,7 @@
                         <div class="column">
                             <div class="form-element">
                                 <label for="">Apellidos</label>
-                                <input type="text" name="surnames" value="{{isset($contact->title) ? $contact->title : ""}}">
+                                <input type="text" name="surnames" value="{{isset($contact->surnames) ? $contact->surnames : ""}}">
                             </div>
                         </div>
                     </div>
@@ -112,7 +112,7 @@
                         <div class="column">
                             <div class="form-element">
                                 <label for="">Correo electrónico</label>
-                                <input type="email" name="email" value="{{isset($contact->name) ? $contact->name : ""}}">
+                                <input type="email" name="email" value="{{isset($contact->email) ? $contact->email : ""}}">
                             </div>
                         </div>
                     </div>
@@ -120,7 +120,7 @@
                         <div class="column">
                             <div class="form-element">
                                 <label for="">Telefóno</label>
-                                <input type="number" name="phone_number" value="{{isset($contact->name) ? $contact->name : ""}}">
+                                <input type="number" name="phone" value="{{isset($contact->phone) ? $contact->phone : ""}}">
                             </div>
                         </div>
                     </div>

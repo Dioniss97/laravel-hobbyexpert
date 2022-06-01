@@ -54,13 +54,14 @@ class ContactController extends Controller
     {            
 
         $contact = $this->contact->updateOrCreate([
-                'id' => request('id')],[
-                'name' => request('name'),
-                'title' => request('title'),
-                'description' => request('description'),
-                'specs' => request('specs'),
-                'visible' => 1,
-                'active' => 1,
+            'id' => request('id')],[
+            'name' => request('name'),
+            'surnames' => request('surnames'),
+            'email' => request('email'),
+            'phone' => request('phone'),
+            'message' => request('message'),
+            'visible' => 1,
+            'active' => 1,
         ]);
 
         $view = View::make('admin.pages.contacts.index')
