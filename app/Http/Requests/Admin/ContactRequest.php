@@ -16,9 +16,9 @@ class ContactRequest extends FormRequest
         return [
             'name' => 'required|min:1|max:64|regex:/^[a-zA-Z0-9-_]+$/',
             'surnames' => 'required|min:1|max:64|regex:/^[a-zA-Z0-9-_]+$/',
-            'email' => 'min:3|max:64|regex:/^[a-zA-Z0-9-_]+$/',
-            'phone_number' => 'required|min:9|max:32|regex:/^[0-9-_]+$/',
-            'message' => 'min:3|max:3000|regex:/^[a-zA-Z0-9-_]+$/',
+            'email' => 'min:3|max:64|email',
+            'phone' => 'required|min:9|max:32|regex:/^([0-9\s\-\+\(\)]*)$/',
+            'message' => 'min:3|max:3000',
         ];
     }
 
@@ -45,7 +45,7 @@ class ContactRequest extends FormRequest
                 'regex' => 'El email debe tener sólo letras, números, guiones y guiones bajos',
             ],
 
-            'phone_number' => [
+            'phone' => [
                 'required' => 'El teléfono es obligatorio',
                 'min' => 'El teléfono debe tener al menos 9 caracteres',
                 'max' => 'El teléfono debe tener como máximo 32 caracteres',

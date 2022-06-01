@@ -43,7 +43,7 @@ Route::group(['prefix' => 'admin'], function () {
 
     Route::resource('contacto', 'App\Http\Controllers\Admin\ContactController', [
         'parameters' => [
-            'index' => 'contact'
+            'contacto' => 'contact'
         ],
         'names' => [
             'index' => 'contacts',
