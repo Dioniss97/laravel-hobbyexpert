@@ -128,7 +128,7 @@
                         <div class="column">
                             <div class="form-element">
                                 <label for="">Mensaje</label>
-                                <textarea name="message" class="ckeditor" cols="30" rows="10">{{isset($contact->description) ? $contact->description : ""}}</textarea>
+                                <textarea name="message" class="ckeditor" cols="30" rows="10">{{isset($contact->message) ? $contact->message : ""}}</textarea>
                             </div>
                         </div>
                     </div>
