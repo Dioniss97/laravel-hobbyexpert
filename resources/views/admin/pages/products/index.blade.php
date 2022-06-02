@@ -111,6 +111,14 @@
                     <div class="desktop-one-column">
                         <div class="column">
                             <div class="form-element">
+                                <label for="">Precio</label>
+                                <input type="text" name="price" value="{{isset($product->name) ? $product->name : ""}}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="desktop-one-column">
+                        <div class="column">
+                            <div class="form-element">
                                 <label for="">Descripción</label>
                                 <textarea name="description" class="ckeditor" cols="30" rows="10">{{isset($product->description) ? $product->description : ""}}</textarea>
                             </div>

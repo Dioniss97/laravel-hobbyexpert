@@ -24,10 +24,12 @@ class ProductRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'El nombre es obligatorio',
-            'name.min' => 'El nombre debe tener al menos 3 caracteres',
-            'name.max' => 'El nombre debe tener como máximo 64 caracteres',
-            'name.regex' => 'El nombre debe tener sólo letras, números, guiones y guiones bajos',
+            'name' => [
+                'required' => 'El nombre es obligatorio',
+                'min' => 'El nombre debe tener al menos 3 caracteres',
+                'max' => 'El nombre debe tener como máximo 64 caracteres',
+                'regex' => 'El nombre debe tener sólo letras, números, guiones y guiones bajos',
+            ],
         ];
     }
 }
