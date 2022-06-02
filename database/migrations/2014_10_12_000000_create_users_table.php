@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('surnames');
             $table->string('email')->unique(); // unique() es una función de Laravel que añade una clave única a una columna.
             $table->timestamp('email_verified_at')->nullable(); // nullable() es para que no sea obligatorio.
             $table->string('password');

@@ -103,16 +103,32 @@
                     <div class="desktop-one-column">
                         <div class="column">
                             <div class="form-element">
-                                <label for="">Título</label>
-                                <input type="text" name="title" value="{{isset($user->title) ? $user->title : ""}}">
+                                <label for="">Apellidos</label>
+                                <input type="text" name="surnames" value="{{isset($user->surnames) ? $user->surnames : ""}}">
                             </div>
                         </div>
                     </div>
                     <div class="desktop-one-column">
                         <div class="column">
                             <div class="form-element">
-                                <label for="">Descripción</label>
-                                <textarea name="description" class="ckeditor" cols="30" rows="10">{{isset($user->description) ? $ ->description : ""}}</textarea>
+                                <label for="">Email</label>
+                                <input type="email" name="email" value="{{isset($user->email) ? $user->email : ""}}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="desktop-one-column">
+                        <div class="column">
+                            <div class="form-element">
+                                <label for="">Contraseña</label>
+                                <input type="password" name="password" value="{{isset($user->password) ? $user->password : ""}}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="desktop-one-column">
+                        <div class="column">
+                            <div class="form-element">
+                                <label for="">Confirmar contraseña</label>
+                                <input type="password" name="password_confirmation" value="{{isset($user->password_confirmation) ? $user->password_confirmation : ""}}">
                             </div>
                         </div>
                     </div>
