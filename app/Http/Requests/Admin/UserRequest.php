@@ -27,7 +27,7 @@ class UserRequest extends FormRequest
             'name' => 'required|min:3|max:64|regex:/^[a-zA-Z0-9-_]+$/',
          // 'username' => 'required|min:3|max:64|regex:/^[a-zA-Z0-9-_]+$/',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:6|max:64',
+            'password' => 'required|min:6|max:64|confirmed',
             'password_confirmation' => 'required|same:password',
         ];
     }

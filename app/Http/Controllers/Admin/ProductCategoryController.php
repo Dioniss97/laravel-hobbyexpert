@@ -17,11 +17,18 @@ class ProductCategoryController extends Controller
     {
         $this->product_category = $product_category;
     }
-    
+
     public function index()
     {
 
         $view = View::make('admin.pages.product_categories.index')
+
+                /*
+                    * "with()" es una funcion de laravel que permite pasarle parametros a una vista.
+                    * En este caso, le pasamos el modelo "product_category" para que la vista pueda acceder a los datos.
+                    * Y le pasamos el metodo "where('active', 1)" para que solo muestre las categorias activas.
+                */
+
                 ->with('product_category', $this->product_category)
                 ->with('product_categories', $this->product_category->where('active', 1)->get());
 
@@ -87,7 +94,7 @@ class ProductCategoryController extends Controller
                 'form' => $sections['form'],
             ]); 
         }
-                
+
         return $view;
     }
 

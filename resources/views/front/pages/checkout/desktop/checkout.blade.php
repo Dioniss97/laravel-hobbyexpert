@@ -6,7 +6,7 @@
                     <div class="desktop-two-columns">
                         <div class="column">
                             <label for="name">Nombre</label><input type="text">
-                            <label for="telephone">Teléfono</label><input type="text">
+                            <label for="telephone">Teléfono</label><input type="tel">
                             <label for="city">Ciudad</label>
                             <select name="provincia" size="1">
                                 <option value='selecciona'>Selecciona</option>

@@ -14,7 +14,7 @@ class ProductRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:1|max:64|regex:/^[a-zA-Z0-9-_]+$/',
+            'title' => 'required|min:1|max:64|regex:/^[a-zA-Z0-9-_]+$/',
             'description' => 'min:3|max:3000|regex:/^[a-zA-Z0-9-_]+$/',
             'specs' => 'min:3|max:3000|regex:/^[a-zA-Z0-9-_]+$/',
             'price' => 'required|min:1|max:32|regex:/^[0-9-_]+$/',
@@ -24,11 +24,27 @@ class ProductRequest extends FormRequest
     public function messages()
     {
         return [
-            'name' => [
+            'title' => [
                 'required' => 'El nombre es obligatorio',
                 'min' => 'El nombre debe tener al menos 3 caracteres',
                 'max' => 'El nombre debe tener como máximo 64 caracteres',
                 'regex' => 'El nombre debe tener sólo letras, números, guiones y guiones bajos',
+            ],
+            'price' => [
+                'required' => 'El precio es obligatorio',
+                'min' => 'El precio debe tener al menos 1 caracter',
+                'max' => 'El precio debe tener como máximo 32 caracteres',
+                'regex' => 'El precio debe tener sólo números y guiones bajos',
+            ],
+            'description' => [
+                'min' => 'La descripción debe tener al menos 3 caracteres',
+                'max' => 'La descripción debe tener como máximo 3000 caracteres',
+                'regex' => 'La descripción debe tener sólo letras, números, guiones y guiones bajos',
+            ],
+            'specs' => [
+                'min' => 'Las especificaciones debe tener al menos 3 caracteres',
+                'max' => 'Las especificaciones debe tener como máximo 3000 caracteres',
+                'regex' => 'Las especificaciones debe tener sólo letras, números, guiones y guiones bajos',
             ],
         ];
     }

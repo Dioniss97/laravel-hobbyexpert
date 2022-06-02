@@ -20,6 +20,7 @@ return new class extends Migration
             $table->text('description');
             $table->text('specs');
             $table->float('price');
+            $table->integer('category_id'); // fk() es una función de Laravel que crea una clave foránea.
             $table->boolean('active')->default(false);
             $table->boolean('visible')->default(false);
             $table->timestamps();

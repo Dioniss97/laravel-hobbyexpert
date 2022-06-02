@@ -95,16 +95,8 @@
                     <div class="desktop-one-column">
                         <div class="column">
                             <div class="form-element">
-                                <label for="">Título</label>
+                                <label for="">Nombre de la categoria</label>
                                 <input type="text" name="title" value="{{isset($product_category->title) ? $product_category->title : ""}}">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="desktop-one-column">
-                        <div class="column">
-                            <div class="form-element">
-                                <label for="">Nombre</label>
-                                <input type="text" name="name" value="{{isset($product_category->name) ? $product_category->name : ""}}">
                             </div>
                         </div>
                     </div>
@@ -113,14 +105,6 @@
                             <div class="form-element">
                                 <label for="">Descripción</label>
                                 <textarea name="description" class="ckeditor" cols="30" rows="10">{{isset($product_category->description) ? $product_category->description : ""}}</textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="desktop-one-column">
-                        <div class="column">
-                            <div class="form-element">
-                                <label for="">Especificaciones</label>
-                                <textarea name="description" class="ckeditor" cols="30" rows="10">{{isset($product_category->specs) ? $product_category->specs : ""}}</textarea>
                             </div>
                         </div>
                     </div>
