@@ -24,8 +24,8 @@ return new class extends Migration
             $table->string('postal_code');
             $table->string('province');
             $table->timestamps();
-            $table->integer('active')->default(0);
-            $table->integer('visible')->default(0);
+            $table->boolean('active')->default(false);
+            $table->boolean('visible')->default(false);
         });
     }
 

@@ -21,7 +21,6 @@ return new class extends Migration
             $table->string('phone');
             $table->string('message');
             $table->boolean('active')->default(false);
-            $table->boolean('visible')->default(false);
             $table->timestamps();
         });
     }

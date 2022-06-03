@@ -28,25 +28,38 @@
         </div>
         <div class="column">
             <div class="contact-form">
-                <form action="">
+                <form class="front-form" data-url="{{route('front_contact_store')}}">
                     <legend>¡Contacta con nosotros!</legend>
                     <div class="desktop-two-columns">
                         <div class="column">
-                            <label for="name">Nombre</label><br><input type="text">
-                            <label for="phone">Telefono</label><br><input type="text">
+                            <div class="form-element">
+                                <label for="name">Nombre</label>
+                                <input type="text" name="name" placeholder="Nombre" required>
+                            </div>
+                            <div class="form-element">
+                                <label for="phone">Telefono</label>
+                                <input type="tel" name="phone" placeholder="Telefono" required>
+                            </div>
                         </div>
                         <div class="column">
-                            <label for="surnames">Apellidos</label><br><input type="text"><br>
-                            <label for="mail">Email</label><br><input type="text">
+                            <div class="form-element">
+                                <label for="surnames">Apellidos</label>
+                                <input type="text" name="surnames" placeholder="Apellidos" required>
+                            </div>
+                            <div class="form-element">
+                                <label for="email">Correo</label>
+                                <input type="email" name="email" placeholder="Correo" required>
+                            </div>
                         </div>
                     </div>
                     <div class="desktop-one-column">
                         <div class="column">
-                            <div class="contact-form-textarea">
-                                <label for="message">Mensaje</label><br><textarea name="message"></textarea>
+                            <div class="form-element">
+                                <label for="message">Mensaje</label>
+                                <textarea name="message" placeholder="Mensaje" required></textarea>
                             </div>
                             <div class="enter">
-                                <button type="submit">Enviar</button>
+                                <button class="store-button" data-url="{{route('front_contact_store')}}">Enviar</button>
                             </div>
                         </div>
                     </div>

@@ -23,7 +23,6 @@ return new class extends Migration
             $table->rememberToken(); // rememberToken() es para que almacene un token de sesión porque un token es una clave de sesión.
             $table->timestamps();
             $table->boolean('active')->default(false);
-            $table->boolean('hidden')->default(false);
         });
     }
 

@@ -1,25 +1,3 @@
-// import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-
-// export let renderCkeditor = () => {
-
-//     let textAreas = document.querySelectorAll(".editor");
-
-//     document.addEventListener("renderFormModules", (event => {
-//         renderCkeditor();
-//     }), {once: true}); // Y se ejecutará solo una vez.
-
-//     textAreas.forEach(textArea => {
-
-//         ClassicEditor.create(textArea)
-//             .then(editor => {
-//                 window.editor = editor;
-//             })
-//             .catch(error => {
-//                 console.error('There was a problem initializing the editor.', error);
-//             });
-//     });
-// }
-
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 export let renderCkeditor = () => {

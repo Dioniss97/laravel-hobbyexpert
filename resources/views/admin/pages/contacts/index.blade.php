@@ -36,7 +36,7 @@
 
 @section('form')
     @if(isset($contact))
-        <form class="admin-form" action="{{route("contacts_store")}}">
+        <form class="admin-form" data-url="route('front_contact_form')">
             <input type="hidden" name="id">
             <div class="panel-main">
                 <div class="panel-main-options">

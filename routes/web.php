@@ -115,9 +115,9 @@ Route::group(['prefix' => 'admin'], function () {
 
     Route::resource('faqs', 'App\Http\Controllers\Admin\FaqController', [
         'parameters' => [
-            'faqs' => 'faq', 
+            'faqs' => 'faq',
         ],
-        'names' => [
+        'names' => [ // 'names' es una función de laravel que nos permite cambiar el nombre de las rutas
             'index' => 'faqs', // Metodo http  GET: Para mostrar todos los datos de la tabla.
             'create' => 'faqs_create', // Metodo http POST: Para crear un nuevo registro.
             'edit' => 'faqs_edit', // Metodo http POST: Para actualizar un registro.
@@ -128,12 +128,11 @@ Route::group(['prefix' => 'admin'], function () {
     ]);
 });
 
+Route::get('/contacto', 'App\Http\Controllers\Front\ContactController@index')->name('front_contact');
+Route::post('/contacto', 'App\Http\Controllers\Front\ContactController@store')->name('front_contact_store');
+
 Route::get('/', function () {
     return view('front.pages.home.index');
-});
-
-Route::get('/contacto', function () {
-    return view('front.pages.contact.index');
 });
 
 Route::get('/carrito', function () {

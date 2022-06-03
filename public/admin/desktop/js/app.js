@@ -112,22 +112,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ckeditor/ckeditor5-build-classic */ "./node_modules/@ckeditor/ckeditor5-build-classic/build/ckeditor.js");
 /* harmony import */ var _ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_0__);
-// import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-// export let renderCkeditor = () => {
-//     let textAreas = document.querySelectorAll(".editor");
-//     document.addEventListener("renderFormModules", (event => {
-//         renderCkeditor();
-//     }), {once: true}); // Y se ejecutará solo una vez.
-//     textAreas.forEach(textArea => {
-//         ClassicEditor.create(textArea)
-//             .then(editor => {
-//                 window.editor = editor;
-//             })
-//             .catch(error => {
-//                 console.error('There was a problem initializing the editor.', error);
-//             });
-//     });
-// }
 
 var renderCkeditor = function renderCkeditor() {
   document.addEventListener("renderFormModules", function (event) {
