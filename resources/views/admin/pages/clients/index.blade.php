@@ -143,8 +143,8 @@
                     <div class="desktop-one-column">
                         <div class="column">
                             <div class="form-element">
-                                <label for="city">Ciudad</label>
-                                <select name="city">
+                                <label for="province">Provincia</label>
+                                <select name="province">
                                 <option value='selecciona'>Selecciona</option>
                                 <option value='A Coruña'>A Coruña</option>
                                 <option value='Álava'>Álava</option>

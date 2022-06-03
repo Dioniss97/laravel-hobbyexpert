@@ -112,7 +112,7 @@
                         <div class="column">
                             <div class="form-element">
                                 <label for="">Descripción</label>
-                                <textarea name="description" class="ckeditor" cols="30" rows="10">{{isset($user->description) ? $ ->description : ""}}</textarea>
+                                <textarea name="description" class="ckeditor" cols="30" rows="10">{{isset($user->description) ? $user->description : ""}}</textarea>
                             </div>
                         </div>
                     </div>

@@ -15,7 +15,17 @@ return new class extends Migration
     {
         Schema::create('clients', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('surnames');
+            $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->integer('phone');
+            $table->string('address');
+            $table->string('postal_code');
+            $table->string('province');
             $table->timestamps();
+            $table->integer('active')->default(0);
+            $table->integer('visible')->default(0);
         });
     }
 

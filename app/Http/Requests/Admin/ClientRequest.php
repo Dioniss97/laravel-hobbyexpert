@@ -27,7 +27,7 @@ class ClientRequest extends FormRequest
             'name' => 'required|string|max:255',
             'surnames' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:clients',
-            'city' => 'required|string|max:255',
+            'province' => 'required|string|max:255',
             'address' => 'required|string|max:255',
             'phone' => 'required|string|max:255',
             'postal_code' => 'required|string|max:255',
@@ -54,7 +54,7 @@ class ClientRequest extends FormRequest
                 'max' => 'El campo email no puede tener más de 255 caracteres',
                 'unique' => 'El email ya existe en la base de datos'
             ],
-            'city' => [
+            'province' => [
                 'required' => 'El campo ciudad es obligatorio',
                 'string' => 'El campo ciudad debe ser una cadena de caracteres',
                 'max' => 'El campo ciudad no puede tener más de 255 caracteres',

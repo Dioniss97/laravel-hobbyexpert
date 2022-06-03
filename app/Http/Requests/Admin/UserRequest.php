@@ -27,7 +27,7 @@ class UserRequest extends FormRequest
             'name' => 'required|min:3|max:64|regex:/^[a-zA-Z0-9-_]+$/',
          // 'username' => 'required|min:3|max:64|regex:/^[a-zA-Z0-9-_]+$/',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:6|max:64|confirmed',
+            'password' => 'required|min:6|max:64',
             'password_confirmation' => 'required|same:password',
         ];
     }
@@ -42,12 +42,19 @@ class UserRequest extends FormRequest
                 'regex' => 'El nombre debe tener sólo letras, números, guiones y guiones bajos',
             ],
 
-            // 'username' => [
-            //     'required' => 'El nombre de usuario es obligatorio',
-            //     'min' => 'El nombre de usuario debe tener al menos 3 caracteres',
-            //     'max' => 'El nombre de usuario debe tener como máximo 64 caracteres',
-            //     'regex' => 'El nombre de usuario debe tener sólo letras, números, guiones y guiones bajos',
-            // ],
+            'surnames' => [
+                'required' => 'Los apellidos son obligatorios',
+                'min' => 'Los apellidos deben tener al menos 3 caracteres',
+                'max' => 'Los apellidos deben tener como máximo 64 caracteres',
+                'regex' => 'Los apellidos deben tener sólo letras, números, guiones y guiones bajos',
+            ],
+
+            'username' => [
+                'required' => 'El nombre de usuario es obligatorio',
+                'min' => 'El nombre de usuario debe tener al menos 3 caracteres',
+                'max' => 'El nombre de usuario debe tener como máximo 64 caracteres',
+                'regex' => 'El nombre de usuario debe tener sólo letras, números, guiones y guiones bajos',
+            ],
 
             'email' => [
                 'required' => 'El email es obligatorio',
