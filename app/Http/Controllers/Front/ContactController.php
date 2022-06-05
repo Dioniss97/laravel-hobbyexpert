@@ -39,7 +39,7 @@ class ContactController extends Controller
     public function store(ContactRequest $request)
     {            
 
-        $contact = $this->contact->Create(, [
+        $contact = $this->contact->Create( [
             'name' => request('name'),
             'surnames' => request('surnames'),
             'email' => request('email'),
