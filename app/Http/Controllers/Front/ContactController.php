@@ -17,7 +17,8 @@ class ContactController extends Controller
     {
         $this->contact = $contact;
     }
-    
+
+
     public function index()
     {
 
@@ -25,7 +26,7 @@ class ContactController extends Controller
 
         if(request()->ajax()) {
             
-            $sections = $view->renderSections(); 
+            $sections = $view->renderSections();
 
             return response()->json([
                 'content' => $sections['content'],
@@ -39,13 +40,12 @@ class ContactController extends Controller
     public function store(ContactRequest $request)
     {            
 
-        $contact = $this->contact->Create( [
+        $contact = $this->contact->create( [
             'name' => request('name'),
             'surnames' => request('surnames'),
             'email' => request('email'),
             'phone' => request('phone'),
             'message' => request('message'),
-            'active' => 1,
         ]);
 
         $sections = View::make('front.pages.contact.index')->renderSections();
@@ -54,5 +54,4 @@ class ContactController extends Controller
             'content' => $sections['content'],
         ]);
     }
-  
 }

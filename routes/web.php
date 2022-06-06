@@ -128,29 +128,17 @@ Route::group(['prefix' => 'admin'], function () {
     ]);
 });
 
+Route::get('/', 'App\Http\Controllers\Front\HomeController@index')->name('front_home');
+
 Route::get('/contacto', 'App\Http\Controllers\Front\ContactController@index')->name('front_contact');
 Route::post('/contacto', 'App\Http\Controllers\Front\ContactController@store')->name('front_contact_store');
 
-Route::get('/', function () {
-    return view('front.pages.home.index');
-});
+Route::get('/faqs', 'App\Http\Controllers\Front\FaqController@index')->name('front_faqs');
 
-Route::get('/carrito', function () {
-    return view('front.pages.cart.index');
-});
+Route::get('/productos', 'App\Http\Controllers\Front\ProductController@index')->name('front_products');
+Route::get('/producto', 'App\Http\Controllers\Front\ProductController@show')->name('front_product');
 
-Route::get('/checkout', function () {
-    return view('front.pages.checkout.index');
-});
+Route::get('/carrito', 'App\Http\Controllers\Front\CartController@index')->name('front_cart');
 
-Route::get('/faqs', function () {
-    return view('front.pages.faqs.index');
-});
-
-Route::get('/producto', function () {
-    return view('front.pages.product.index');
-});
-
-Route::get('/productos', function () {
-    return view('front.pages.products.index');
-});
+Route::get('/checkout', 'App\Http\Controllers\Front\CheckoutController@index')->name('front_checkout');
+Route::post('/checkout', 'App\Http\Controllers\Front\CheckoutController@store')->name('front_checkout_store');

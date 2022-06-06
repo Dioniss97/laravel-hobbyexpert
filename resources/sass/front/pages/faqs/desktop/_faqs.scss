@@ -1,0 +1,17 @@
+.page-header {
+    border: .1rem solid hsl(46, 100%, 30%);
+    border-radius: 1rem;
+    margin: 2rem auto;
+    width: fit-content;
+
+    .page-header-title {
+        
+        h3 {
+            padding: 1rem;
+        }
+    }
+}
+
+.faqs-container {
+    padding-bottom: 4rem;
+}

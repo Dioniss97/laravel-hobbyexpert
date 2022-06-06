@@ -41,8 +41,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "renderAccordion": () => (/* binding */ renderAccordion)
 /* harmony export */ });
 var renderAccordion = function renderAccordion() {
-  var questions = document.querySelectorAll(".question-header");
-  var answers = document.querySelectorAll(".answer");
+  var questions = document.querySelectorAll(".accordion-header");
+  var answers = document.querySelectorAll(".content");
   var arrows = document.querySelectorAll(".arrow"); // console.log(questions, answers, arrows);
 
   if (questions) {
@@ -51,16 +51,10 @@ var renderAccordion = function renderAccordion() {
         arrows.forEach(function (arrow, i) {
           answers[i].classList.remove("active");
           arrow.classList.remove("active");
-        }); // console.log(answers[i], arrows[i]);
-
+        });
+        console.log(answers[i], arrows[i]);
         answers[i].classList.add("active");
-        arrows[i].classList.add("active"); // if (answers[i].classList == "active" && arrows[i].classList == "active") {
-        //     answers[i].classList.remove("active");
-        //     arrows[i].classList.remove("active");
-        // } else {
-        //     answers[i].classList.add("active");
-        //     arrows[i].classList.add("active");
-        // }
+        arrows[i].classList.add("active");
       });
     });
   }
@@ -209,16 +203,9 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 var renderForm = function renderForm() {
+  var mainContainer = document.querySelector('main');
   var storeButton = document.querySelector('.store-button');
   var forms = document.querySelectorAll('.front-form');
-  var formElements = document.querySelectorAll('.form-element');
-  document.addEventListener("clearForm", function (event) {
-    formElements.forEach(function (element) {
-      element.value = "";
-    });
-  }, {
-    once: true
-  });
   document.addEventListener("loadForm", function (event) {
     formContainer.innerHTML = event.detail.form;
   }, {
@@ -234,10 +221,6 @@ var renderForm = function renderForm() {
     storeButton.addEventListener("click", function (event) {
       event.preventDefault();
       forms.forEach(function (form) {
-        /*
-            En las siguientes líneas se obtiene el valor del formulario a través de un objeto FormData
-            y se captura la url que usaremos para enviar los datos al servidor.
-        */
         var data = new FormData(form);
         var url = form.action;
 
@@ -247,14 +230,8 @@ var renderForm = function renderForm() {
         try {
           for (_iterator.s(); !(_step = _iterator.n()).done;) {
             var pair = _step.value;
-            // Se recorre el objeto FormData para obtener los datos del formulario.
-            console.log(pair[0] + ', ' + pair[1]); // Se imprimen los datos del formulario.
+            console.log(pair[0] + ', ' + pair[1]);
           }
-          /*
-              En el siguiente valor estamos capturando los datos del ckeditor y se los añadimos a los datos
-              del formData. 
-          */
-
         } catch (err) {
           _iterator.e(err);
         } finally {
@@ -270,12 +247,6 @@ var renderForm = function renderForm() {
             data.append(key, value.getData());
           });
         }
-        /*
-            A continuación vamos a hacer una llamada de tipo POST mediante fetch, esta vez vamos a 
-            añadir en los headers el token que nos ha dado Laravel el cual va a prevenir que se puedan 
-            hacer ataques de tipos cross-site scripting.
-        */
-
 
         var sendPostRequest = /*#__PURE__*/function () {
           var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
@@ -286,32 +257,20 @@ var renderForm = function renderForm() {
                   case 0:
                     _context.next = 2;
                     return fetch(url, {
-                      // Esto es una promesa que se quedará esperando hasta que la llamada sea
-                      // exitosa o fallida.
                       headers: {
                         'Accept': 'application/json',
-                        // Indicamos que vamos a recibir una respuesta en formato JSON.
                         'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content
                       },
                       method: 'POST',
-                      // En este caso vamos a hacer una llamada POST.
-                      body: data // En el body vamos a pasarle los datos del formulario.
-
+                      body: data
                     }).then(function (response) {
-                      // response es una promesa que se quedará esperando hasta que la llamada sea exitosa o fallida.
                       if (!response.ok) throw response;
                       return response.json();
                     }).then(function (json) {
-                      formContainer.innerHTML = json.form; // Obtenemos el formulario con los datos actualizados.
+                      mainContainer.innerHTML = json.content; // Aquí se renderiza el contenido del formulario
 
-                      // Obtenemos el formulario con los datos actualizados.
-                      document.dispatchEvent(new CustomEvent('loadTable', {
-                        detail: {
-                          table: json.table
-                        }
-                      }));
+                      // Aquí se renderiza el contenido del formulario
                       document.dispatchEvent(new CustomEvent('renderFormModules'));
-                      document.dispatchEvent(new CustomEvent('renderTableModules'));
                     })["catch"](function (error) {
                       // document.dispatchEvent(new CustomEvent('stopWait'));
                       if (error.status == '422') {

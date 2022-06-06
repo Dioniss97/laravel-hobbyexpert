@@ -1,7 +1,7 @@
 export let renderAccordion = () => {
 
-let questions = document.querySelectorAll(".question-header");
-let answers = document.querySelectorAll(".answer");
+let questions = document.querySelectorAll(".accordion-header");
+let answers = document.querySelectorAll(".content");
 let arrows = document.querySelectorAll(".arrow");
 
 // console.log(questions, answers, arrows);
@@ -18,20 +18,10 @@ if (questions) {
                 arrow.classList.remove("active");
             });
 
-            // console.log(answers[i], arrows[i]);
+            console.log(answers[i], arrows[i]);
 
             answers[i].classList.add("active");
             arrows[i].classList.add("active");
-
-            // if (answers[i].classList == "active" && arrows[i].classList == "active") {
-
-            //     answers[i].classList.remove("active");
-            //     arrows[i].classList.remove("active");
-            // } else {
-
-            //     answers[i].classList.add("active");
-            //     arrows[i].classList.add("active");
-            // }
         });
     });
 }

@@ -564,27 +564,12 @@ footer ul li {
   width: 100%;
 }
 
-.page-header {
-  border: 0.1rem solid hsl(46deg, 100%, 30%);
-  border-radius: 1rem;
-  margin: 2rem auto;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
-}
-.page-header .page-header-title h3 {
-  padding: 1rem;
-}
-
-.faqs {
+.accordion {
   margin: 0 auto;
-  padding: 2rem 0;
   width: 80%;
-}
-.faqs .tab {
   overflow: hidden;
 }
-.faqs .tab .question-header {
+.accordion .accordion-header {
   align-items: center;
   background-color: hsl(46deg, 100%, 30%);
   border-bottom: 0.2rem double hsl(240deg, 9%, 23%);
@@ -594,7 +579,7 @@ footer ul li {
   position: relative;
   z-index: 1;
 }
-.faqs .tab .question-header .question span {
+.accordion .accordion-header .title span {
   color: hsl(0deg, 0%, 100%);
   font-weight: bold;
 }
@@ -614,14 +599,14 @@ footer ul li {
     transform: translateX(0);
   }
 }
-.faqs .tab .question-header .arrow.active {
+.accordion .accordion-header .arrow.active {
   transform: rotate(180deg);
   transition: 1.2s;
 }
-.faqs .tab .question-header .arrow svg {
+.accordion .accordion-header .arrow svg {
   color: hsl(0deg, 0%, 100%);
 }
-.faqs .tab .answer {
+.accordion .content {
   align-items: center;
   background-color: #664E00;
   display: none;
@@ -630,7 +615,7 @@ footer ul li {
   position: absolute;
   width: 80%;
 }
-.faqs .tab .answer.active {
+.accordion .content.active {
   -webkit-animation: 1s linear smooth;
           animation: 1s linear smooth;
   display: block;
@@ -1152,6 +1137,10 @@ footer ul li {
           text-decoration: 2px underline hsl(46deg, 100%, 20%);
   transition: 1s;
 }
+.products .products-gallery {
+  display: flex;
+  flex-wrap: wrap;
+}
 .products .products-gallery .product {
   background-color: hsl(33deg, 100%, 88%);
   border-radius: 20px;
@@ -1159,6 +1148,7 @@ footer ul li {
   cursor: pointer;
   padding: 6%;
   margin-bottom: 2rem;
+  margin-left: 4%;
 }
 .products .products-gallery .product .product-window {
   align-items: flex-start;
@@ -1391,4 +1381,20 @@ footer ul li {
 .checkout .checkout-payment button:hover {
   opacity: 0.7;
   transition: 0.6s;
+}
+
+.page-header {
+  border: 0.1rem solid hsl(46deg, 100%, 30%);
+  border-radius: 1rem;
+  margin: 2rem auto;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+.page-header .page-header-title h3 {
+  padding: 1rem;
+}
+
+.faqs-container {
+  padding-bottom: 4rem;
 }

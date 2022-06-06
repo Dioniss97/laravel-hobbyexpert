@@ -53,6 +53,8 @@
     }
 
     .products-gallery {
+        display: flex;
+        flex-wrap: wrap;
 
         .product {
             background-color: hsl(33, 100%, 88%);
@@ -61,6 +63,7 @@
             cursor: pointer;
             padding: 6%;
             margin-bottom: 2rem;
+            margin-left: 4%;
 
             .product-window {
                 align-items: flex-start;

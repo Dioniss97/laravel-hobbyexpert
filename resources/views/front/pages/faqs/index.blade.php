@@ -8,10 +8,10 @@
 @section('content')
     @if($agent->isDesktop())
         @include('front.components.desktop.pages-title', ['title' => 'Preguntas Frecuentemente Respondidas'])
-        @include('front.pages.faqs.desktop.faqs')
+        @include('front.pages.faqs.desktop.faqs', ['faqs' => $faqs])
     @endif
 
     @if($agent->isMobile())
-        @include('front.pages.faqs.mobile.faqs')
+        @include('front.pages.faqs.mobile.faqs', ['faqs' => $faqs])
     @endif
 @endsection

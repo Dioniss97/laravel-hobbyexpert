@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string('email');
             $table->string('phone');
             $table->string('message');
-            $table->boolean('active')->default(false);
             $table->timestamps();
         });
     }

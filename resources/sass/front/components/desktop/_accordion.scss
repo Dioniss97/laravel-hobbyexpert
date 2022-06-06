@@ -1,84 +1,66 @@
-.page-header {
-    border: .1rem solid hsl(46, 100%, 30%);
-    border-radius: 1rem;
-    margin: 2rem auto;
-    width: fit-content;
-
-    .page-header-title {
-        
-        h3 {
-            padding: 1rem;
-        }
-    }
-}
-
-.faqs {
+.accordion {
     margin: 0 auto;
-    padding: 2rem 0;
     width: 80%;
+    overflow: hidden;
 
-    .tab {
-        overflow: hidden;
+    .accordion-header {
+        align-items: center;
+        background-color: hsl(46, 100%, 30%);
+        border-bottom: .2rem double hsl(240, 9%, 23%);
+        display: flex;
+        justify-content: space-between;
+        padding: 1rem;
+        position: relative;
+        z-index: 1;
 
-        .question-header {
-            align-items: center;
-            background-color: hsl(46, 100%, 30%);
-            border-bottom: .2rem double hsl(240, 9%, 23%);
-            display: flex;
-            justify-content: space-between;
-            padding: 1rem;
-            position: relative;
-            z-index: 1;
+        .title {
 
-            .question {
-
-                span {
-                    color: hsl(0, 0%, 100%);
-                    font-weight: bold;
-                }
-            }
-
-            @keyframes smooth {
-
-                from {
-                    transform: translateX(-60rem);
-                }
-
-                to {
-                    transform: translateX(0);
-                }
-            }
-
-            .arrow {
-                // Arriba
-
-                &.active {
-                    // Abajo
-
-                    transform: rotate(180deg);
-                    transition: 1.2s;
-                }
-
-                svg {
-                    color: hsl(0, 0%, 100%);
-                }
+            span {
+                color: hsl(0, 0%, 100%);
+                font-weight: bold;
             }
         }
 
-        .answer {
-            align-items: center;
-            background-color: #664E00;
-            display: none;
-            justify-content: center;
-            padding: 1rem 10%;
-            position: absolute;
-            width: 80%;
+        @keyframes smooth {
+
+            from {
+                transform: translateX(-60rem);
+            }
+
+            to {
+                transform: translateX(0);
+            }
+        }
+
+        .arrow {
+            // Arriba
 
             &.active {
-                animation: 1s linear smooth;
-                display: block;
-                position: static;
+                // Abajo
+
+                transform: rotate(180deg);
+                transition: 1.2s;
             }
+
+            svg {
+                color: hsl(0, 0%, 100%);
+            }
+        }
+    }
+
+    .content {
+        align-items: center;
+        background-color: #664E00;
+        display: none;
+        justify-content: center;
+        padding: 1rem 10%;
+        position: absolute;
+        width: 80%;
+
+        &.active {
+            animation: 1s linear smooth;
+            display: block;
+            position: static;
         }
     }
 }
