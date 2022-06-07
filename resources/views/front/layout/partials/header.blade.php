@@ -1,12 +1,4 @@
 <header>
-    <div class="index menu mobile-only" id="menu">
-        <ul>
-            <li><a href="index.html">inicio</a></li>
-            <li><a href="products.html">tienda</a></li>
-            <li><a href="cart.html">carrito</a></li>
-            <li><a href="contact.html">contacto</a></li>
-        </ul>
-    </div>
     <div class="desktop-two-columns">
         <div class="column">
             <div class="header-logo">
@@ -35,14 +27,12 @@
             </div>
         </div>
         <div class="column">
-            <div class="header-menu desktop-only">
-                <ul>
-                    <li><a href="index.html">inicio</a></li>
-                    <li><a href="products.html">tienda</a></li>
-                    <li><a href="cart.html">carrito</a></li>
-                    <li><a href="contact.html">contacto</a></li>
-                </ul>
-            </div>
+            @if($agent->isDesktop())
+                @include('front.components.desktop.header-menu');
+            @endif
+            @if($agent->isMobile())
+                @include('front.components.mobile.header-menu');
+            @endif
         </div>
     </div>
 </header>

@@ -1158,10 +1158,10 @@ footer ul li {
 .products .products-gallery .product .product-window .product-window-price {
   background-color: hsla(32deg, 100%, 88%, 0.555);
   border-bottom: 0.1em solid hsl(240deg, 9%, 23%);
-  box-shadow: -1px 4px 8px 1px;
-  border-bottom-left-radius: 10px;
+  box-shadow: -0.2rem 0.4rem 0.4rem 0.2rem hsl(240deg, 9%, 23%);
+  border-bottom-left-radius: 2rem;
   padding: 0.4%;
-  position: absolute;
+  position: relative;
 }
 .products .products-gallery .product .product-title {
   min-height: 10vh;

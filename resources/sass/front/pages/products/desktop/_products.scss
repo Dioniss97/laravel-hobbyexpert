@@ -28,15 +28,6 @@
                 }
             }
 
-            // form {
-
-            //     select {
-            //         background-color: hsl(46, 100%, 20%);
-            //         border-color: hsl(46, 100%, 20%);
-            //         color: hsl(0, 0%, 100%);
-            //     }
-            // }
-
             ul {
                 justify-content: space-between;
 
@@ -73,10 +64,10 @@
                 .product-window-price {
                     background-color: hsla(32, 100%, 88%, 0.555);
                     border-bottom: .1em solid hsl(240, 9%, 23%);
-                    box-shadow: -1px 4px 8px 1px;
-                    border-bottom-left-radius: 10px;
+                    box-shadow: -.2rem .4rem .4rem .2rem hsl(240, 9%, 23%);
+                    border-bottom-left-radius: 2rem;
                     padding: .4%;
-                    position: absolute;
+                    position: relative;
                 }
             }
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Front;
 use Illuminate\Support\Facades\View;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use Debugbar;
 
 class ProductController extends Controller
 {
@@ -37,10 +38,10 @@ class ProductController extends Controller
     public function show(Product $product){
         
         $view = View::make('front.pages.product.index')
-        ->with('products', $this->product->where('active', 1)->get());
-        
+        ->with('product', $product);
+
         if(request()->ajax()) {
-            
+
             $sections = $view->renderSections(); 
 
             return response()->json([

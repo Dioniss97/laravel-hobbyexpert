@@ -27,7 +27,7 @@
                             <div class="product-title">
                                 <h4>{!!$product->title!!}</h4>
                             </div>
-                            <div class="product-view-button">
+                            <div class="product-view-button"  data-url="{{route('front_product', ['product' => $product->id])}}">
                                 <button>Ver producto</button>
                             </div>
                         </div>

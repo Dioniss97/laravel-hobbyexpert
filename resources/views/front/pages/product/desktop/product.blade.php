@@ -32,19 +32,16 @@
         <div class="column">
             <div class="product-view-info">
                 <div class="product-view-title">
-                    <h3>JG1012 EBB FULL METAL [J.G.WORKS]</h3>
+                    <h3>{{$product->title}}</h3>
                 </div>
                 <div class="product-view-info-price">
-                    <span>163.12€</span>
+                    <span>{{$product->price}}</span>
                 </div>
                 <div class="product-view-info-description">
-                    <p>A replica of the Russian assault rifle that is the basic weapon of many armies of the
-                        world. The body with receiver cover, safety lever, trigger guard, magazine catch, gas
-                        tube, magazine are made of steel, other elements such as outer barrel, flash suppressor,
-                        front and rear sight base, bolt carrier are made of metal alloy. The handguard, fixed
-                        stock are made of wood, pistol grip is made of plastic. The mechanism is a Gearbox v3
-                        with EBB (Electric Blow Back) mounted on 7mm steel bearings and 6.05mm inner barrel
-                        490mm length.</p>
+                    <p>{{$product->description}}</p>
+                </div>
+                <div class="product-view-info-category">
+                    <span>{{$product->category->name}}</span>
                 </div>
                 <div class="product-view-info-amount">
                     <div class="amount-title">
@@ -62,15 +59,12 @@
                 </div>
             </div>
             <div class="product-view-info-tabs">
-
                 @if($agent->isDesktop())
-                @include('front.components.desktop.tabs')
+                    @include('front.components.desktop.tabs')
                 @endif
-
                 @if($agent->isMobile())
-                @include('front.components.mobile.selectTabs')
+                    @include('front.components.mobile.selectTabs')
                 @endif
-
             </div>
         </div>
     </div>

@@ -136,7 +136,7 @@ Route::post('/contacto', 'App\Http\Controllers\Front\ContactController@store')->
 Route::get('/faqs', 'App\Http\Controllers\Front\FaqController@index')->name('front_faqs');
 
 Route::get('/productos', 'App\Http\Controllers\Front\ProductController@index')->name('front_products');
-Route::get('/producto', 'App\Http\Controllers\Front\ProductController@show')->name('front_product');
+Route::get('/productos/{product}', 'App\Http\Controllers\Front\ProductController@show')->name('front_product');
 
 Route::get('/carrito', 'App\Http\Controllers\Front\CartController@index')->name('front_cart');
 
