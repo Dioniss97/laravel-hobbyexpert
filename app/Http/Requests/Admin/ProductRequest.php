@@ -14,10 +14,10 @@ class ProductRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|min:1|max:64|regex:/^[a-zA-Z0-9-_]+$/',
-            'description' => 'min:3|max:3000|regex:/^[a-zA-Z0-9-_]+$/',
-            'specs' => 'min:3|max:3000|regex:/^[a-zA-Z0-9-_]+$/',
-            'price' => 'required|min:1|max:32|regex:/^(\d+(?:[\.\,]\d{2})?)$/',
+            'title' => 'required|min:1|max:64',
+            'description' => 'required|min:3|max:3000',
+            'specs' => 'required|min:3|max:3000',
+            'price' => 'required|min:1|max:32|regex:/^(\d+(?:[\.]\d{2})?)$/',
         ];
     }
 
@@ -34,7 +34,7 @@ class ProductRequest extends FormRequest
                 'required' => 'El precio es obligatorio',
                 'min' => 'El precio debe tener al menos 1 caracter',
                 'max' => 'El precio debe tener como máximo 32 caracteres',
-                'regex' => 'El precio debe tener sólo números y guiones bajos',
+                'regex' => 'El precio debe tener sólo números y punto para los decimales',
             ],
             'description' => [
                 'min' => 'La descripción debe tener al menos 3 caracteres',

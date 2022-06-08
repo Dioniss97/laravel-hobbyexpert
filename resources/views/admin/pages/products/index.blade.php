@@ -117,7 +117,7 @@
                         <div class="column">
                             <div class="form-element">
                                 <label for="">Precio</label>
-                                <input type="text" name="price" value="{{isset($product->name) ? $product->name : ""}}">
+                                <input type="number" name="price" value="{{isset($product->price) ? $product->price : ""}}">
                             </div>
                         </div>
                     </div>
@@ -133,7 +133,7 @@
                         <div class="column">
                             <div class="form-element">
                                 <label for="">Especificaciones</label>
-                                <textarea name="description" class="ckeditor" cols="30" rows="10">{{isset($product->specs) ? $product->specs : ""}}</textarea>
+                                <textarea name="specs" class="ckeditor" cols="30" rows="10">{{isset($product->specs) ? $product->specs : ""}}</textarea>
                             </div>
                         </div>
                     </div>
