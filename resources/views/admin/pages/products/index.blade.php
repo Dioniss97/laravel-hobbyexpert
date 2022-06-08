@@ -100,19 +100,19 @@
                             </div>
                         </div>
                     </div>
-                    {{-- <div class="desktop-one-column">
+                    <div class="desktop-one-column">
                         <div class="column">
                             <div class="form-element">
                                 <label for="">Categoría</label>
-                                <select type="text" name="title" id="">
+                                <select type="text" name="category_id" >
                                     <option value="">Seleccione una categoría</option>
                                         @foreach($product_categories as $product_category)
-                                            <option value="{{$category->title}}" {{isset($product_category->id) && $product->category_id == $category->id ? "selected" : ""}}>{{$category->name}}</option>
+                                            <option value="{{$product_category->id}}" {{isset($product_category->id) && $product->category_id == $product_category->id ? "selected" : ""}}>{{$product_category->title}}</option>
                                         @endforeach
                                 </select>
                             </div>
                         </div>
-                    </div> --}}
+                    </div>
                     <div class="desktop-one-column">
                         <div class="column">
                             <div class="form-element">

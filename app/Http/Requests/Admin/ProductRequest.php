@@ -17,7 +17,7 @@ class ProductRequest extends FormRequest
             'title' => 'required|min:1|max:64|regex:/^[a-zA-Z0-9-_]+$/',
             'description' => 'min:3|max:3000|regex:/^[a-zA-Z0-9-_]+$/',
             'specs' => 'min:3|max:3000|regex:/^[a-zA-Z0-9-_]+$/',
-            'price' => 'required|min:1|max:32|regex:/^[0-9-_]+$/',
+            'price' => 'required|min:1|max:32|regex:/^(\d+(?:[\.\,]\d{2})?)$/',
         ];
     }
 
