@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Front;
 use Illuminate\Support\Facades\View;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\ProductCategory;
 use Debugbar;
 
 class ProductController extends Controller
@@ -16,7 +17,7 @@ class ProductController extends Controller
     {
         $this->product = $product;
     }
-    
+
     public function index()
     {
 
@@ -36,7 +37,7 @@ class ProductController extends Controller
     }
 
     public function show(Product $product){
-        
+
         $view = View::make('front.pages.product.index')
         ->with('product', $product);
 

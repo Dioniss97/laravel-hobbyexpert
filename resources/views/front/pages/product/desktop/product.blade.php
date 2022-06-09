@@ -40,9 +40,6 @@
                 <div class="product-view-info-description">
                     <p>{{$product->description}}</p>
                 </div>
-                <div class="product-view-info-category">
-                    <span>{{$product->category->name}}</span>
-                </div>
                 <div class="product-view-info-amount">
                     <div class="amount-title">
                         <span>Cantidad solicitada:</span>

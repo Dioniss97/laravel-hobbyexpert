@@ -4,13 +4,12 @@ export let renderProduct = () => {
     let amount = document.querySelector(".amount");
     let viewButtons = document.querySelectorAll(".product-view-button");
     let mainContainer = document.querySelector("main");
+    let categoryTargets = document.querySelectorAll(".category-target");
 
-    document.addEventListener("renderProductModules",( event =>{
-        
-        console.log("renderProductModules");
-        renderTabs();
-        renderSelectTabs();
-        renderAmount();
+    document.addEventListener("renderProductModules", (event => {
+
+        renderProduct();
+
     }));
 
     if (addButton) {
@@ -38,7 +37,7 @@ export let renderProduct = () => {
     if (viewButtons) {
 
         viewButtons.forEach(viewButton => {
-                
+
             viewButton.addEventListener("click", () => {
 
                 let url = viewButton.dataset.url;
@@ -47,56 +46,121 @@ export let renderProduct = () => {
 
                     let response = await fetch(url, {
 
-                        headers: {
-                            'X-Requested-With': 'XMLHttpRequest',
-                        },
+                            headers: {
+                                'X-Requested-With': 'XMLHttpRequest',
+                            },
 
-                        method: 'GET',
-                    })
-                    .then(response => {
-                    
-                        if (!response.ok) throw response;
+                            method: 'GET',
+                        })
+                        .then(response => {
 
-                        return response.json();
-                    })
-                    .then(json => {
+                            if (!response.ok) throw response;
 
-                        mainContainer.innerHTML = json.content;
+                            return response.json();
+                        })
+                        .then(json => {
 
-                        dispatchEvent(new CustomEvent("renderProductModules"));
-                    })
-                    .catch ( error =>  {
-    
-                        // document.dispatchEvent(new CustomEvent('stopWait'));
-    
-                        if(error.status == '422'){
-        
-                            error.json().then(jsonError => {
+                            mainContainer.innerHTML = json.content;
 
-                                let errors = jsonError.errors;      
-                                let errorMessage = '';
-            
-                                Object.keys(errors).forEach(function(key) {
-                                    errorMessage += '<li>' + errors[key] + '</li>';
+                            document.dispatchEvent(new CustomEvent("renderProductModules"));
+                        })
+                        .catch(error => {
+
+                            // document.dispatchEvent(new CustomEvent('stopWait'));
+
+                            if (error.status == '422') {
+
+                                error.json().then(jsonError => {
+
+                                    let errors = jsonError.errors;
+                                    let errorMessage = '';
+
+                                    Object.keys(errors).forEach(function (key) {
+                                        errorMessage += '<li>' + errors[key] + '</li>';
+                                    })
+
+                                    document.dispatchEvent(new CustomEvent('message', {
+                                        detail: {
+                                            message: errorMessage,
+                                            type: 'error'
+                                        }
+                                    }));
                                 })
-                
-                                document.dispatchEvent(new CustomEvent('message', {
-                                    detail: {
-                                        message: errorMessage,
-                                        type: 'error'
-                                    }
-                                }));
-                            })   
-                        }
-    
-                        if(error.status == '500'){
-                            console.log(error);
-                        };
-                    });
+                            }
+
+                            if (error.status == '500') {
+                                console.log(error);
+                            };
+                        });
                 };
 
                 sendGetRequest();
             });
         });
     }
-};
+
+    if (categoryTargets) {
+
+        categoryTargets.forEach(categoryTarget => {
+
+            categoryTarget.addEventListener("click", () => {
+
+                let url = categoryTarget.dataset.url;
+
+                let sendGetRequest = async () => {
+
+                    let response = await fetch(url, {
+
+                            headers: {
+                                'X-Requested-With': 'XMLHttpRequest',
+                            },
+
+                            method: 'GET',
+                        })
+                        .then(response => {
+
+                            if (!response.ok) throw response;
+
+                            return response.json();
+                        })
+                        .then(json => {
+
+                            mainContainer.innerHTML = json.content;
+
+                            document.dispatchEvent(new CustomEvent("renderProductModules"));
+                        })
+                        .catch(error => {
+
+                            // document.dispatchEvent(new CustomEvent('stopWait'));
+
+                            if (error.status == '422') {
+
+                                error.json().then(jsonError => {
+
+                                    let errors = jsonError.errors;
+                                    let errorMessage = '';
+
+                                    Object.keys(errors).forEach(function (key) {
+                                        errorMessage += '<li>' + errors[key] + '</li>';
+                                    })
+
+                                    document.dispatchEvent(new CustomEvent('message', {
+                                        detail: {
+                                            message: errorMessage,
+                                            type: 'error'
+                                        }
+                                    }));
+                                })
+                            }
+
+                            if (error.status == '500') {
+                                console.log(error);
+                            };
+                        });
+                };
+
+                sendGetRequest();
+            });
+        });
+    }
+}

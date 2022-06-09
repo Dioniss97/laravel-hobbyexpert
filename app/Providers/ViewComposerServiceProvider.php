@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use View;
 use App\Models\ProductCategory;
+use App\Models\Product;
 
 class ViewComposerServiceProvider extends ServiceProvider
 {

@@ -1131,8 +1131,10 @@ footer ul li {
 }
 .products .products-categories .products-categories-elements ul li {
   margin: 2% 2%;
+  color: white;
 }
-.products .products-categories .products-categories-elements ul li a:hover {
+.products .products-categories .products-categories-elements ul li:hover {
+  cursor: pointer;
   -webkit-text-decoration: 2px underline hsl(46deg, 100%, 20%);
           text-decoration: 2px underline hsl(46deg, 100%, 20%);
   transition: 1s;

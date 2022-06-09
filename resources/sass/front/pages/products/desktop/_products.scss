@@ -33,11 +33,13 @@
 
                 li {
                     margin: 2% 2%;
+                    color: white;
+                }
 
-                    a:hover {
-                        text-decoration: 2px underline hsl(46, 100%, 20%);
-                        transition: 1s;
-                    }
+                li:hover {
+                    cursor: pointer;
+                    text-decoration: 2px underline hsl(46, 100%, 20%);
+                    transition: 1s;
                 }
             }
         }

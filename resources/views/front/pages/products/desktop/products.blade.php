@@ -2,13 +2,26 @@
     <div class="desktop-two-columns-aside">
         <div class="column-aside">
             <div class="products-categories">
-                @if($agent->isDesktop())
+
+                <div class="products-categories-elements">
+                    <div class="products-categories-title">
+                        <h3>Roles de juego</h3>
+                    </div>
+                    <ul>
+                        @if(isset($product_categories))
+                            @foreach($product_categories as $product_category)
+                                <li class="category-target" data-url="{{route('front_products_by_category', ['product_category' => $product_category->id])}}">{{$product_category->title}}</li>
+                            @endforeach
+                        @endif
+                    </ul>
+                </div>
+                {{-- @if($agent->isDesktop())
                     @include('front.components.desktop.categories')
                 @endif
 
                 @if($agent->isMobile())
                     @include('front.components.mobile.categories')
-                @endif
+                @endif --}}
             </div>
         </div>
         <div class="column-main">

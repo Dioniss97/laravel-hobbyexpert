@@ -395,11 +395,9 @@ var renderProduct = function renderProduct() {
   var amount = document.querySelector(".amount");
   var viewButtons = document.querySelectorAll(".product-view-button");
   var mainContainer = document.querySelector("main");
+  var categoryTargets = document.querySelectorAll(".category-target");
   document.addEventListener("renderProductModules", function (event) {
-    console.log("renderProductModules");
-    renderTabs();
-    renderSelectTabs();
-    renderAmount();
+    renderProduct();
   });
 
   if (addButton) {
@@ -445,7 +443,7 @@ var renderProduct = function renderProduct() {
                       return response.json();
                     }).then(function (json) {
                       mainContainer.innerHTML = json.content;
-                      dispatchEvent(new CustomEvent("renderProductModules"));
+                      document.dispatchEvent(new CustomEvent("renderProductModules"));
                     })["catch"](function (error) {
                       // document.dispatchEvent(new CustomEvent('stopWait'));
                       if (error.status == '422') {
@@ -484,6 +482,76 @@ var renderProduct = function renderProduct() {
 
           return function sendGetRequest() {
             return _ref.apply(this, arguments);
+          };
+        }();
+
+        sendGetRequest();
+      });
+    });
+  }
+
+  if (categoryTargets) {
+    categoryTargets.forEach(function (categoryTarget) {
+      categoryTarget.addEventListener("click", function () {
+        var url = categoryTarget.dataset.url;
+
+        var sendGetRequest = /*#__PURE__*/function () {
+          var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+            var response;
+            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+              while (1) {
+                switch (_context2.prev = _context2.next) {
+                  case 0:
+                    _context2.next = 2;
+                    return fetch(url, {
+                      headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                      },
+                      method: 'GET'
+                    }).then(function (response) {
+                      if (!response.ok) throw response;
+                      return response.json();
+                    }).then(function (json) {
+                      mainContainer.innerHTML = json.content;
+                      document.dispatchEvent(new CustomEvent("renderProductModules"));
+                    })["catch"](function (error) {
+                      // document.dispatchEvent(new CustomEvent('stopWait'));
+                      if (error.status == '422') {
+                        error.json().then(function (jsonError) {
+                          var errors = jsonError.errors;
+                          var errorMessage = '';
+                          Object.keys(errors).forEach(function (key) {
+                            errorMessage += '<li>' + errors[key] + '</li>';
+                          });
+                          document.dispatchEvent(new CustomEvent('message', {
+                            detail: {
+                              message: errorMessage,
+                              type: 'error'
+                            }
+                          }));
+                        });
+                      }
+
+                      if (error.status == '500') {
+                        console.log(error);
+                      }
+
+                      ;
+                    });
+
+                  case 2:
+                    response = _context2.sent;
+
+                  case 3:
+                  case "end":
+                    return _context2.stop();
+                }
+              }
+            }, _callee2);
+          }));
+
+          return function sendGetRequest() {
+            return _ref2.apply(this, arguments);
           };
         }();
 
