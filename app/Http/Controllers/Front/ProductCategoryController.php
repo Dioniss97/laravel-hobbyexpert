@@ -104,9 +104,9 @@ class ProductCategoryController extends Controller
 
     public function showByCategory(ProductCategory $product_category)
     {
-        $view = View::make('front.pages.products.index')
-        ->with('product_category', $product_category)
-        ->with('products', $product_category->products()->where('active', 1)->get());
+        // $view = View::make('front.pages.products.index')->with('product_category', $product_category)->with('products', $product_category->products()->where('active', 1)->get());
+
+        $view = View::make('front.pages.products.index')->with('products', $product_category->products->where('active', 1));
 
         if(request()->ajax()) {
 

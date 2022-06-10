@@ -3,6 +3,10 @@ export let renderTabs = () => {
     let tabs = document.querySelectorAll(".tab");
     let contents = document.querySelectorAll(".content");
 
+    document.addEventListener("renderProductModules", (event => {
+        renderTabs();
+    }), {once: true});
+
     if (tabs) {
         
         tabs.forEach((tab, i) => {

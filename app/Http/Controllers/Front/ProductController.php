@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Front;
 use Illuminate\Support\Facades\View;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
-use App\Models\ProductCategory;
 use Debugbar;
 
 class ProductController extends Controller
@@ -21,8 +20,7 @@ class ProductController extends Controller
     public function index()
     {
 
-        $view = View::make('front.pages.products.index')
-        ->with('products', $this->product->where('active', 1)->get());
+        $view = View::make('front.pages.products.index')->with('products', $this->product->where('active', 1)->get());
 
         if(request()->ajax()) {
             
@@ -38,8 +36,7 @@ class ProductController extends Controller
 
     public function show(Product $product){
 
-        $view = View::make('front.pages.product.index')
-        ->with('product', $product);
+        $view = View::make('front.pages.product.index')->with('product', $product);
 
         if(request()->ajax()) {
 

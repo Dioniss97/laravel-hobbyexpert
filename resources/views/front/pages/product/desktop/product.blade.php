@@ -34,11 +34,11 @@
                 <div class="product-view-title">
                     <h3>{{$product->title}}</h3>
                 </div>
+                <div class="product-view-info-category">
+                    <h2>{{$product->category->title}}</h2>
+                </div>
                 <div class="product-view-info-price">
                     <span>{{$product->price}}</span>
-                </div>
-                <div class="product-view-info-description">
-                    <p>{{$product->description}}</p>
                 </div>
                 <div class="product-view-info-amount">
                     <div class="amount-title">

@@ -58,7 +58,7 @@
                                 <label for="message">Mensaje</label>
                                 <textarea name="message" placeholder="Mensaje" required></textarea>
                             </div>
-                            <div class="enter">
+                            <div class="store-button-container">
                                 <button class="store-button" data-url="{{route('front_contact_store')}}">Enviar</button>
                             </div>
                         </div>

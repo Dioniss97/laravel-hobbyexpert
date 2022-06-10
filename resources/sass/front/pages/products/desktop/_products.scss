@@ -12,19 +12,14 @@
         position: sticky;
         top: 10%;
 
-        // .products-categories-title {
-        //     margin-bottom: 2rem;
-
-        //     
-        // }
-
         .products-categories-elements {
 
             .products-categories-title {
                 margin-bottom: 2rem;
 
                 h3 {
-                    text-decoration: 4px underline hsl(46, 100%, 20%);
+                    font-size: 2rem;
+                    border: .4rem solid hsl(46, 100%, 20%);
                 }
             }
 
@@ -33,11 +28,25 @@
 
                 li {
                     margin: 2% 2%;
-                    color: white;
+                    cursor: pointer;
+
+                    h2 {
+                        font-size: 1.2rem;
+                        color: rgb(255, 255, 255);
+                    }
+
+                    h2:hover {
+                        text-decoration: 4px underline hsl(46, 100%, 20%);
+                        transition: 1s;
+                    }
+
+                    &.active {
+                        background-color: hsl(46, 100%, 20%);
+                        text-decoration: 4px underline hsl(0, 0%, 100%);
+                    }
                 }
 
                 li:hover {
-                    cursor: pointer;
                     text-decoration: 2px underline hsl(46, 100%, 20%);
                     transition: 1s;
                 }

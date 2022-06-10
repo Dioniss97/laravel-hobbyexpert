@@ -10,7 +10,7 @@
                     <ul>
                         @if(isset($product_categories))
                             @foreach($product_categories as $product_category)
-                                <li class="category-target" data-url="{{route('front_products_by_category', ['product_category' => $product_category->id])}}">{{$product_category->title}}</li>
+                                <li class="category-target {{}}" data-url="{{route('front_products_by_category', ['product_category' => $product_category->id])}}"><h2>{{$product_category->title}}</h2></li>
                             @endforeach
                         @endif
                     </ul>

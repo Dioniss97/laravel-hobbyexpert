@@ -3,6 +3,11 @@ export let renderAmount = () => {
     let pluses = document.querySelectorAll(".plus");
     let minuses = document.querySelectorAll(".minus");
 
+    document.addEventListener("renderProductModules", (event => {
+        renderAmount();
+    }), {once: true});
+
+
     pluses.forEach(plus => {
 
         plus.addEventListener("click", () => {

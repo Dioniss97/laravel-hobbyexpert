@@ -1123,18 +1123,31 @@ footer ul li {
   margin-bottom: 2rem;
 }
 .products .products-categories .products-categories-elements .products-categories-title h3 {
-  -webkit-text-decoration: 4px underline hsl(46deg, 100%, 20%);
-          text-decoration: 4px underline hsl(46deg, 100%, 20%);
+  font-size: 2rem;
+  border: 0.4rem solid hsl(46deg, 100%, 20%);
 }
 .products .products-categories .products-categories-elements ul {
   justify-content: space-between;
 }
 .products .products-categories .products-categories-elements ul li {
   margin: 2% 2%;
-  color: white;
+  cursor: pointer;
+}
+.products .products-categories .products-categories-elements ul li h2 {
+  font-size: 1.2rem;
+  color: rgb(255, 255, 255);
+}
+.products .products-categories .products-categories-elements ul li h2:hover {
+  -webkit-text-decoration: 4px underline hsl(46deg, 100%, 20%);
+          text-decoration: 4px underline hsl(46deg, 100%, 20%);
+  transition: 1s;
+}
+.products .products-categories .products-categories-elements ul li.active {
+  background-color: hsl(46deg, 100%, 20%);
+  -webkit-text-decoration: 4px underline hsl(0deg, 0%, 100%);
+          text-decoration: 4px underline hsl(0deg, 0%, 100%);
 }
 .products .products-categories .products-categories-elements ul li:hover {
-  cursor: pointer;
   -webkit-text-decoration: 2px underline hsl(46deg, 100%, 20%);
           text-decoration: 2px underline hsl(46deg, 100%, 20%);
   transition: 1s;
@@ -1241,11 +1254,11 @@ footer ul li {
   min-height: 8em;
   resize: none;
 }
-.contact .contact-form .send-button {
+.contact .contact-form .store-button-container {
   margin-left: auto;
   max-width: 20%;
 }
-.contact .contact-form .send-button button {
+.contact .contact-form .store-button-container button {
   background: linear-gradient(to top, hsl(46deg, 100%, 30%), hsl(240deg, 9%, 23%));
   border: 0.2rem solid hsl(0deg, 0%, 50%);
   border-radius: 0.6rem;
@@ -1255,7 +1268,7 @@ footer ul li {
   width: -moz-fit-content;
   width: fit-content;
 }
-.contact .contact-form .send-button button:hover {
+.contact .contact-form .store-button-container button:hover {
   padding: 1.5rem;
   transition: 0.4s;
   box-shadow: -0.2rem 0.6rem 0.6rem hsl(0deg, 0%, 50%);

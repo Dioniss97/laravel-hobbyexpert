@@ -6,11 +6,10 @@ export let renderProduct = () => {
     let mainContainer = document.querySelector("main");
     let categoryTargets = document.querySelectorAll(".category-target");
 
+
     document.addEventListener("renderProductModules", (event => {
-
         renderProduct();
-
-    }));
+    }), {once: true});
 
     if (addButton) {
 
@@ -105,6 +104,13 @@ export let renderProduct = () => {
 
             categoryTarget.addEventListener("click", () => {
 
+                categoryTargets.forEach(categoryTarget => {
+
+                    categoryTarget.classList.remove("active");
+                });
+
+                categoryTarget.classList.add("active");
+
                 let url = categoryTarget.dataset.url;
 
                 let sendGetRequest = async () => {
@@ -163,4 +169,20 @@ export let renderProduct = () => {
             });
         });
     }
+
+    // if (categoryTargets) {
+
+    //     categoryTargets.foreach(categoryTarget => {
+
+    //         categoryTarget.addEventListener("click", () => {
+
+    //             categoryTargets.forEach(categoryTarget => {
+                        
+    //                     categoryTarget.classList.remove("active");
+    //             });
+
+    //             categoryTarget.classList.add("active");
+    //         });
+    //     });
+    // }
 }

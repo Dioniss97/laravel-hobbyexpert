@@ -76,6 +76,11 @@ __webpack_require__.r(__webpack_exports__);
 var renderAmount = function renderAmount() {
   var pluses = document.querySelectorAll(".plus");
   var minuses = document.querySelectorAll(".minus");
+  document.addEventListener("renderProductModules", function (event) {
+    renderAmount();
+  }, {
+    once: true
+  });
   pluses.forEach(function (plus) {
     plus.addEventListener("click", function () {
       var input = plus.parentNode.querySelector(".amount");
@@ -398,6 +403,8 @@ var renderProduct = function renderProduct() {
   var categoryTargets = document.querySelectorAll(".category-target");
   document.addEventListener("renderProductModules", function (event) {
     renderProduct();
+  }, {
+    once: true
   });
 
   if (addButton) {
@@ -493,6 +500,10 @@ var renderProduct = function renderProduct() {
   if (categoryTargets) {
     categoryTargets.forEach(function (categoryTarget) {
       categoryTarget.addEventListener("click", function () {
+        categoryTargets.forEach(function (categoryTarget) {
+          categoryTarget.classList.remove("active");
+        });
+        categoryTarget.classList.add("active");
         var url = categoryTarget.dataset.url;
 
         var sendGetRequest = /*#__PURE__*/function () {
@@ -558,7 +569,17 @@ var renderProduct = function renderProduct() {
         sendGetRequest();
       });
     });
-  }
+  } // if (categoryTargets) {
+  //     categoryTargets.foreach(categoryTarget => {
+  //         categoryTarget.addEventListener("click", () => {
+  //             categoryTargets.forEach(categoryTarget => {
+  //                     categoryTarget.classList.remove("active");
+  //             });
+  //             categoryTarget.classList.add("active");
+  //         });
+  //     });
+  // }
+
 };
 
 /***/ }),
@@ -608,6 +629,11 @@ __webpack_require__.r(__webpack_exports__);
 var renderTabs = function renderTabs() {
   var tabs = document.querySelectorAll(".tab");
   var contents = document.querySelectorAll(".content");
+  document.addEventListener("renderProductModules", function (event) {
+    renderTabs();
+  }, {
+    once: true
+  });
 
   if (tabs) {
     tabs.forEach(function (tab, i) {
