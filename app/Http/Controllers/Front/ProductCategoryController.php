@@ -104,7 +104,6 @@ class ProductCategoryController extends Controller
 
     public function showByCategory(ProductCategory $product_category)
     {
-        // $view = View::make('front.pages.products.index')->with('product_category', $product_category)->with('products', $product_category->products()->where('active', 1)->get());
 
         $view = View::make('front.pages.products.index')->with('products', $product_category->products->where('active', 1));
 
@@ -116,21 +115,5 @@ class ProductCategoryController extends Controller
                 'content' => $sections['content'],
             ]);
         }
-    }
-
-    public function destroy(ProductCategory $product_category)
-    {
-        $product_category->active = 0;
-        $product_category->save();
-
-        $view = View::make('admin.pages.product_categories.index')
-            ->with('product_category', $this->product_category)
-            ->with('product_categories', $this->product_category->where('active', 1)->get())
-            ->renderSections();
-        
-        return response()->json([
-            'table' => $view['table'],
-            'form' => $view['form']
-        ]);
     }
 }

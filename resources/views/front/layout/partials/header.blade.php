@@ -28,10 +28,10 @@
         </div>
         <div class="column">
             @if($agent->isDesktop())
-                @include('front.components.desktop.header-menu');
+                @include('front.components.desktop.header-menu')
             @endif
             @if($agent->isMobile())
-                @include('front.components.mobile.header-menu');
+                @include('front.components.mobile.header-menu')
             @endif
         </div>
     </div>

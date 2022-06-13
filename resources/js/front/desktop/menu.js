@@ -1,13 +1,19 @@
-export renderMenu = () => {
+export let renderMenu = () => {
 
-    let mainContainer = document.querySelector('.body');
+    let mainContainer = document.querySelector('main');
     let menuItems = document.querySelectorAll('.menu-item');
+
+    document.addEventListener("renderMenu",( event =>{
+        renderMenu();
+    }), {once: true});
 
     menuItems.forEach(menuItem => {
 
         menuItem.addEventListener('click', () => {
 
             let url = menuItem.dataset.url;
+
+            console.log(url);
 
             let sendGetRequest = async () => {
 
@@ -29,6 +35,8 @@ export renderMenu = () => {
 
                         mainContainer.innerHTML = json.content;
 
+                        document.dispatchEvent(new CustomEvent('renderMenuModules'));
+                        document.dispatchEvent(new CustomEvent('renderProductModules'));
                     })
                     .catch(error => {
 

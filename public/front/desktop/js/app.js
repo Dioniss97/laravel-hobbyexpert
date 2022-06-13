@@ -115,6 +115,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _select_tabs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./select-tabs */ "./resources/js/front/desktop/select-tabs.js");
 /* harmony import */ var _tabs_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./tabs.js */ "./resources/js/front/desktop/tabs.js");
 /* harmony import */ var _form_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./form.js */ "./resources/js/front/desktop/form.js");
+/* harmony import */ var _menu_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./menu.js */ "./resources/js/front/desktop/menu.js");
+
 
 
 
@@ -133,6 +135,7 @@ __webpack_require__.r(__webpack_exports__);
 (0,_select_tabs__WEBPACK_IMPORTED_MODULE_6__.renderSelectTabs)();
 (0,_tabs_js__WEBPACK_IMPORTED_MODULE_7__.renderTabs)();
 (0,_form_js__WEBPACK_IMPORTED_MODULE_8__.renderForm)();
+(0,_menu_js__WEBPACK_IMPORTED_MODULE_9__.renderMenu)();
 
 /***/ }),
 
@@ -350,6 +353,106 @@ var renderHamburger = function renderHamburger() {
 
 /***/ }),
 
+/***/ "./resources/js/front/desktop/menu.js":
+/*!********************************************!*\
+  !*** ./resources/js/front/desktop/menu.js ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "renderMenu": () => (/* binding */ renderMenu)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+var renderMenu = function renderMenu() {
+  var mainContainer = document.querySelector('main');
+  var menuItems = document.querySelectorAll('.menu-item');
+  document.addEventListener("renderMenu", function (event) {
+    renderMenu();
+  }, {
+    once: true
+  });
+  menuItems.forEach(function (menuItem) {
+    menuItem.addEventListener('click', function () {
+      var url = menuItem.dataset.url;
+      console.log(url);
+
+      var sendGetRequest = /*#__PURE__*/function () {
+        var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+          var response;
+          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+            while (1) {
+              switch (_context.prev = _context.next) {
+                case 0:
+                  _context.next = 2;
+                  return fetch(url, {
+                    headers: {
+                      'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    method: 'GET'
+                  }).then(function (response) {
+                    if (!response.ok) throw response;
+                    return response.json();
+                  }).then(function (json) {
+                    mainContainer.innerHTML = json.content;
+                    document.dispatchEvent(new CustomEvent('renderMenuModules'));
+                    document.dispatchEvent(new CustomEvent('renderProductModules'));
+                  })["catch"](function (error) {
+                    // document.dispatchEvent(new CustomEvent('stopWait'));
+                    if (error.status == '422') {
+                      error.json().then(function (jsonError) {
+                        var errors = jsonError.errors;
+                        var errorMessage = '';
+                        Object.keys(errors).forEach(function (key) {
+                          errorMessage += '<li>' + errors[key] + '</li>';
+                        });
+                        document.dispatchEvent(new CustomEvent('message', {
+                          detail: {
+                            message: errorMessage,
+                            type: 'error'
+                          }
+                        }));
+                      });
+                    }
+
+                    if (error.status == '500') {
+                      console.log(error);
+                    }
+
+                    ;
+                  });
+
+                case 2:
+                  response = _context.sent;
+
+                case 3:
+                case "end":
+                  return _context.stop();
+              }
+            }
+          }, _callee);
+        }));
+
+        return function sendGetRequest() {
+          return _ref.apply(this, arguments);
+        };
+      }();
+
+      sendGetRequest();
+    });
+  });
+};
+
+/***/ }),
+
 /***/ "./resources/js/front/desktop/notification.js":
 /*!****************************************************!*\
   !*** ./resources/js/front/desktop/notification.js ***!
@@ -396,11 +499,12 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 var renderProduct = function renderProduct() {
+  var mainContainer = document.querySelector("main");
   var addButton = document.querySelector(".add-to-cart-button");
   var amount = document.querySelector(".amount");
   var viewButtons = document.querySelectorAll(".product-view-button");
-  var mainContainer = document.querySelector("main");
   var categoryTargets = document.querySelectorAll(".category-target");
+  var orderBySelect = document.querySelector(".order-by-select");
   document.addEventListener("renderProductModules", function (event) {
     renderProduct();
   }, {
@@ -500,10 +604,10 @@ var renderProduct = function renderProduct() {
   if (categoryTargets) {
     categoryTargets.forEach(function (categoryTarget) {
       categoryTarget.addEventListener("click", function () {
-        categoryTargets.forEach(function (categoryTarget) {
-          categoryTarget.classList.remove("active");
-        });
-        categoryTarget.classList.add("active");
+        // categoryTargets.forEach(categoryTarget => {
+        //     categoryTarget.classList.remove("active");
+        // });
+        // categoryTarget.classList.add("active");
         var url = categoryTarget.dataset.url;
 
         var sendGetRequest = /*#__PURE__*/function () {
@@ -569,17 +673,76 @@ var renderProduct = function renderProduct() {
         sendGetRequest();
       });
     });
-  } // if (categoryTargets) {
-  //     categoryTargets.foreach(categoryTarget => {
-  //         categoryTarget.addEventListener("click", () => {
-  //             categoryTargets.forEach(categoryTarget => {
-  //                     categoryTarget.classList.remove("active");
-  //             });
-  //             categoryTarget.classList.add("active");
-  //         });
-  //     });
-  // }
+  }
 
+  if (orderBySelect) {
+    orderBySelect.addEventListener("change", function () {
+      var url = orderBySelect.value;
+      console.log(url);
+
+      var sendGetRequest = /*#__PURE__*/function () {
+        var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+          var response;
+          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+            while (1) {
+              switch (_context3.prev = _context3.next) {
+                case 0:
+                  _context3.next = 2;
+                  return fetch(url, {
+                    headers: {
+                      'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    method: 'GET'
+                  }).then(function (response) {
+                    if (!response.ok) throw response;
+                    return response.json();
+                  }).then(function (json) {
+                    mainContainer.innerHTML = json.content;
+                    document.dispatchEvent(new CustomEvent("renderProductModules"));
+                  })["catch"](function (error) {
+                    // document.dispatchEvent(new CustomEvent('stopWait'));
+                    if (error.status == '422') {
+                      error.json().then(function (jsonError) {
+                        var errors = jsonError.errors;
+                        var errorMessage = '';
+                        Object.keys(errors).forEach(function (key) {
+                          errorMessage += '<li>' + errors[key] + '</li>';
+                        });
+                        document.dispatchEvent(new CustomEvent('message', {
+                          detail: {
+                            message: errorMessage,
+                            type: 'error'
+                          }
+                        }));
+                      });
+                    }
+
+                    if (error.status == '500') {
+                      console.log(error);
+                    }
+
+                    ;
+                  });
+
+                case 2:
+                  response = _context3.sent;
+
+                case 3:
+                case "end":
+                  return _context3.stop();
+              }
+            }
+          }, _callee3);
+        }));
+
+        return function sendGetRequest() {
+          return _ref3.apply(this, arguments);
+        };
+      }();
+
+      sendGetRequest();
+    });
+  }
 };
 
 /***/ }),

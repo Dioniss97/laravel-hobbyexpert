@@ -1152,6 +1152,32 @@ footer ul li {
           text-decoration: 2px underline hsl(46deg, 100%, 20%);
   transition: 1s;
 }
+.products .products-filter {
+  display: flex;
+  justify-content: flex-end;
+  padding: 2rem;
+}
+.products .products-filter .products-filter-elements {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.products .products-filter .products-filter-elements .products-filter-title label {
+  color: hsl(0deg, 0%, 100%);
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-right: 1rem;
+}
+.products .products-filter .products-filter-elements .products-filter-select select {
+  background: none;
+  border: none;
+  border-bottom: 0.1rem solid hsl(46deg, 100%, 20%);
+  color: hsl(0deg, 0%, 100%);
+}
+.products .products-filter .products-filter-elements .products-filter-select select option {
+  background-color: hsl(240deg, 9%, 23%);
+  color: hsl(0deg, 0%, 100%);
+}
 .products .products-gallery {
   display: flex;
   flex-wrap: wrap;

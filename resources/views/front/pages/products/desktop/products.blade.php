@@ -10,7 +10,7 @@
                     <ul>
                         @if(isset($product_categories))
                             @foreach($product_categories as $product_category)
-                                <li class="category-target {{}}" data-url="{{route('front_products_by_category', ['product_category' => $product_category->id])}}"><h2>{{$product_category->title}}</h2></li>
+                                <li class="category-target" data-url="{{route('front_products_by_category', ['product_category' => $product_category->id])}}"><h2>{{$product_category->title}}</h2></li>
                             @endforeach
                         @endif
                     </ul>
@@ -25,6 +25,22 @@
             </div>
         </div>
         <div class="column-main">
+            <div class="desktop-one-column">
+                <div class="products-filter">
+                    <div class="products-filter-elements">
+                        <div class="products-filter-title">
+                            <label for="">Ordenar precios:</label>
+                        </div>
+                        <div class="products-filter-select">
+                            <select class="order-by-select" name="order-by" id="">
+                                <option class="order-by-option" value="{{route('front_products')}}">Por...</option>
+                                <option class="order-by-option" value="{{route('front_product_index_by_price', ['order' => 'asc'])}}">Precios ascendentes</option>
+                                <option class="order-by-option" value="{{route('front_product_index_by_price', ['order' => 'desc'])}}">Precios descendentes</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="products-gallery">
                 @if(isset($products))
                     @foreach($products as $product)

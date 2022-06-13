@@ -54,6 +54,43 @@
         }
     }
 
+    .products-filter {
+        display: flex;
+        justify-content: flex-end;
+        padding: 2rem;
+
+        .products-filter-elements {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .products-filter-title {
+
+                label {
+                    color: hsl(0, 0%, 100%);
+                    font-size: 1.2rem;
+                    font-weight: bold;
+                    margin-right: 1rem;
+                }
+            }
+
+            .products-filter-select {
+
+                select {
+                    background: none;
+                    border: none;
+                    border-bottom: .1rem solid hsl(46, 100%, 20%);
+                    color: hsl(0, 0%, 100%);
+
+                    option {
+                        background-color: hsl(240, 9%, 23%);
+                        color: hsl(0, 0%, 100%);
+                    }
+                }
+            }
+        }
+    }
+
     .products-gallery {
         display: flex;
         flex-wrap: wrap;

@@ -34,6 +34,22 @@ class ProductController extends Controller
         return $view;
     }
 
+    public function indexByPrice($order) {
+
+        $view = View::make('front.pages.products.index')->with('products', $this->product->where('active', 1)->orderBy('price', $order)->get());
+
+        if(request()->ajax()) {
+            
+            $sections = $view->renderSections(); 
+
+            return response()->json([
+                'content' => $sections['content'],
+            ]);
+        }
+
+        return $view;
+    }
+
     public function show(Product $product){
 
         $view = View::make('front.pages.product.index')->with('product', $product);
