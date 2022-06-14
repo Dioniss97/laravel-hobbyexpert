@@ -40,7 +40,7 @@ class ProductController extends Controller
 
         if(request()->ajax()) {
             
-            $sections = $view->renderSections(); 
+            $sections = $view->renderSections();
 
             return response()->json([
                 'content' => $sections['content'],

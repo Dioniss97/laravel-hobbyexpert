@@ -5,13 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Cart extends Model
+class Tax extends Model
 {
     use HasFactory;
-    protected $guarded = [];
 
-    public function prices() {
-
-        return $this->hasMany(CartPrice::class);
+    public function products()
+    {
+        return $this->belongsToMany(Product::class, 'product_tax', 'tax_id', 'product_id');
     }
 }

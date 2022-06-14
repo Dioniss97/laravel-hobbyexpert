@@ -13,15 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('sales', function (Blueprint $table) {
+        Schema::create('taxes', function (Blueprint $table) {
             $table->id();
-            $table->string('ticket_number');
-            $table->date('date_emission');
-            $table->time('time_emission');
-            $table->integer('payment_method_id');
-            $table->float('total_base_price');
-            $table->float('total_tax_price');
-            $table->float('total_price');
+            $table->integer('type');
+            $table->float('value');
             $table->boolean('active')->default(false);
             $table->timestamps();
         });
@@ -34,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sales');
+        Schema::dropIfExists('taxes');
     }
 };

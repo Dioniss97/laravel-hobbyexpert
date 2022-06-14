@@ -13,11 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('price', function (Blueprint $table) {
+        Schema::create('prices', function (Blueprint $table) {
             $table->id();
-            $table->float('quantity');
+            $table->float('base_price');
+            $table->integer('tax_id');
+            $table->integer('product_id');
             $table->boolean('active')->default(false);
-            $table->boolean('visible')->default(false);
             $table->timestamps();
         });
     }

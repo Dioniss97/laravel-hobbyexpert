@@ -13,8 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('cart', function (Blueprint $table) {
+        Schema::create('fingerprints', function (Blueprint $table) {
             $table->id();
+            $table->string('finger_print');
+            $table->integer('client_id');
+            $table->boolean('active')->default(false);
             $table->timestamps();
         });
     }
@@ -26,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cart');
+        Schema::dropIfExists('fingerprints');
     }
 };
