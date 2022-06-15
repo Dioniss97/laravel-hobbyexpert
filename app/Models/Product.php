@@ -25,11 +25,11 @@ class Product extends Model
             * return $this->belongsToMany(ProductCategory::class, 'product_category_product', 'product_id', 'product_category_id');
         */
 
-        return $this->belongsTo(ProductCategory::class);
+        return $this->belongsTo(ProductCategory::class)->where('active', 1);
     }
 
-    public function taxes() 
+    public function prices()
     {
-        return $this->hasMany(Product::class);
+        return $this->hasMany(Price::class)->where('active', 1)->where('valid', 1);
     }
 }

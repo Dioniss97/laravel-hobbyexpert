@@ -20,7 +20,6 @@ class ProductCategoryController extends Controller
 
     public function index()
     {
-
         $view = View::make('admin.pages.product_categories.index')
 
                 /*

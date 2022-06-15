@@ -2,15 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Tax extends Model
 {
-    use HasFactory;
-
-    public function products()
-    {
-        return $this->belongsToMany(Product::class, 'product_tax', 'tax_id', 'product_id');
-    }
+    protected $table = 'taxes';
+    protected $guarded = [];
 }

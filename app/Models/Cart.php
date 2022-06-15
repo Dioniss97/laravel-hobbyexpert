@@ -10,8 +10,25 @@ class Cart extends Model
     use HasFactory;
     protected $guarded = [];
 
-    public function prices() {
+    public function price() 
+    {
 
-        return $this->hasMany(CartPrice::class);
+        return $this->belongsTo(Price::class);
+    }
+
+    public function fingerPrint() 
+    {
+
+        return $this->belongsTo(FingerPrint::class);
+    }
+
+    public function client() 
+    { 
+        return $this->belongsTo(Client::class);
+    }
+
+    public function sell()
+    {
+        return $this->belongsTo(Sell::class);
     }
 }

@@ -9,4 +9,14 @@ class Client extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+    public function paymentMethods() 
+    {
+        return $this->belongsTo(PaymentMethod::class);
+    }
+
+    public function fingerPrints()
+    {
+        return $this->hasMany(FingerPrint::class);
+    }
 }

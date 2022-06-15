@@ -9,13 +9,15 @@ class Price extends Model
 {
     use HasFactory;
 
-    public function cart()
-    {
-        return $this->belongsTo(Cart::class);
-    }
+    protected $guarded = [];
     
-    public function product() 
+    public function product()
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(Product::class)->where('active', 1);
+    }
+
+    public function tax()
+    {
+        return $this->belongsTo(Tax::class)->where('valid', 1);
     }
 }

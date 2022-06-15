@@ -18,6 +18,8 @@ return new class extends Migration
             $table->integer('price_id');
             $table->integer('finger_print_id');
             $table->integer('sales_id');
+            $table->integer('payment_method_id');
+            $table->integer('client_id');
             $table->boolean('active')->default(false);
             $table->timestamps();
         });

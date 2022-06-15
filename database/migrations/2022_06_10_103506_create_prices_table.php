@@ -18,7 +18,8 @@ return new class extends Migration
             $table->float('base_price');
             $table->integer('tax_id');
             $table->integer('product_id');
-            $table->boolean('active')->default(false);
+            $table->boolean('valid');
+            $table->boolean('active');
             $table->timestamps();
         });
     }

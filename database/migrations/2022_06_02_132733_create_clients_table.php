@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('postal_code');
             $table->string('country');
             $table->string('province');
+            $table->integer('sell_id')->nullable();
             $table->timestamps();
             $table->boolean('active')->default(false);
             $table->boolean('visible')->default(false);

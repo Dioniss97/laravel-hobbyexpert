@@ -17,7 +17,8 @@ class ProductRequest extends FormRequest
             'title' => 'required|min:1|max:64',
             'description' => 'required|min:3|max:3000',
             'specs' => 'required|min:3|max:3000',
-            'price' => 'required|min:1|max:32|regex:/^(\d+(?:[\.]\d{2})?)$/',
+            'base_price' => 'required|numeric',
+            'tax_id' => 'required|numeric',
         ];
     }
 
@@ -30,7 +31,7 @@ class ProductRequest extends FormRequest
                 'max' => 'El nombre debe tener como máximo 64 caracteres',
                 'regex' => 'El nombre debe tener sólo letras, números, guiones y guiones bajos',
             ],
-            'price' => [
+            'base_price' => [
                 'required' => 'El precio es obligatorio',
                 'min' => 'El precio debe tener al menos 1 caracter',
                 'max' => 'El precio debe tener como máximo 32 caracteres',
