@@ -38,7 +38,7 @@
                     <h2>{{$product->category->title}}</h2>
                 </div>
                 <div class="product-view-info-price">
-                    <span>{{$product->price}}</span>
+                    <span>{{isset($product->prices->first()->base_price) ? $product->prices->first()->base_price : ""}} €</span>
                 </div>
                 <div class="product-view-info-amount">
                     <div class="amount-title">
@@ -47,7 +47,7 @@
                     @include('front.components.desktop.amount-button')
                 </div>
                 <div class="product-view-info-add-to-cart">
-                    <div class="add-to-cart-button">
+                    <div class="add-to-cart-button" data-url="{{route('front-cart-add')}}">
                         <button>Añadir al carrito</button>
                     </div>
                     <div class="notification">

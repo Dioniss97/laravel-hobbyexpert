@@ -17,6 +17,8 @@ class ProductController extends Controller
     {
         $this->product = $product;
         $this->price = $price;
+
+        Debugbar::info($price);
     }
 
     public function index()
@@ -55,7 +57,7 @@ class ProductController extends Controller
     {            
 
         $product = $this->product->updateOrCreate([
-                'id' => request('id')],[
+                'id' => request('id')],[ // We catch the 'id' from the request of the input field named 'id'
                 'name' => request('title'),
                 'title' => request('title'),
                 'description' => request('description'),
@@ -71,7 +73,7 @@ class ProductController extends Controller
         ]);
 
         $this->price->create([
-            'product_id' => $product->id,
+            'product_id' => $product->id, // On 'product_id we are using the id of the product that we just created.
             'base_price' => request('base_price'),
             'tax_id' => request('tax_id'),
             'valid' => 1,

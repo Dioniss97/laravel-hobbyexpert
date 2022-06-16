@@ -31,4 +31,17 @@ class CartController extends Controller
 
         return $view;
     }
+
+    public function store($price_id, $amount)
+    {
+
+        $cart = $this->cart->updateOrCreate([
+                'id' => request('id')],[
+                'price_id' => $price_id,
+                'fingerprint_id' => $price_id,
+                'sell_id' => $price_id,
+                'active' => 1,
+            ]
+        );
+    }
 }

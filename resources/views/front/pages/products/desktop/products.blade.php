@@ -47,7 +47,7 @@
                         <div class="product">
                             <div class="product-window">
                                 <div class="product-window-price">
-                                    <span>{!!$product->price!!}</span>
+                                    <span>{{isset($product->prices->first()->base_price) ? $product->prices->first()->base_price : ""}} €</span>
                                 </div>
                                 <div class="product-window-image">
                                     <img src="img/ak47.webp" alt="ak47">

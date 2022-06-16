@@ -142,6 +142,7 @@ Route::group(['prefix' => 'productos'], function () {
     Route::get('/categoria/{product_category}', 'App\Http\Controllers\Front\ProductCategoryController@showByCategory')->name('front_products_by_category');
 });
 
+Route::post('/carrito', 'App\Http\Controllers\Front\CartController@store')->name('front_cart_store');
 Route::get('/carrito', 'App\Http\Controllers\Front\CartController@index')->name('front_cart');
 
 Route::group(['prefix' => 'checkout'], function () {
