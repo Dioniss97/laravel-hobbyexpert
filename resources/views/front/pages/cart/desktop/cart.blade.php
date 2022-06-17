@@ -12,7 +12,7 @@
                 <td>
                     <img class="desktop-only" src="img/sr25.webp" alt="">
                 </td>
-                <td>CA25 [CLASSIC ARMY]</td>
+                <td></td>
                 <td>271.49€</td>
                 <td>
                     <div class="amount-button">

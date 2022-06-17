@@ -8,6 +8,7 @@ import { renderSelectTabs } from "./select-tabs";
 import { renderTabs } from "./tabs.js";
 import { renderForm } from "./form.js";
 import { renderMenu } from "./menu.js";
+import { renderCart } from "./cart.js";
 
 renderAccordion();
 renderAmount();
@@ -19,3 +20,4 @@ renderSelectTabs();
 renderTabs();
 renderForm();
 renderMenu();
+renderCart();

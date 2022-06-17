@@ -8,6 +8,7 @@ use App\Providers\ViewComposerServiceProvider;
 
 class ProductCategories
 {
+
     static $composed;
     protected $table = "product_categories";
     // $composed is a static variable that stores the result of the view composer.

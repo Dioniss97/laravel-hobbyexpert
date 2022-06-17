@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Front;
 use Illuminate\Support\Facades\View;
 use App\Http\Controllers\Controller;
 use App\Models\ProductCategory;
-use App\Http\Requests\front\ProductCategoryRequest;
+use App\Http\Requests\Front\ProductCategoryRequest;
 use Debugbar;
 
 class ProductCategoryController extends Controller

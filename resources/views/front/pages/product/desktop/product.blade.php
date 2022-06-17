@@ -47,7 +47,7 @@
                     @include('front.components.desktop.amount-button')
                 </div>
                 <div class="product-view-info-add-to-cart">
-                    <div class="add-to-cart-button" data-url="{{route('front-cart-add')}}">
+                    <div class="add-to-cart-button">
                         <button>Añadir al carrito</button>
                     </div>
                     <div class="notification">

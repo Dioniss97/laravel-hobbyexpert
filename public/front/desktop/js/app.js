@@ -82,13 +82,15 @@ var renderAmount = function renderAmount() {
     once: true
   });
   pluses.forEach(function (plus) {
-    plus.addEventListener("click", function () {
+    plus.addEventListener("click", function (event) {
+      event.preventDefault();
       var input = plus.parentNode.querySelector(".amount");
       input.value = parseInt(input.value) + 1;
     });
   });
   minuses.forEach(function (minus) {
-    minus.addEventListener("click", function () {
+    minus.addEventListener("click", function (event) {
+      event.preventDefault();
       var input = minus.parentNode.querySelector(".amount"); // if (input.value > 1) {
 
       input.value = parseInt(input.value) - 1; // }
@@ -116,6 +118,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _tabs_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./tabs.js */ "./resources/js/front/desktop/tabs.js");
 /* harmony import */ var _form_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./form.js */ "./resources/js/front/desktop/form.js");
 /* harmony import */ var _menu_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./menu.js */ "./resources/js/front/desktop/menu.js");
+/* harmony import */ var _cart_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./cart.js */ "./resources/js/front/desktop/cart.js");
+
 
 
 
@@ -136,6 +140,117 @@ __webpack_require__.r(__webpack_exports__);
 (0,_tabs_js__WEBPACK_IMPORTED_MODULE_7__.renderTabs)();
 (0,_form_js__WEBPACK_IMPORTED_MODULE_8__.renderForm)();
 (0,_menu_js__WEBPACK_IMPORTED_MODULE_9__.renderMenu)();
+(0,_cart_js__WEBPACK_IMPORTED_MODULE_10__.renderCart)();
+
+/***/ }),
+
+/***/ "./resources/js/front/desktop/cart.js":
+/*!********************************************!*\
+  !*** ./resources/js/front/desktop/cart.js ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "renderCart": () => (/* binding */ renderCart)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+var renderCart = function renderCart() {
+  var forms = document.querySelectorAll('.front-form');
+  var addToCartButton = document.querySelector('.add-to-cart-button');
+  document.addEventListener("renderProductModules", function (event) {
+    renderCart();
+  }, {
+    once: true
+  });
+
+  if (addToCartButton) {
+    addToCartButton.addEventListener("click", function (event) {
+      event.preventDefault();
+      forms.forEach(function (form) {
+        var data = new FormData(form);
+        var url = form.action; // Creo que en las siguientes lineas solo se recogen inputs de tipo texto, así que no me sirve.
+        // for (var pair of data.entries()) {
+        //     console.log(pair[0]+ ', ' + pair[1]);
+        // }
+
+        var sendPostRequest = /*#__PURE__*/function () {
+          var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+            var response;
+            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+              while (1) {
+                switch (_context.prev = _context.next) {
+                  case 0:
+                    _context.next = 2;
+                    return fetch(url, {
+                      headers: {
+                        'Accept': 'application/json',
+                        'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content
+                      },
+                      method: 'POST',
+                      body: data
+                    }).then(function (response) {
+                      if (!response.ok) throw response;
+                      return response.json();
+                    }).then(function (json) {
+                      mainContainer.innerHTML = json.content; // Aquí se renderiza el contenido del formulario
+
+                      // Aquí se renderiza el contenido del formulario
+                      document.dispatchEvent(new CustomEvent('renderProductModules'));
+                    })["catch"](function (error) {
+                      // document.dispatchEvent(new CustomEvent('stopWait'));
+                      if (error.status == '422') {
+                        error.json().then(function (jsonError) {
+                          var errors = jsonError.errors;
+                          var errorMessage = '';
+                          Object.keys(errors).forEach(function (key) {
+                            errorMessage += '<li>' + errors[key] + '</li>';
+                          });
+                          document.dispatchEvent(new CustomEvent('message', {
+                            detail: {
+                              message: errorMessage,
+                              type: 'error'
+                            }
+                          }));
+                        });
+                      }
+
+                      if (error.status == '500') {
+                        console.log(error);
+                      }
+
+                      ;
+                    });
+
+                  case 2:
+                    response = _context.sent;
+
+                  case 3:
+                  case "end":
+                    return _context.stop();
+                }
+              }
+            }, _callee);
+          }));
+
+          return function sendPostRequest() {
+            return _ref.apply(this, arguments);
+          };
+        }();
+
+        sendPostRequest();
+      });
+    });
+  }
+};
 
 /***/ }),
 
@@ -278,7 +393,7 @@ var renderForm = function renderForm() {
                       mainContainer.innerHTML = json.content; // Aquí se renderiza el contenido del formulario
 
                       // Aquí se renderiza el contenido del formulario
-                      document.dispatchEvent(new CustomEvent('renderFormModules'));
+                      document.dispatchEvent(new CustomEvent('renderProductModules'));
                     })["catch"](function (error) {
                       // document.dispatchEvent(new CustomEvent('stopWait'));
                       if (error.status == '422') {
@@ -483,9 +598,248 @@ var renderNotification = function renderNotification() {
 /*!***********************************************!*\
   !*** ./resources/js/front/desktop/product.js ***!
   \***********************************************/
-/***/ (() => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: C:\\git-dual\\laravel-hobbyexpert\\resources\\js\\front\\desktop\\product.js: Unexpected token, expected \",\" (28:16)\n\n\u001b[0m \u001b[90m 26 |\u001b[39m                 \u001b[90m// Hacer una llamada de tipo fetch con el formData\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 27 |\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 28 |\u001b[39m                 \u001b[36mlet\u001b[39m url \u001b[33m=\u001b[39m addButton\u001b[33m.\u001b[39mdataset\u001b[33m.\u001b[39murl\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m                 \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 29 |\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 30 |\u001b[39m                 \u001b[36mlet\u001b[39m \u001b[33mData\u001b[39m \u001b[33m=\u001b[39m \u001b[36mnew\u001b[39m \u001b[33mFormData\u001b[39m()\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 31 |\u001b[39m\u001b[0m\n    at instantiate (C:\\git-dual\\laravel-hobbyexpert\\node_modules\\@babel\\parser\\lib\\index.js:72:32)\n    at constructor (C:\\git-dual\\laravel-hobbyexpert\\node_modules\\@babel\\parser\\lib\\index.js:358:12)\n    at Parser.raise (C:\\git-dual\\laravel-hobbyexpert\\node_modules\\@babel\\parser\\lib\\index.js:3335:19)\n    at Parser.unexpected (C:\\git-dual\\laravel-hobbyexpert\\node_modules\\@babel\\parser\\lib\\index.js:3373:16)\n    at Parser.expect (C:\\git-dual\\laravel-hobbyexpert\\node_modules\\@babel\\parser\\lib\\index.js:4002:28)\n    at Parser.parseObjectLike (C:\\git-dual\\laravel-hobbyexpert\\node_modules\\@babel\\parser\\lib\\index.js:13486:14)\n    at Parser.parseExprAtom (C:\\git-dual\\laravel-hobbyexpert\\node_modules\\@babel\\parser\\lib\\index.js:12890:23)\n    at Parser.parseExprSubscripts (C:\\git-dual\\laravel-hobbyexpert\\node_modules\\@babel\\parser\\lib\\index.js:12540:23)\n    at Parser.parseUpdate (C:\\git-dual\\laravel-hobbyexpert\\node_modules\\@babel\\parser\\lib\\index.js:12519:21)\n    at Parser.parseMaybeUnary (C:\\git-dual\\laravel-hobbyexpert\\node_modules\\@babel\\parser\\lib\\index.js:12490:23)");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "renderProduct": () => (/* binding */ renderProduct)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+var renderProduct = function renderProduct() {
+  var mainContainer = document.querySelector("main"); // let addButton = document.querySelector(".add-to-cart-button");
+  // let amount = document.querySelector(".amount");
+  // let idPrice = document.querySelector(".id-price");
+
+  var viewButtons = document.querySelectorAll(".product-view-button");
+  var categoryTargets = document.querySelectorAll(".category-target");
+  var orderBySelect = document.querySelector(".order-by-select");
+  document.addEventListener("renderProductModules", function (event) {
+    renderProduct();
+  }, {
+    once: true
+  });
+
+  if (viewButtons) {
+    viewButtons.forEach(function (viewButton) {
+      viewButton.addEventListener("click", function () {
+        var url = viewButton.dataset.url;
+
+        var sendGetRequest = /*#__PURE__*/function () {
+          var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+            var response;
+            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+              while (1) {
+                switch (_context.prev = _context.next) {
+                  case 0:
+                    _context.next = 2;
+                    return fetch(url, {
+                      headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                      },
+                      method: 'GET'
+                    }).then(function (response) {
+                      if (!response.ok) throw response;
+                      return response.json();
+                    }).then(function (json) {
+                      mainContainer.innerHTML = json.content;
+                      document.dispatchEvent(new CustomEvent("renderProductModules"));
+                    })["catch"](function (error) {
+                      // document.dispatchEvent(new CustomEvent('stopWait'));
+                      if (error.status == '422') {
+                        error.json().then(function (jsonError) {
+                          var errors = jsonError.errors;
+                          var errorMessage = '';
+                          Object.keys(errors).forEach(function (key) {
+                            errorMessage += '<li>' + errors[key] + '</li>';
+                          });
+                          document.dispatchEvent(new CustomEvent('message', {
+                            detail: {
+                              message: errorMessage,
+                              type: 'error'
+                            }
+                          }));
+                        });
+                      }
+
+                      if (error.status == '500') {
+                        console.log(error);
+                      }
+
+                      ;
+                    });
+
+                  case 2:
+                    response = _context.sent;
+
+                  case 3:
+                  case "end":
+                    return _context.stop();
+                }
+              }
+            }, _callee);
+          }));
+
+          return function sendGetRequest() {
+            return _ref.apply(this, arguments);
+          };
+        }();
+
+        sendGetRequest();
+      });
+    });
+  }
+
+  if (categoryTargets) {
+    categoryTargets.forEach(function (categoryTarget) {
+      categoryTarget.addEventListener("click", function () {
+        // categoryTargets.forEach(categoryTarget => {
+        //     categoryTarget.classList.remove("active");
+        // });
+        // categoryTarget.classList.add("active");
+        var url = categoryTarget.dataset.url;
+
+        var sendGetRequest = /*#__PURE__*/function () {
+          var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+            var response;
+            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+              while (1) {
+                switch (_context2.prev = _context2.next) {
+                  case 0:
+                    _context2.next = 2;
+                    return fetch(url, {
+                      headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                      },
+                      method: 'GET'
+                    }).then(function (response) {
+                      if (!response.ok) throw response;
+                      return response.json();
+                    }).then(function (json) {
+                      mainContainer.innerHTML = json.content;
+                      document.dispatchEvent(new CustomEvent("renderProductModules"));
+                    })["catch"](function (error) {
+                      // document.dispatchEvent(new CustomEvent('stopWait'));
+                      if (error.status == '422') {
+                        error.json().then(function (jsonError) {
+                          var errors = jsonError.errors;
+                          var errorMessage = '';
+                          Object.keys(errors).forEach(function (key) {
+                            errorMessage += '<li>' + errors[key] + '</li>';
+                          });
+                          document.dispatchEvent(new CustomEvent('message', {
+                            detail: {
+                              message: errorMessage,
+                              type: 'error'
+                            }
+                          }));
+                        });
+                      }
+
+                      if (error.status == '500') {
+                        console.log(error);
+                      }
+
+                      ;
+                    });
+
+                  case 2:
+                    response = _context2.sent;
+
+                  case 3:
+                  case "end":
+                    return _context2.stop();
+                }
+              }
+            }, _callee2);
+          }));
+
+          return function sendGetRequest() {
+            return _ref2.apply(this, arguments);
+          };
+        }();
+
+        sendGetRequest();
+      });
+    });
+  }
+
+  if (orderBySelect) {
+    orderBySelect.addEventListener("change", function () {
+      var url = orderBySelect.value;
+      console.log(url);
+
+      var sendGetRequest = /*#__PURE__*/function () {
+        var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+          var response;
+          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+            while (1) {
+              switch (_context3.prev = _context3.next) {
+                case 0:
+                  _context3.next = 2;
+                  return fetch(url, {
+                    headers: {
+                      'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    method: 'GET'
+                  }).then(function (response) {
+                    if (!response.ok) throw response;
+                    return response.json();
+                  }).then(function (json) {
+                    mainContainer.innerHTML = json.content;
+                    document.dispatchEvent(new CustomEvent("renderProductModules"));
+                  })["catch"](function (error) {
+                    // document.dispatchEvent(new CustomEvent('stopWait'));
+                    if (error.status == '422') {
+                      error.json().then(function (jsonError) {
+                        var errors = jsonError.errors;
+                        var errorMessage = '';
+                        Object.keys(errors).forEach(function (key) {
+                          errorMessage += '<li>' + errors[key] + '</li>';
+                        });
+                        document.dispatchEvent(new CustomEvent('message', {
+                          detail: {
+                            message: errorMessage,
+                            type: 'error'
+                          }
+                        }));
+                      });
+                    }
+
+                    if (error.status == '500') {
+                      console.log(error);
+                    }
+
+                    ;
+                  });
+
+                case 2:
+                  response = _context3.sent;
+
+                case 3:
+                case "end":
+                  return _context3.stop();
+              }
+            }
+          }, _callee3);
+        }));
+
+        return function sendGetRequest() {
+          return _ref3.apply(this, arguments);
+        };
+      }();
+
+      sendGetRequest();
+    });
+  }
+};
 
 /***/ }),
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Front;
 use Illuminate\Support\Facades\View;
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
+use Request;
 
 class CartController extends Controller
 {
@@ -32,16 +33,31 @@ class CartController extends Controller
         return $view;
     }
 
-    public function store($price_id, $amount)
+    public function store(Request $request)
     {
 
-        $cart = $this->cart->updateOrCreate([
-                'id' => request('id')],[
-                'price_id' => $price_id,
-                'fingerprint_id' => $price_id,
-                'sell_id' => $price_id,
+        for($i = 0; $i < request('amount'); $i++) {
+
+            $cart = $this->cart->create([
+                'price_id' => request('price_id'),
+                'fingerprint' => '1',
                 'active' => 1,
-            ]
-        );
+            ]);
+        }
+
+        $carts = $this->cart->select(DB::raw('count(price_id) as quantity'), 'price_id')
+            ->groupByRaw('price_id')
+            ->where('fingerprint', 1)
+            ->get();
+
+        if(request()->ajax()) {
+            $sections = $view->renderSections(); 
+
+            return response()->json([
+                'content' => $sections['content'],
+            ]);
+        }
+        
+        return $view;
     }
 }

@@ -10,7 +10,9 @@ export let renderAmount = () => {
 
     pluses.forEach(plus => {
 
-        plus.addEventListener("click", () => {
+        plus.addEventListener("click", (event) => {
+
+            event.preventDefault();
 
             let input = (plus.parentNode.querySelector(".amount"));
             input.value = parseInt(input.value) + 1;
@@ -19,7 +21,9 @@ export let renderAmount = () => {
 
     minuses.forEach(minus => {
 
-        minus.addEventListener("click", () => {
+        minus.addEventListener("click", (event) => {
+
+            event.preventDefault();
 
             let input =(minus.parentNode.querySelector(".amount"));
 

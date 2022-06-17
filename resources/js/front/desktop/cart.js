@@ -1,39 +1,29 @@
-export let renderForm = () => {
-    
-    let mainContainer = document.querySelector('main');
-    let storeButton = document.querySelector('.store-button');
+export let renderCart = () => {
+
     let forms = document.querySelectorAll('.front-form');
+    let addToCartButton = document.querySelector('.add-to-cart-button');
 
-    document.addEventListener("loadForm",( event =>{
-        formContainer.innerHTML = event.detail.form;
+    document.addEventListener("renderProductModules",( event =>{
+        renderCart();
     }), {once: true});
 
-    document.addEventListener("renderFormModules",( event =>{
-        renderForm();
-    }), {once: true});
+    if(addToCartButton) {
 
-    if(storeButton) {
-
-        storeButton.addEventListener("click", (event) => {
+        addToCartButton.addEventListener("click", (event) => {
 
             event.preventDefault();
-    
+
             forms.forEach(form => { 
 
                 let data = new FormData(form);
                 let url = form.action;
 
-                for (var pair of data.entries()) {
-                    console.log(pair[0]+ ', ' + pair[1]);
-                }
-    
-                if( ckeditors != 'null'){
-    
-                    Object.entries(ckeditors).forEach(([key, value]) => {
-                        data.append(key, value.getData());
-                    });
-                }
-    
+                // Creo que en las siguientes lineas solo se recogen inputs de tipo texto, así que no me sirve.
+
+                // for (var pair of data.entries()) {
+                //     console.log(pair[0]+ ', ' + pair[1]);
+                // }
+
                 let sendPostRequest = async () => {
 
                     // document.dispatchEvent(new CustomEvent('startWait'));
@@ -61,9 +51,9 @@ export let renderForm = () => {
 
                     })
                     .catch ( error =>  {
-    
+
                         // document.dispatchEvent(new CustomEvent('stopWait'));
-    
+
                         if(error.status == '422'){
         
                             error.json().then(jsonError => {
@@ -83,7 +73,7 @@ export let renderForm = () => {
                                 }));
                             })   
                         }
-    
+
                         if(error.status == '500'){
                             console.log(error);
                         };
@@ -94,5 +84,4 @@ export let renderForm = () => {
             });
         });
     }
-
 }
