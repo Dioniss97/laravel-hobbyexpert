@@ -7,9 +7,9 @@
 
 @section('content')
     @if($agent->isDesktop())
-        @include('front.pages.products.desktop.products' , ['products' => $products, 'product_categories' => $product_categories])
+        @include('front.pages.products.desktop.products' , ['products' => $products, 'product_category' => $product_category])
     @endif
     @if($agent->isMobile())
-        @include('front.pages.products.mobile.products' , ['products' => $products, 'product_categories' => $product_categories])
+        @include('front.pages.products.mobile.products' , ['products' => $products, 'product_category' => $product_category])
     @endif
 @endsection

@@ -12,104 +12,102 @@ export let renderProduct = () => {
         renderProduct();
     }), {once: true});
 
-    if (addButton) {
+    // if (addButton) {
 
-        addButton.addEventListener("click", () => {
+    //     addButton.addEventListener("click", () => {
 
-            if (amount.value > 0) {
-                document.dispatchEvent(new CustomEvent("message", {
-                    detail: {
-                        text: "Producto añadido con éxito.",
-                        type: "success"
-                    }
+    //         event.preventDefault();
 
-                // Hacer una llamada de tipo fetch con el formData
+    //         if (amount.value > 0) {
+    //             document.dispatchEvent(new CustomEvent("message", {
+    //                 detail: {
+    //                     text: "Producto añadido con éxito.",
+    //                     type: "success"
+    //                 }
+    //             }));
 
-                let url = addButton.dataset.url;
+    //             // Hacer una llamada de tipo fetch con el formData
 
-                let Data = new FormData();
+    //             let url = addButton.dataset.url;
 
-                formData.append('price_id', idPrice.value);
+    //             let Data = new FormData(form);
 
-                for(let i = amount.value; i > 0; i--) {
+    //             formData.append('price_id', idPrice.value);
 
-                    sendpostRequest = async () => {
+    //             for(let i = amount.value; i > 0; i--) {
+                    
+    //                 for (var pair of data.entries()) {
+    //                     console.log(pair[0]+ ', ' + pair[1]);
+    //                 }
 
-                        let response = await fetch(url, {
+    //                 let sendPostRequest = async () => {
 
-                            headers: {
-                                'Accept': 'application/json',
-                                'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content
-                            },
-                            method: 'POST',
-                            body: Data
-                        })
-                        .then(response => {
-                                
-                                if (!response.ok) throw response;
-
-                                return response.json();
-                        })
-                        .then(json => {
-
-                            if(json.status == "success") {
-                                document.dispatchEvent(new CustomEvent("message", {
-                                    detail: {
-                                        text: "Producto añadido con éxito.",
-                                        type: "success"
-                                    }
-                                }));
-                            }
-                            else {
-                                document.dispatchEvent(new CustomEvent("message", {
-                                    detail: {
-                                        text: "Error al añadir el producto.",
-                                        type: "error"
-                                    }
-                                }));
-                            }
-                        })
-                        .catch ( error =>  {
-
-                            if(error.status == '422'){
-
-                                error.json().then(jsonError => {
-
-                                    let errors = jsonError.errors;      
-                                    let errorMessage = '';
-
-                                    Object.keys(errors).forEach(function(key) {
-                                        errorMessage += '<li>' + errors[key] + '</li>';
-                                    })
-
-                                    document.dispatchEvent(new CustomEvent('message', {
-                                        detail: {
-                                            message: errorMessage,
-                                            type: 'error'
-                                        }
-                                    }));
-                                })   
-                            }
+    //                     // document.dispatchEvent(new CustomEvent('startWait'));
+    
+    //                     let response = await fetch(url, {
+    
+    //                         headers: {
+    //                             'Accept': 'application/json',
+    //                             'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content
+    //                         },
+    //                         method: 'POST',
+    //                         body: data
+    //                     })
+    //                     .then(response => {
                         
-                            if(error.status == '500'){
-                                console.log(error);
-                            }
-                        });
-                        
-                        sendpostRequest();
-                        }
-                    }
-                }));
-            } else {
-                document.dispatchEvent(new CustomEvent("message", {
-                    detail: {
-                        text: "Ups, algo ha salido mal.",
-                        type: "error"
-                    }
-                }));
-            }
-        });
-    }
+    //                         if (!response.ok) throw response;
+    
+    //                         return response.json();
+    //                     })
+    //                     .then(json => {
+    
+    //                         mainContainer.innerHTML = json.content; // Aquí se renderiza el contenido del formulario
+    
+    //                         document.dispatchEvent(new CustomEvent('renderFormModules'));
+    
+    //                     })
+    //                     .catch ( error =>  {
+        
+    //                         // document.dispatchEvent(new CustomEvent('stopWait'));
+        
+    //                         if(error.status == '422'){
+            
+    //                             error.json().then(jsonError => {
+    
+    //                                 let errors = jsonError.errors;      
+    //                                 let errorMessage = '';
+                
+    //                                 Object.keys(errors).forEach(function(key) {
+    //                                     errorMessage += '<li>' + errors[key] + '</li>';
+    //                                 })
+                    
+    //                                 document.dispatchEvent(new CustomEvent('message', {
+    //                                     detail: {
+    //                                         message: errorMessage,
+    //                                         type: 'error'
+    //                                     }
+    //                                 }));
+    //                             })   
+    //                         }
+        
+    //                         if(error.status == '500'){
+    //                             console.log(error);
+    //                         };
+    //                     });
+    //                 };
+
+    //                 sendPostRequest();
+    //             }
+    //         } else { 
+    //             document.dispatchEvent(new CustomEvent("message", {
+    //                 detail: {
+    //                     text: "Debe seleccionar una cantidad mayor a 0.",
+    //                     type: "error"
+    //                 }
+    //             }));
+    //         }
+    //     });
+    // }
 
     if (viewButtons) {
 

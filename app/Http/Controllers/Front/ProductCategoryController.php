@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Front;
 use Illuminate\Support\Facades\View;
 use App\Http\Controllers\Controller;
 use App\Models\ProductCategory;
-use App\Http\Requests\Admin\ProductCategoryRequest;
+use App\Http\Requests\front\ProductCategoryRequest;
 use Debugbar;
 
 class ProductCategoryController extends Controller
@@ -20,16 +20,9 @@ class ProductCategoryController extends Controller
 
     public function index()
     {
-        $view = View::make('admin.pages.product_categories.index')
+        $view = View::make('front.pages.products.index')->with(('product_categories', $this->product_category)->where('active', 1)->get())->with('product_category', $product_category);
 
-                /*
-                    * "with()" es una funcion de laravel que permite pasarle parametros a una vista.
-                    * En este caso, le pasamos el modelo "product_category" para que la vista pueda acceder a los datos.
-                    * Y le pasamos el metodo "where('active', 1)" para que solo muestre las categorias activas.
-                */
-
-                ->with('product_category', $this->product_category)
-                ->with('product_categories', $this->product_category->where('active', 1)->get());
+        DebugBar::info($product_categories);
 
         if(request()->ajax()) {
             
@@ -46,8 +39,7 @@ class ProductCategoryController extends Controller
 
     public function create()
     {
-
-       $view = View::make('admin.pages.product_categories.index')
+        $view = View::make('front.pages.products.index')
         ->with('product_category', $this->product_category)
         ->renderSections();
 
@@ -67,7 +59,7 @@ class ProductCategoryController extends Controller
                 'active' => 1,
         ]);
 
-        $view = View::make('admin.pages.product_categories.index')
+        $view = View::make('front.pages.products.index')
         ->with('product_categories', $this->product_category->where('active', 1)->get())
         ->with('product_category', $product_category)
         ->renderSections();
@@ -81,7 +73,7 @@ class ProductCategoryController extends Controller
 
     public function edit(ProductCategory $product_category)
     {
-        $view = View::make('admin.pages.product_categories.index')
+        $view = View::make('front.pages.products.index')
         ->with('product_category', $product_category)
         ->with('product_categories', $this->product_category->where('active', 1)->get());   
         
