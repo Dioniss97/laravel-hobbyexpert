@@ -9,24 +9,28 @@
                 <th>Cantidad</th>
             </tr>
             <tr>
-                <td>
-                    <img class="desktop-only" src="img/sr25.webp" alt="">
-                </td>
-                <td></td>
-                <td>271.49€</td>
-                <td>
-                    <div class="amount-button">
-                        <div class="minus">
-                            <button class="minus">-</button>
-                        </div>
-                        <div class="amount-style">
-                            <input class="amount" type="number" value="1">
-                        </div>
-                        <div class="plus">
-                            <button class="">+</button>
-                        </div>
-                    </div>
-                </td>
+                @if(isset($carts))
+                    @foreach($carts as $cart)
+                        <td>
+                            <img class="desktop-only" src="img/machine-gun.webp" alt="">
+                        </td>
+                        <td>MK46 SPORTS LINE LIGHT MACHINE GUN REPLICA [ST]</td>
+                        <td>{{$cart->price_id}}</td>
+                        <td>
+                            <div class="amount-button">
+                                <div class="minus">
+                                    <button>-</button>
+                                </div>
+                                <div class="amount-style">
+                                    <input class="amount" name="amount" type="number"  value="{{$cart->amount}}">
+                                </div>
+                                <div class="plus">
+                                    <button>+</button>
+                                </div>
+                            </div>
+                        </td>
+                    @endforeach
+                @endif
             </tr>
             <tr>
                 <td>

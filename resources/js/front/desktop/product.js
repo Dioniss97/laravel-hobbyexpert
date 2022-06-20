@@ -155,8 +155,6 @@ export let renderProduct = () => {
 
             let url = orderBySelect.value;
 
-            console.log(url);
-
             let sendGetRequest = async () => {
 
                 let response = await fetch(url, {

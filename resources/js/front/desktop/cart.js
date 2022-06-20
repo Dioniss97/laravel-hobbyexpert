@@ -18,11 +18,11 @@ export let renderCart = () => {
                 let data = new FormData(form);
                 let url = form.action;
 
-                // Creo que en las siguientes lineas solo se recogen inputs de tipo texto, así que no me sirve.
+                console.log(data);
 
-                // for (var pair of data.entries()) {
-                //     console.log(pair[0]+ ', ' + pair[1]);
-                // }
+                for (var pair of data.entries()) {
+                    console.log(pair[0]+ ', ' + pair[1]);
+                }
 
                 let sendPostRequest = async () => {
 
@@ -44,6 +44,8 @@ export let renderCart = () => {
                         return response.json();
                     })
                     .then(json => {
+
+                        console.log(json.content);
 
                         mainContainer.innerHTML = json.content; // Aquí se renderiza el contenido del formulario
 
