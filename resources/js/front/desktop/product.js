@@ -1,9 +1,6 @@
 export let renderProduct = () => {
 
     let mainContainer = document.querySelector("main");
-    // let addButton = document.querySelector(".add-to-cart-button");
-    // let amount = document.querySelector(".amount");
-    // let idPrice = document.querySelector(".id-price");
     let viewButtons = document.querySelectorAll(".product-view-button");
     let categoryTargets = document.querySelectorAll(".category-target");
     let orderBySelect = document.querySelector(".order-by-select");

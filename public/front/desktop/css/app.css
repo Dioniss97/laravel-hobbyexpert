@@ -628,17 +628,17 @@ footer ul li {
   border-radius: 0.5rem;
   display: flex;
 }
-.amount-button .minus {
+.amount-button .minus, .amount-button .cart-minus {
   background-color: hsl(0deg, 0%, 100%);
 }
-.amount-button .minus button {
+.amount-button .minus button, .amount-button .cart-minus button {
   background-color: hsl(46deg, 100%, 20%);
   color: hsl(240deg, 9%, 80%);
   cursor: pointer;
   padding: 0.4rem 0;
   width: 3rem;
 }
-.amount-button .minus button:hover {
+.amount-button .minus button:hover, .amount-button .cart-minus button:hover {
   opacity: 0.7;
   transition: 0.6s;
 }
@@ -656,17 +656,17 @@ footer ul li {
   text-align: center;
   width: 2rem;
 }
-.amount-button .plus {
+.amount-button .plus, .amount-button .cart-plus {
   background-color: hsl(0deg, 0%, 100%);
 }
-.amount-button .plus button {
+.amount-button .plus button, .amount-button .cart-plus button {
   background-color: hsl(46deg, 100%, 20%);
   color: hsl(240deg, 9%, 80%);
   cursor: pointer;
   padding: 0.4rem 0;
   width: 3rem;
 }
-.amount-button .plus button:hover {
+.amount-button .plus button:hover, .amount-button .cart-plus button:hover {
   opacity: 0.7;
   transition: 0.6s;
 }
@@ -1330,6 +1330,7 @@ footer ul li {
   margin: 2rem auto;
 }
 .product-view .product-view-info .product-view-info-price {
+  display: flex;
   background-color: hsl(240deg, 9%, 40%);
   border-radius: 8px;
   margin-right: auto;
@@ -1340,6 +1341,7 @@ footer ul li {
   color: hsl(46deg, 100%, 36%);
   font-size: 1.2rem;
   font-weight: bold;
+  justify-content: space-between;
 }
 .product-view .product-view-info .product-view-info-description p {
   font-size: 0.8rem;

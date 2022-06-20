@@ -142,8 +142,12 @@ Route::group(['prefix' => 'productos'], function () {
     Route::get('/categoria/{product_category}', 'App\Http\Controllers\Front\ProductCategoryController@showByCategory')->name('front_products_by_category');
 });
 
-Route::post('/carrito', 'App\Http\Controllers\Front\CartController@store')->name('front_cart_store');
-Route::get('/carrito', 'App\Http\Controllers\Front\CartController@index')->name('front_cart');
+Route::group(['prefix' => 'carrito'], function () {
+    Route::get('/', 'App\Http\Controllers\Front\CartController@index')->name('front_cart');
+    Route::post('/añadido', 'App\Http\Controllers\Front\CartController@store')->name('front_cart_store');
+    Route::get('/add/{price_id}/{fingerprint}', 'App\Http\Controllers\Front\CartController@add')->name('front_cart_add');
+    Route::get('/remove/{price_id}/{fingerprint}', 'App\Http\Controllers\Front\CartController@remove')->name('front_cart_remove');
+});
 
 Route::group(['prefix' => 'checkout'], function () {
     Route::get('/', 'App\Http\Controllers\Front\CheckoutController@index')->name('front_checkout');

@@ -4,7 +4,7 @@
     border-radius: .5rem;
     display: flex;
 
-    .minus {
+    .minus, .cart-minus {
         background-color: hsl(0, 0%, 100%);
     
         button {
@@ -37,7 +37,7 @@
         }
     }
 
-    .plus {
+    .plus, .cart-plus {
         background-color: hsl(0, 0%, 100%);
 
         button {

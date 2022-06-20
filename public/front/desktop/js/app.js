@@ -157,6 +157,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -165,31 +171,170 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 var renderCart = function renderCart() {
   var forms = document.querySelectorAll('.front-form');
+  var form = document.querySelector('.front-form');
   var addToCartButton = document.querySelector('.add-to-cart-button');
+  var mainContainer = document.querySelector('main');
+  var plus = document.querySelector(".cart-plus");
+  var minus = document.querySelector(".cart-minus");
   document.addEventListener("renderProductModules", function (event) {
     renderCart();
   }, {
     once: true
   });
 
+  if (plus) {
+    plus.addEventListener("click", function (event) {
+      event.preventDefault(); // forms.forEach(form => { 
+
+      var url = plus.dataset.url;
+
+      var sendPostRequest = /*#__PURE__*/function () {
+        var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+          var response;
+          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+            while (1) {
+              switch (_context.prev = _context.next) {
+                case 0:
+                  _context.next = 2;
+                  return fetch(url, {
+                    headers: {
+                      'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    method: 'GET'
+                  }).then(function (response) {
+                    if (!response.ok) throw response;
+                    return response.json();
+                  }).then(function (json) {
+                    mainContainer.innerHTML = json.content; // Aquí se renderiza el contenido del formulario
+
+                    // Aquí se renderiza el contenido del formulario
+                    document.dispatchEvent(new CustomEvent('renderProductModules'));
+                  })["catch"](function (error) {
+                    // document.dispatchEvent(new CustomEvent('stopWait'));
+                    if (error.status == '422') {
+                      error.json().then(function (jsonError) {
+                        var errors = jsonError.errors;
+                        var errorMessage = '';
+                        Object.keys(errors).forEach(function (key) {
+                          errorMessage += '<li>' + errors[key] + '</li>';
+                        });
+                        document.dispatchEvent(new CustomEvent('message', {
+                          detail: {
+                            message: errorMessage,
+                            type: 'error'
+                          }
+                        }));
+                      });
+                    }
+
+                    if (error.status == '500') {
+                      console.log(error);
+                    }
+
+                    ;
+                  });
+
+                case 2:
+                  response = _context.sent;
+
+                case 3:
+                case "end":
+                  return _context.stop();
+              }
+            }
+          }, _callee);
+        }));
+
+        return function sendPostRequest() {
+          return _ref.apply(this, arguments);
+        };
+      }();
+
+      sendPostRequest(); // });
+    });
+  } // if (plus) {
+  //     plus.addEventListener("click", (event) => {
+  //         event.preventDefault();
+  //         let data = new FormData(form);
+  //         let url = plus.dataset.url;
+  //         for (var pair of data.entries()) {
+  //             console.log(pair[0]+ ', ' + pair[1]);
+  //         }
+  //         console.log(data);
+  //         let sendGetRequest = async () => {
+  //             let response = await fetch(url, {
+  //                     headers: {
+  //                         'Accept': 'application/json',
+  //                         'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content
+  //                     },
+  //                     method: 'POST',
+  //                     body: data
+  //                 })
+  //                 .then(response => {
+  //                     if (!response.ok) throw response;
+  //                     return response.json();
+  //                 })
+  //                 .then(json => {
+  //                     console.log(json.content);
+  //                     mainContainer.innerHTML = json.content;
+  //                     document.dispatchEvent(new CustomEvent("renderCartModules"));
+  //                 })
+  //                 .catch(error => {
+  //                     // document.dispatchEvent(new CustomEvent('stopWait'));
+  //                     if (error.status == '422') {
+  //                         error.json().then(jsonError => {
+  //                             let errors = jsonError.errors;
+  //                             let errorMessage = '';
+  //                             Object.keys(errors).forEach(function (key) {
+  //                                 errorMessage += '<li>' + errors[key] + '</li>';
+  //                             })
+  //                             document.dispatchEvent(new CustomEvent('message', {
+  //                                 detail: {
+  //                                     message: errorMessage,
+  //                                     type: 'error'
+  //                                 }
+  //                             }));
+  //                         })
+  //                     }
+  //                     if (error.status == '500') {
+  //                         console.log(error);
+  //                     };
+  //                 });
+  //         };
+  //         sendGetRequest();
+  //     });
+  // }
+
+
   if (addToCartButton) {
     addToCartButton.addEventListener("click", function (event) {
       event.preventDefault();
       forms.forEach(function (form) {
         var data = new FormData(form);
-        var url = form.action; // Creo que en las siguientes lineas solo se recogen inputs de tipo texto, así que no me sirve.
-        // for (var pair of data.entries()) {
-        //     console.log(pair[0]+ ', ' + pair[1]);
-        // }
+        var url = form.action;
+
+        var _iterator = _createForOfIteratorHelper(data.entries()),
+            _step;
+
+        try {
+          for (_iterator.s(); !(_step = _iterator.n()).done;) {
+            var pair = _step.value;
+            console.log(pair[0] + ', ' + pair[1]);
+          }
+        } catch (err) {
+          _iterator.e(err);
+        } finally {
+          _iterator.f();
+        }
 
         var sendPostRequest = /*#__PURE__*/function () {
-          var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+          var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
             var response;
-            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
               while (1) {
-                switch (_context.prev = _context.next) {
+                switch (_context2.prev = _context2.next) {
                   case 0:
-                    _context.next = 2;
+                    _context2.next = 2;
                     return fetch(url, {
                       headers: {
                         'Accept': 'application/json',
@@ -205,6 +350,7 @@ var renderCart = function renderCart() {
 
                       // Aquí se renderiza el contenido del formulario
                       document.dispatchEvent(new CustomEvent('renderProductModules'));
+                      document.dispatchEvent(new CustomEvent('renderCartModules'));
                     })["catch"](function (error) {
                       // document.dispatchEvent(new CustomEvent('stopWait'));
                       if (error.status == '422') {
@@ -231,18 +377,18 @@ var renderCart = function renderCart() {
                     });
 
                   case 2:
-                    response = _context.sent;
+                    response = _context2.sent;
 
                   case 3:
                   case "end":
-                    return _context.stop();
+                    return _context2.stop();
                 }
               }
-            }, _callee);
+            }, _callee2);
           }));
 
           return function sendPostRequest() {
-            return _ref.apply(this, arguments);
+            return _ref2.apply(this, arguments);
           };
         }();
 
@@ -614,10 +760,7 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 var renderProduct = function renderProduct() {
-  var mainContainer = document.querySelector("main"); // let addButton = document.querySelector(".add-to-cart-button");
-  // let amount = document.querySelector(".amount");
-  // let idPrice = document.querySelector(".id-price");
-
+  var mainContainer = document.querySelector("main");
   var viewButtons = document.querySelectorAll(".product-view-button");
   var categoryTargets = document.querySelectorAll(".category-target");
   var orderBySelect = document.querySelector(".order-by-select");
@@ -774,7 +917,6 @@ var renderProduct = function renderProduct() {
   if (orderBySelect) {
     orderBySelect.addEventListener("change", function () {
       var url = orderBySelect.value;
-      console.log(url);
 
       var sendGetRequest = /*#__PURE__*/function () {
         var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
