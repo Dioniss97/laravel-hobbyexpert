@@ -38,8 +38,6 @@ class CartController extends Controller
     public function store(Request $request)
     {
 
-        DebugBar::info(request('price_id'));
-
         for($i = 0; $i < request('amount'); $i++) {
 
             $cart = $this->cart->create([
@@ -48,7 +46,6 @@ class CartController extends Controller
                 'active' => 1,
             ]);
         }
-
 
         $carts = $this->cart->select(DB::raw('count(price_id) as amount'), 'price_id')
             ->groupByRaw('price_id')
@@ -71,7 +68,7 @@ class CartController extends Controller
 
         $cart = $this->cart->create([
             'price_id' => $price_id,
-            'fingerprint' => '1',
+            'fingerprint' => $fingerprint,
             'active' => 1,
         ]);
 
@@ -91,8 +88,17 @@ class CartController extends Controller
         ]);
     }
 
-    public function remove(Request $request)
+    public function remove($fingerprint, $price_id)
     {
-        $cart = $this->cart->where('fingerprint', '1')->where('price_id', request('price_id'))->first()->delete();
+        $cart = $this->cart->where('fingerprint', $fingerprint)->where('price_id', $price_id)->first()->delete();
+
+        $sections = View::make('front.pages.cart.index')
+        ->with('carts', $carts)
+        ->with('fingerprint', $fingerprint)
+        ->renderSections();
+
+    return response()->json([
+        'content' => $sections['content'],
+    ]);
     }
 }

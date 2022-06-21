@@ -34,43 +34,29 @@
                     @endforeach
                 @endif
             </tr>
-            <tr>
-                <td>
-                    <img class="desktop-only" src="img/machine-gun.webp" alt="">
-                </td>
-                <td>MK46 SPORTS LINE LIGHT MACHINE GUN REPLICA [ST]</td>
-                <td>234.89 €</td>
-                <td>
-                    <div class="amount-button">
-                        <div class="minus">
-                            <button>-</button>
-                        </div>
-                        <div class="amount-style">
-                            <input class="amount" type="number"  value="1">
-                        </div>
-                        <div class="plus">
-                            <button>+</button>
-                        </div>
-                    </div>
-                </td>
-            </tr>
         </table>
     </div>
     <div class="cart-resume-table">
         <table>
             <caption>Resumen de la compra</caption>
-            <tr>
-                <th>IVA</th>
-                <td>106.34€</td>
-            </tr>
-            <tr>
-                <th>Transporte</th>
-                <td>0€</td>
-            </tr>
-            <tr>
-                <th>Total</th>
-                <td>612.72 €</td>
-            </tr>
+                <tr>
+                    <th>Producto</th>
+                    <th>IVA</th>
+                    <th>Precio Base total</th>
+                    <th>Cantidad</th>
+                    <th>Total</th>
+                </tr>
+                @if(isset($carts))
+                    @foreach($carts as $cart)
+                        <tr>
+                            <td>{{$cart->price->product->title}}</td>
+                            <td>{{$cart->price->tax->type}} %</td>
+                            <td>{{$cart->price->base_price * $cart->amount}} €</td>
+                            <td>{{$cart->amount}}</td>
+                            <td>{{$cart->price->base_price * $cart->amount * $cart->price->tax->multiplicator}} €</td>
+                        </tr>
+                    @endforeach
+                @endif
         </table>
         <div class="cart-buttons">
             <div class="purchase-button">
