@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Front;
 use Illuminate\Support\Facades\View;
 use App\Http\Controllers\Controller;
 use App\Models\Checkout;
-use App\Http\Requests\Front\CheckoutRequest;
+use Debugbar;
+use DB;
 
 class CheckoutController extends Controller
 {
@@ -16,7 +17,6 @@ class CheckoutController extends Controller
     {
         $this->checkout = $checkout;
     }
-
 
     public function index()
     {
@@ -34,25 +34,25 @@ class CheckoutController extends Controller
         return $view;
     }
 
-    public function store(CheckoutRequest $request)
-    {            
+    // public function store(CheckoutRequest $request)
+    // {            
 
-        $checkout = $this->checkout->Create( [
-            'name' => request('name'),
-            'surnames' => request('surnames'),
-            'email' => request('email'),
-            'phone' => request('phone'),
-            'province' => request('province'),
-            'postal_code' => request('postal_code'),
-            'address' => request('address'),
-            'active' => 1,
-        ]);
+    //     $checkout = $this->checkout->Create( [
+    //         'name' => request('name'),
+    //         'surnames' => request('surnames'),
+    //         'email' => request('email'),
+    //         'phone' => request('phone'),
+    //         'province' => request('province'),
+    //         'postal_code' => request('postal_code'),
+    //         'address' => request('address'),
+    //         'active' => 1,
+    //     ]);
 
-        $sections = View::make('front.pages.checkout.index')->renderSections();
+    //     $sections = View::make('front.pages.checkout.index')->renderSections();
 
-        return response()->json([
-            'content' => $sections['content'],
-        ]);
-    }
+    //     return response()->json([
+    //         'content' => $sections['content'],
+    //     ]);
+    // }
 
 }

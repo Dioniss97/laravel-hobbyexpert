@@ -40,29 +40,30 @@
         <table>
             <caption>Resumen de la compra</caption>
                 <tr>
-                    <th>Producto</th>
                     <th>IVA</th>
                     <th>Precio Base total</th>
-                    <th>Cantidad</th>
+                    <th>IVA a pagar</th>
                     <th>Total</th>
                 </tr>
                 @if(isset($carts))
                     @foreach($carts as $cart)
                         <tr>
-                            <td>{{$cart->price->product->title}}</td>
                             <td>{{$cart->price->tax->type}} %</td>
                             <td>{{$cart->price->base_price * $cart->amount}} €</td>
-                            <td>{{$cart->amount}}</td>
-                            <td>{{$cart->price->base_price * $cart->amount * $cart->price->tax->multiplicator}} €</td>
+                            <td>{{$totalPrices * ($cart->price->tax->multiplicator - 1)}} €</td>
+                            <td>{{$totalPrices * $cart->price->tax->multiplicator}} €</td>
                         </tr>
                     @endforeach
                 @endif
         </table>
         <div class="cart-buttons">
-            <div class="purchase-button">
+            <div class="cancel-button">
                 <button>Atrás</button>
             </div>
-            <div class="cancel-button">
+            {{-- Intenté pasar las variables "$totalPrices" y "$carts" por URL pero carts daba problemas, 
+            luego intenté pasar el fingerprint para luego en el controlador usarlo para
+            construir esas dos variables que me interesan para el checkout. --}}
+            <div class="purchase-button" data-url="{{route('front_checkout')}}">
                 <button>Comprar</button>
             </div>
         </div>

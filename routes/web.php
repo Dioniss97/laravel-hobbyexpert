@@ -117,13 +117,12 @@ Route::group(['prefix' => 'admin'], function () {
         'parameters' => [
             'faqs' => 'faq',
         ],
-        'names' => [ // 'names' es una función de laravel que nos permite cambiar el nombre de las rutas
-            'index' => 'faqs', // Metodo http  GET: Para mostrar todos los datos de la tabla.
-            'create' => 'faqs_create', // Metodo http POST: Para crear un nuevo registro.
-            'edit' => 'faqs_edit', // Metodo http POST: Para actualizar un registro.
-            'store' => 'faqs_store', // Metodo http POST: Para guardar datos.
-            'destroy' => 'faqs_destroy', // Metodo http DELETE: Para borrar registros de la base de datos.
-            'show' => 'faqs_show', // Metodo http GET: Para mostrar un registro de la base de datos.
+        'names' => [
+            'index' => 'faqs',
+            'create' => 'faqs_create',
+            'store' => 'faqs_store',
+            'destroy' => 'faqs_destroy',
+            'show' => 'faqs_show',
         ]
     ]);
 });
@@ -149,7 +148,7 @@ Route::group(['prefix' => 'carrito'], function () {
     Route::get('/remove/{price_id}/{fingerprint}', 'App\Http\Controllers\Front\CartController@remove')->name('front_cart_remove');
 });
 
-Route::group(['prefix' => 'checkout'], function () {
-    Route::get('/', 'App\Http\Controllers\Front\CheckoutController@index')->name('front_checkout');
-    Route::post('/', 'App\Http\Controllers\Front\CheckoutController@store')->name('front_checkout_store');
-});
+// Route::get('/checkout/{fingerprint}', 'App\Http\Controllers\Front\CheckoutController@index')->name('front_checkout');
+
+
+Route::get('/checkout', 'App\Http\Controllers\Front\CheckoutController@index')->name('front_checkout');

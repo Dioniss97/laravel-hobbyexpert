@@ -170,23 +170,26 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 var renderCart = function renderCart() {
-  var forms = document.querySelectorAll('.front-form');
-  var form = document.querySelector('.front-form');
+  var forms = document.querySelectorAll('.front-form'); // let form = document.querySelector('.front-form');
+
   var addToCartButton = document.querySelector('.add-to-cart-button');
   var mainContainer = document.querySelector('main');
-  var plus = document.querySelector(".cart-plus");
-  var minus = document.querySelector(".cart-minus");
+  var pluses = document.querySelectorAll(".cart-plus");
+  var minuses = document.querySelectorAll(".cart-minus");
+  var buyButton = document.querySelector(".purchase-button");
   document.addEventListener("renderProductModules", function (event) {
     renderCart();
   }, {
     once: true
   });
 
-  if (plus) {
-    plus.addEventListener("click", function (event) {
+  if (buyButton) {
+    // pluses.forEach(plus => {
+    buyButton.addEventListener("click", function (event) {
       event.preventDefault(); // forms.forEach(form => { 
 
-      var url = plus.dataset.url;
+      var url = buyButton.dataset.url;
+      console.log(url);
 
       var sendPostRequest = /*#__PURE__*/function () {
         var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
@@ -250,61 +253,156 @@ var renderCart = function renderCart() {
         };
       }();
 
-      sendPostRequest(); // });
+      sendPostRequest();
     });
-  } // if (plus) {
-  //     plus.addEventListener("click", (event) => {
-  //         event.preventDefault();
-  //         let data = new FormData(form);
-  //         let url = plus.dataset.url;
-  //         for (var pair of data.entries()) {
-  //             console.log(pair[0]+ ', ' + pair[1]);
-  //         }
-  //         console.log(data);
-  //         let sendGetRequest = async () => {
-  //             let response = await fetch(url, {
-  //                     headers: {
-  //                         'Accept': 'application/json',
-  //                         'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content
-  //                     },
-  //                     method: 'POST',
-  //                     body: data
-  //                 })
-  //                 .then(response => {
-  //                     if (!response.ok) throw response;
-  //                     return response.json();
-  //                 })
-  //                 .then(json => {
-  //                     console.log(json.content);
-  //                     mainContainer.innerHTML = json.content;
-  //                     document.dispatchEvent(new CustomEvent("renderCartModules"));
-  //                 })
-  //                 .catch(error => {
-  //                     // document.dispatchEvent(new CustomEvent('stopWait'));
-  //                     if (error.status == '422') {
-  //                         error.json().then(jsonError => {
-  //                             let errors = jsonError.errors;
-  //                             let errorMessage = '';
-  //                             Object.keys(errors).forEach(function (key) {
-  //                                 errorMessage += '<li>' + errors[key] + '</li>';
-  //                             })
-  //                             document.dispatchEvent(new CustomEvent('message', {
-  //                                 detail: {
-  //                                     message: errorMessage,
-  //                                     type: 'error'
-  //                                 }
-  //                             }));
-  //                         })
-  //                     }
-  //                     if (error.status == '500') {
-  //                         console.log(error);
-  //                     };
-  //                 });
-  //         };
-  //         sendGetRequest();
-  //     });
-  // }
+  }
 
+  if (pluses) {
+    pluses.forEach(function (plus) {
+      plus.addEventListener("click", function (event) {
+        event.preventDefault(); // forms.forEach(form => { 
+
+        var url = plus.dataset.url;
+        console.log(url);
+
+        var sendPostRequest = /*#__PURE__*/function () {
+          var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+            var response;
+            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+              while (1) {
+                switch (_context2.prev = _context2.next) {
+                  case 0:
+                    _context2.next = 2;
+                    return fetch(url, {
+                      headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                      },
+                      method: 'GET'
+                    }).then(function (response) {
+                      if (!response.ok) throw response;
+                      return response.json();
+                    }).then(function (json) {
+                      mainContainer.innerHTML = json.content; // Aquí se renderiza el contenido del formulario
+
+                      // Aquí se renderiza el contenido del formulario
+                      document.dispatchEvent(new CustomEvent('renderProductModules'));
+                    })["catch"](function (error) {
+                      // document.dispatchEvent(new CustomEvent('stopWait'));
+                      if (error.status == '422') {
+                        error.json().then(function (jsonError) {
+                          var errors = jsonError.errors;
+                          var errorMessage = '';
+                          Object.keys(errors).forEach(function (key) {
+                            errorMessage += '<li>' + errors[key] + '</li>';
+                          });
+                          document.dispatchEvent(new CustomEvent('message', {
+                            detail: {
+                              message: errorMessage,
+                              type: 'error'
+                            }
+                          }));
+                        });
+                      }
+
+                      if (error.status == '500') {
+                        console.log(error);
+                      }
+
+                      ;
+                    });
+
+                  case 2:
+                    response = _context2.sent;
+
+                  case 3:
+                  case "end":
+                    return _context2.stop();
+                }
+              }
+            }, _callee2);
+          }));
+
+          return function sendPostRequest() {
+            return _ref2.apply(this, arguments);
+          };
+        }();
+
+        sendPostRequest();
+      });
+    });
+  }
+
+  if (minuses) {
+    minuses.forEach(function (minus) {
+      minus.addEventListener("click", function (event) {
+        event.preventDefault(); // forms.forEach(form => { 
+
+        var url = minus.dataset.url;
+
+        var sendPostRequest = /*#__PURE__*/function () {
+          var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+            var response;
+            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+              while (1) {
+                switch (_context3.prev = _context3.next) {
+                  case 0:
+                    _context3.next = 2;
+                    return fetch(url, {
+                      headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                      },
+                      method: 'GET'
+                    }).then(function (response) {
+                      if (!response.ok) throw response;
+                      return response.json();
+                    }).then(function (json) {
+                      mainContainer.innerHTML = json.content;
+                      document.dispatchEvent(new CustomEvent('renderProductModules'));
+                    })["catch"](function (error) {
+                      // document.dispatchEvent(new CustomEvent('stopWait'));
+                      if (error.status == '422') {
+                        error.json().then(function (jsonError) {
+                          var errors = jsonError.errors;
+                          var errorMessage = '';
+                          Object.keys(errors).forEach(function (key) {
+                            errorMessage += '<li>' + errors[key] + '</li>';
+                          });
+                          document.dispatchEvent(new CustomEvent('message', {
+                            detail: {
+                              message: errorMessage,
+                              type: 'error'
+                            }
+                          }));
+                        });
+                      }
+
+                      if (error.status == '500') {
+                        console.log(error);
+                      }
+
+                      ;
+                    });
+
+                  case 2:
+                    response = _context3.sent;
+
+                  case 3:
+                  case "end":
+                    return _context3.stop();
+                }
+              }
+            }, _callee3);
+          }));
+
+          return function sendPostRequest() {
+            return _ref3.apply(this, arguments);
+          };
+        }();
+
+        sendPostRequest();
+      });
+    });
+  }
 
   if (addToCartButton) {
     addToCartButton.addEventListener("click", function (event) {
@@ -328,13 +426,13 @@ var renderCart = function renderCart() {
         }
 
         var sendPostRequest = /*#__PURE__*/function () {
-          var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+          var _ref4 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
             var response;
-            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
               while (1) {
-                switch (_context2.prev = _context2.next) {
+                switch (_context4.prev = _context4.next) {
                   case 0:
-                    _context2.next = 2;
+                    _context4.next = 2;
                     return fetch(url, {
                       headers: {
                         'Accept': 'application/json',
@@ -377,18 +475,18 @@ var renderCart = function renderCart() {
                     });
 
                   case 2:
-                    response = _context2.sent;
+                    response = _context4.sent;
 
                   case 3:
                   case "end":
-                    return _context2.stop();
+                    return _context4.stop();
                 }
               }
-            }, _callee2);
+            }, _callee4);
           }));
 
           return function sendPostRequest() {
-            return _ref2.apply(this, arguments);
+            return _ref4.apply(this, arguments);
           };
         }();
 

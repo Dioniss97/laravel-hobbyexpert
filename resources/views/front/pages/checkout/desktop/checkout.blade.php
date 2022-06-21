@@ -82,23 +82,25 @@
         <div class="column">
             <div class="checkout-table">
                 <div class="cart-resume-table">
-                    <div class="cart-resume-table-title">
-                        <h3></h3>
-                    </div>
                     <table>
                         <caption>Resumen de la compra</caption>
                         <tr>
+                            <th>Producto</th>
                             <th>IVA</th>
-                            <td>106.34€</td>
-                        </tr>
-                        <tr>
-                            <th>Transporte</th>
-                            <td>0€</td>
-                        </tr>
-                        <tr>
+                            <th>Precio Base total</th>
+                            <th>Cantidad</th>
                             <th>Total</th>
-                            <td>612.72 €</td>
                         </tr>
+                        {{-- @if(isset($carts))
+                            @foreach($carts as $cart)
+                                <tr>
+                                    <td>{{$cart->price->tax->type}} %</td>
+                                    <td>{{$cart->price->base_price * $cart->amount}} €</td>
+                                    <td>{{$totalPrices * ($cart->price->tax->multiplicator - 1)}} €</td>
+                                    <td>{{$totalPrices * $cart->price->tax->multiplicator}} €</td>
+                                </tr>
+                            @endforeach
+                        @endif --}}
                     </table>
                 </div>
                 <div class="checkout-payment">
