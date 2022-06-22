@@ -5,10 +5,10 @@
                 <form action="">
                     <div class="desktop-two-columns">
                         <div class="column">
-                            <label for="name">Nombre</label><input type="text">
-                            <label for="telephone">Teléfono</label><input type="tel">
+                            <label for="name">Nombre</label><input name="name" type="text">
+                            <label for="telephone">Teléfono</label><input name="telephone" type="tel">
                             <label for="city">Ciudad</label>
-                            <select name="provincia" size="1">
+                            <select name="province" size="1">
                                 <option value='selecciona'>Selecciona</option>
                                 <option value='A Coruña'>A Coruña</option>
                                 <option value='álava'>álava</option>
@@ -66,14 +66,14 @@
                             </select>
                         </div>
                         <div class="column">
-                            <label for="surname">Apellidos</label><input type="text">
-                            <label for="email">Email</label><input type="text">
-                            <label for="pc">Código postal</label><input type="text">
+                            <label for="surname">Apellidos</label><input name="surnames" type="text">
+                            <label for="email">Email</label><input name="email" type="text">
+                            <label for="pc">Código postal</label><input name="postal_code" type="text">
                         </div>
                     </div>
                     <div class="desktop-one-column">
                         <div class="column">
-                            <label for="">Direccíón</label><input type="text">
+                            <label for="">Direccíón</label><input name="address" type="text">
                         </div>
                     </div>
                 </form>
@@ -90,16 +90,12 @@
                             <th>IVA a pagar</th>
                             <th>Total</th>
                         </tr>
-                        @if(isset($carts))
-                            @foreach($carts as $cart)
-                                <tr>
-                                    <td>{{$cart->price->tax->type}} %</td>
-                                    <td>{{$base_total}} €</td>
-                                    <td>{{$tax_total}} €</td>
-                                    <td>{{$total}} €</td>
-                                </tr>
-                            @endforeach
-                        @endif
+                        <tr>
+                            <td>{{$tax}} %</td>
+                            <td>{{$base_total}} €</td>
+                            <td>{{$tax_total}} €</td>
+                            <td>{{$total}} €</td>
+                        </tr>
                     </table>
                 </div>
                 <div class="checkout-payment">

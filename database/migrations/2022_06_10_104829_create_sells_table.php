@@ -19,6 +19,7 @@ return new class extends Migration
             $table->date('date_emission');
             $table->time('time_emission');
             $table->integer('payment_method_id');
+            $table->integer('client_id');
             $table->float('total_base_price');
             $table->float('total_tax_price');
             $table->float('total_price');

@@ -43,6 +43,7 @@ class CartController extends Controller
             $cart = $this->cart->create([
                 'price_id' => request('price_id'),
                 'fingerprint' => '1',
+                'client_id' => '1',
                 'active' => 1,
             ]);
         }
@@ -64,9 +65,19 @@ class CartController extends Controller
             ->select(DB::raw('sum(prices.base_price) as base_total'), DB::raw('sum(prices.base_price * taxes.multiplicator) as total') )
             ->first();
 
+        $taxes = $this->cart
+            ->where('carts.fingerprint', $cart->fingerprint)
+            ->where('carts.active', 1)
+            ->where('carts.sell_id', null)
+            ->join('prices', 'prices.id', '=', 'carts.price_id')
+            ->join('taxes', 'taxes.id', '=', 'prices.tax_id')
+            ->select(DB::raw('taxes.type as tax'))
+            ->first();
+
         $sections = View::make('front.pages.cart.index')
             ->with('fingerprint', $cart->fingerprint)
             ->with('carts', $carts)
+            ->with('tax', $taxes->tax)
             ->with('base_total', $totals->base_total)
             ->with('total', $totals->total)
             ->with('tax_total', ($totals->total - $totals->base_total))
@@ -83,6 +94,7 @@ class CartController extends Controller
         $cart = $this->cart->create([
             'price_id' => $price_id,
             'fingerprint' => $fingerprint,
+            'client_id' => '1',
             'active' => 1,
         ]);
 
@@ -103,9 +115,19 @@ class CartController extends Controller
             ->select(DB::raw('sum(prices.base_price) as base_total'), DB::raw('sum(prices.base_price * taxes.multiplicator) as total') )
             ->first();
 
+        $taxes = $this->cart
+            ->where('carts.fingerprint', $fingerprint)
+            ->where('carts.active', 1)
+            ->where('carts.sell_id', null)
+            ->join('prices', 'prices.id', '=', 'carts.price_id')
+            ->join('taxes', 'taxes.id', '=', 'prices.tax_id')
+            ->select(DB::raw('taxes.type as tax'))
+            ->first();
+
         $sections = View::make('front.pages.cart.index')
             ->with('fingerprint', $fingerprint)
             ->with('carts', $carts)
+            ->with('tax', $taxes->tax)
             ->with('base_total', $totals->base_total)
             ->with('total', $totals->total)
             ->with('tax_total', ($totals->total - $totals->base_total))

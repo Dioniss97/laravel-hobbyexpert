@@ -57,6 +57,20 @@ Route::group(['prefix' => 'admin'], function () {
         ]
     ]);
 
+    Route::resource('ventas', 'App\Http\Controllers\Admin\SellController', [
+        'parameters' => [
+            'ventas' => 'sell'
+        ],
+        'names' => [
+            'index' => 'sells',
+            'create' => 'sells_create',
+            'edit' => 'sells_edit',
+            'show' => 'sells_show',
+            'store' => 'sells_store',
+            'destroy' => 'sells_destroy'
+        ]
+    ]);
+
     Route::resource('contacto', 'App\Http\Controllers\Admin\ContactController', [
         'parameters' => [
             'contacto' => 'contact'
@@ -151,6 +165,6 @@ Route::group(['prefix' => 'carrito'], function () {
 // Route::get('/checkout/{fingerprint}', 'App\Http\Controllers\Front\CheckoutController@index')->name('front_checkout');
 
 
-Route::get('/checkout', 'App\Http\Controllers\Front\CheckoutController@index')->name('front_checkout');
+Route::get('/checkout/{fingerprint}', 'App\Http\Controllers\Front\CheckoutController@index')->name('front_checkout');
 
 Route::get('/comprado', 'App\Http\Controllers\Front\CheckoutController@purchased')->name('front_checkout_ended');

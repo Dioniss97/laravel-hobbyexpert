@@ -38,29 +38,25 @@
     </div>
     <div class="cart-resume-table">
         <table>
-            <caption>Resumen de la compra</caption>
-                <tr>
-                    <th>IVA</th>
-                    <th>Precio Base total</th>
-                    <th>IVA a pagar</th>
-                    <th>Total</th>
-                </tr>
-                @if(isset($carts))
-                    @foreach($carts as $cart)
-                        <tr>
-                            <td>{{$cart->price->tax->type}} %</td>
-                            <td>{{$base_total}} €</td>
-                            <td>{{$tax_total}} €</td>
-                            <td>{{$total}} €</td>
-                        </tr>
-                    @endforeach
-                @endif
+        <caption>Resumen de la compra</caption>
+            <tr>
+                <th>IVA</th>
+                <th>Precio Base total</th>
+                <th>IVA a pagar</th>
+                <th>Total</th>
+            </tr>
+            <tr>
+                <td>{{$tax}} %</td>
+                <td>{{$base_total}} €</td>
+                <td>{{$tax_total}} €</td>
+                <td>{{$total}} €</td>
+            </tr>
         </table>
         <div class="cart-buttons">
             <div class="cancel-button">
                 <button>Atrás</button>
             </div>
-            <div class="buy-button" data-url="{{route('front_checkout')}}">
+            <div class="buy-button" data-url="{{route('front_checkout', ['fingerprint' => $fingerprint])}}">
                 <button>Comprar</button>
             </div>
         </div>

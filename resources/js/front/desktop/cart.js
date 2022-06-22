@@ -1,7 +1,7 @@
 export let renderCart = () => {
 
     let forms = document.querySelectorAll('.front-form');
-    // let form = document.querySelector('.front-form');
+    let form = document.querySelector('.front-form');
     let addToCartButton = document.querySelector('.add-to-cart-button');
     let mainContainer = document.querySelector('main');
     let pluses = document.querySelectorAll(".cart-plus");
@@ -12,6 +12,10 @@ export let renderCart = () => {
     document.addEventListener("renderProductModules",( event =>{
         renderCart();
     }), {once: true});
+
+    // Me falta construir el FormData del front-form del checkout,
+    // llevarme sus datos al controlador para que me funcionen los request
+    // y así ya se enviarían a la base de datos.
 
     if(buyButton) {
 
@@ -25,7 +29,11 @@ export let renderCart = () => {
 
             let url = buyButton.dataset.url;
 
-            console.log(url);
+            // let data = new FormData(form);
+
+            // for (var pair of data.entries()) {
+            //     console.log(pair[0]+ ', ' + pair[1]);
+            // }
 
             let sendPostRequest = async () => {
 

@@ -57,7 +57,7 @@ class ProductController extends Controller
     {            
 
         $product = $this->product->updateOrCreate([
-                'id' => request('id')],[ // We catch the 'id' from the request of the input field named 'id'
+            'id' => request('id')],[
                 'name' => request('title'),
                 'title' => request('title'),
                 'description' => request('description'),
@@ -73,7 +73,7 @@ class ProductController extends Controller
         ]);
 
         $this->price->create([
-            'product_id' => $product->id, // On 'product_id we are using the id of the product that we just created.
+            'product_id' => $product->id,
             'base_price' => request('base_price'),
             'tax_id' => request('tax_id'),
             'valid' => 1,
@@ -106,7 +106,7 @@ class ProductController extends Controller
                 'form' => $sections['form'],
             ]); 
         }
-                
+
         return $view;
     }
 

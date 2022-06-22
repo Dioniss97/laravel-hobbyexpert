@@ -170,8 +170,8 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 var renderCart = function renderCart() {
-  var forms = document.querySelectorAll('.front-form'); // let form = document.querySelector('.front-form');
-
+  var forms = document.querySelectorAll('.front-form');
+  var form = document.querySelector('.front-form');
   var addToCartButton = document.querySelector('.add-to-cart-button');
   var mainContainer = document.querySelector('main');
   var pluses = document.querySelectorAll(".cart-plus");
@@ -182,15 +182,19 @@ var renderCart = function renderCart() {
     renderCart();
   }, {
     once: true
-  });
+  }); // Me falta construir el FormData del front-form del checkout,
+  // llevarme sus datos al controlador para que me funcionen los request
+  // y así ya se enviarían a la base de datos.
 
   if (buyButton) {
     // pluses.forEach(plus => {
     buyButton.addEventListener("click", function (event) {
       event.preventDefault(); // forms.forEach(form => { 
 
-      var url = buyButton.dataset.url;
-      console.log(url);
+      var url = buyButton.dataset.url; // let data = new FormData(form);
+      // for (var pair of data.entries()) {
+      //     console.log(pair[0]+ ', ' + pair[1]);
+      // }
 
       var sendPostRequest = /*#__PURE__*/function () {
         var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
