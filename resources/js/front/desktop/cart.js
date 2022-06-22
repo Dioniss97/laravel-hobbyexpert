@@ -6,7 +6,8 @@ export let renderCart = () => {
     let mainContainer = document.querySelector('main');
     let pluses = document.querySelectorAll(".cart-plus");
     let minuses = document.querySelectorAll(".cart-minus");
-    let buyButton = document.querySelector(".purchase-button");
+    let buyButton = document.querySelector(".buy-button");
+    let purchaseButton = document.querySelector(".purchase-button");
 
     document.addEventListener("renderProductModules",( event =>{
         renderCart();
@@ -82,6 +83,75 @@ export let renderCart = () => {
         });
     }
 
+    if(purchaseButton) {
+
+        // pluses.forEach(plus => {
+
+        purchaseButton.addEventListener("click", (event) => {
+
+            event.preventDefault();
+
+            // forms.forEach(form => { 
+
+            let url = purchaseButton.dataset.url;
+
+            console.log(url);
+
+            let sendPostRequest = async () => {
+
+                let response = await fetch(url, {
+
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                    },
+                    method: 'GET',
+                })
+                .then(response => {
+                
+                    if (!response.ok) throw response;
+
+                    return response.json();
+                })
+                .then(json => {
+
+                    mainContainer.innerHTML = json.content; // Aquí se renderiza el contenido del formulario
+
+                    document.dispatchEvent(new CustomEvent('renderProductModules'));
+
+                })
+                .catch ( error =>  {
+
+                    // document.dispatchEvent(new CustomEvent('stopWait'));
+
+                    if(error.status == '422'){
+    
+                        error.json().then(jsonError => {
+
+                            let errors = jsonError.errors;      
+                            let errorMessage = '';
+        
+                            Object.keys(errors).forEach(function(key) {
+                                errorMessage += '<li>' + errors[key] + '</li>';
+                            })
+            
+                            document.dispatchEvent(new CustomEvent('message', {
+                                detail: {
+                                    message: errorMessage,
+                                    type: 'error'
+                                }
+                            }));
+                        })   
+                    }
+
+                    if(error.status == '500'){
+                        console.log(error);
+                    };
+                });
+            };
+    
+            sendPostRequest();
+        });
+    }
 
     if(pluses) {
 

@@ -85,22 +85,21 @@
                     <table>
                         <caption>Resumen de la compra</caption>
                         <tr>
-                            <th>Producto</th>
                             <th>IVA</th>
-                            <th>Precio Base total</th>
-                            <th>Cantidad</th>
+                            <th>Base imponible</th>
+                            <th>IVA a pagar</th>
                             <th>Total</th>
                         </tr>
-                        {{-- @if(isset($carts))
+                        @if(isset($carts))
                             @foreach($carts as $cart)
                                 <tr>
                                     <td>{{$cart->price->tax->type}} %</td>
-                                    <td>{{$cart->price->base_price * $cart->amount}} €</td>
-                                    <td>{{$totalPrices * ($cart->price->tax->multiplicator - 1)}} €</td>
-                                    <td>{{$totalPrices * $cart->price->tax->multiplicator}} €</td>
+                                    <td>{{$base_total}} €</td>
+                                    <td>{{$tax_total}} €</td>
+                                    <td>{{$total}} €</td>
                                 </tr>
                             @endforeach
-                        @endif --}}
+                        @endif
                     </table>
                 </div>
                 <div class="checkout-payment">
@@ -115,7 +114,9 @@
                             <input name="payment" type="radio"><label for="">Tarjeta de crédito</label>
                         </div>
                     </form>
-                    <button>Pagar</button>
+                    <div class="purchase-button" data-url="{{route('front_checkout_ended')}}">
+                        <button>Pagar</button>
+                    </div>
                 </div>
             </div>
         </div>

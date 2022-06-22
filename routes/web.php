@@ -152,3 +152,5 @@ Route::group(['prefix' => 'carrito'], function () {
 
 
 Route::get('/checkout', 'App\Http\Controllers\Front\CheckoutController@index')->name('front_checkout');
+
+Route::get('/comprado', 'App\Http\Controllers\Front\CheckoutController@purchased')->name('front_checkout_ended');

@@ -1441,3 +1441,23 @@ footer ul li {
 .faqs-container {
   padding-bottom: 4rem;
 }
+
+.message-container {
+  display: flex;
+  align-items: center;
+  height: 10rem;
+  width: 100%;
+}
+.message-container .message {
+  border-left: 0.4rem solid hsl(46deg, 100%, 20%);
+  border-right: 0.4rem solid hsl(46deg, 100%, 20%);
+  display: flex;
+  justify-content: center;
+  height: 40%;
+  width: 40%;
+  margin: auto;
+}
+.message-container .message span {
+  color: hsl(0deg, 0%, 100%);
+  margin: auto;
+}
