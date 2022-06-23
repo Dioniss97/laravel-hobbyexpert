@@ -21,7 +21,7 @@ class ProductCategoryController extends Controller
     public function index()
     {
         $view = View::make('front.pages.products.index')
-        ->with(('product_categories', $this->product_category)
+        ->with('product_categories', $this->product_category
         ->where('active', 1)->get())
         ->with('product_category', $product_category);
 

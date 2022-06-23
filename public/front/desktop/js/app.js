@@ -170,6 +170,7 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 var renderCart = function renderCart() {
+  var formContainer = document.querySelector('.form-container');
   var forms = document.querySelectorAll('.front-form');
   var form = document.querySelector('.front-form');
   var addToCartButton = document.querySelector('.add-to-cart-button');
@@ -182,19 +183,14 @@ var renderCart = function renderCart() {
     renderCart();
   }, {
     once: true
-  }); // Me falta construir el FormData del front-form del checkout,
-  // llevarme sus datos al controlador para que me funcionen los request
-  // y así ya se enviarían a la base de datos.
+  });
 
   if (buyButton) {
     // pluses.forEach(plus => {
     buyButton.addEventListener("click", function (event) {
       event.preventDefault(); // forms.forEach(form => { 
 
-      var url = buyButton.dataset.url; // let data = new FormData(form);
-      // for (var pair of data.entries()) {
-      //     console.log(pair[0]+ ', ' + pair[1]);
-      // }
+      var url = buyButton.dataset.url;
 
       var sendPostRequest = /*#__PURE__*/function () {
         var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
@@ -268,7 +264,21 @@ var renderCart = function renderCart() {
       event.preventDefault(); // forms.forEach(form => { 
 
       var url = purchaseButton.dataset.url;
-      console.log(url);
+      var data = new FormData(form);
+
+      var _iterator = _createForOfIteratorHelper(data.entries()),
+          _step;
+
+      try {
+        for (_iterator.s(); !(_step = _iterator.n()).done;) {
+          var pair = _step.value;
+          console.log(pair[0] + ', ' + pair[1]);
+        }
+      } catch (err) {
+        _iterator.e(err);
+      } finally {
+        _iterator.f();
+      }
 
       var sendPostRequest = /*#__PURE__*/function () {
         var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
@@ -280,16 +290,16 @@ var renderCart = function renderCart() {
                   _context2.next = 2;
                   return fetch(url, {
                     headers: {
-                      'X-Requested-With': 'XMLHttpRequest'
+                      'Accept': 'application/json',
+                      'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content
                     },
-                    method: 'GET'
+                    method: 'POST',
+                    body: data
                   }).then(function (response) {
                     if (!response.ok) throw response;
                     return response.json();
                   }).then(function (json) {
-                    mainContainer.innerHTML = json.content; // Aquí se renderiza el contenido del formulario
-
-                    // Aquí se renderiza el contenido del formulario
+                    mainContainer.innerHTML = json.content;
                     document.dispatchEvent(new CustomEvent('renderProductModules'));
                   })["catch"](function (error) {
                     // document.dispatchEvent(new CustomEvent('stopWait'));
@@ -490,18 +500,18 @@ var renderCart = function renderCart() {
         var data = new FormData(form);
         var url = form.action;
 
-        var _iterator = _createForOfIteratorHelper(data.entries()),
-            _step;
+        var _iterator2 = _createForOfIteratorHelper(data.entries()),
+            _step2;
 
         try {
-          for (_iterator.s(); !(_step = _iterator.n()).done;) {
-            var pair = _step.value;
+          for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+            var pair = _step2.value;
             console.log(pair[0] + ', ' + pair[1]);
           }
         } catch (err) {
-          _iterator.e(err);
+          _iterator2.e(err);
         } finally {
-          _iterator.f();
+          _iterator2.f();
         }
 
         var sendPostRequest = /*#__PURE__*/function () {

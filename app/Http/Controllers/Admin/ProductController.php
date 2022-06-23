@@ -45,8 +45,8 @@ class ProductController extends Controller
     {
 
        $view = View::make('admin.pages.products.index')
-        ->with('product', $this->product)
-        ->renderSections();
+            ->with('product', $this->product)
+            ->renderSections();
 
         return response()->json([
             'form' => $view['form']
@@ -54,7 +54,9 @@ class ProductController extends Controller
     }
 
     public function store(ProductRequest $request)
-    {            
+    {
+
+        DebugBar::info(request('id'));
 
         $product = $this->product->updateOrCreate([
             'id' => request('id')],[
@@ -81,9 +83,9 @@ class ProductController extends Controller
         ]);
 
         $view = View::make('admin.pages.products.index')
-        ->with('products', $this->product->where('active', 1)->get())
-        ->with('product', $product)
-        ->renderSections();
+            ->with('products', $this->product->where('active', 1)->get())
+            ->with('product', $product)
+            ->renderSections();
 
         return response()->json([
             'table' => $view['table'],
@@ -95,9 +97,9 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         $view = View::make('admin.pages.products.index')
-        ->with('product', $product)
-        ->with('products', $this->product->where('active', 1)->get());   
-        
+            ->with('product', $product)
+            ->with('products', $this->product->where('active', 1)->get());
+
         if(request()->ajax()) {
 
             $sections = $view->renderSections(); 

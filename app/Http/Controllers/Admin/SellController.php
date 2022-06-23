@@ -23,26 +23,15 @@ class SellController extends Controller
     
     public function index()
     {
-
         $sells = $this->sell
-            ->where('active', 1)->get();
+        ->where('active', 1)->get();
+
+        $view = View::make('admin.pages.sells.index')
+            ->with('sells', $sells);
 
             DebugBar::info($sells);
 
-        $sell = $this->sell
-            ->where('sells.active', 1)
-            ->join('clients', 'sells.client_id', '=', 'clients.id')
-            ->select(DB::raw('id', 'name', 'surnames', 'email', 'telephone', 'address', 'postal_code', 'province'));
-
-            DebugBar::info($sell);
-
-        $view = View::make('admin.pages.sells.index')
-            ->with('sell', $this->sell)
-            ->with('sells', $this->sell
-            ->where('active', 1)
-            ->get());
-
-        if(request()->ajax()) {
+        // if(request()->ajax()) {
 
             $sections = $view->renderSections(); 
 
@@ -50,20 +39,32 @@ class SellController extends Controller
                 'table' => $sections['table'],
                 'form' => $sections['form'],
             ]);
-        }
+        // }
 
         return $view;
     }
 
-    public function edit($sell_id)
+    public function edit(Sell $sell)
     {
+
+        Debugbar::info($sell->id);
+
+        $sell = $this->sell
+            ->select(DB::raw('count(sells.id) as sells_volume'))
+            ->where('client_id', 1)
+            ->get();
+
         $view = View::make('admin.pages.sells.index')
-            ->with('sell', $sell)
+            ->with('sell', $sell->where('id', $sell->id))
             ->with('sells', $this->sell->where('active', 1)->get());
 
         if(request()->ajax()) {
 
-            $sections = $view->renderSections(); 
+            Debugbar::info($view);
+
+            $sections = $view->renderSections();
+
+            Debugbar::info($sections);
     
             return response()->json([
                 'form' => $sections['form'],

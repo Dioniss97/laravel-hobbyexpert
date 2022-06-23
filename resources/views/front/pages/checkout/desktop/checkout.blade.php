@@ -1,8 +1,8 @@
 <div class="checkout">
-    <div class="desktop-two-columns">
-        <div class="column">
-            <div class="checkout-form">
-                <form action="">
+    <form class="front-form" action="">
+        <div class="desktop-two-columns">
+            <div class="column">
+                <div class="checkout-form">
                     <div class="desktop-two-columns">
                         <div class="column">
                             <label for="name">Nombre</label><input name="name" type="text">
@@ -76,30 +76,28 @@
                             <label for="">Direccíón</label><input name="address" type="text">
                         </div>
                     </div>
-                </form>
-            </div>
-        </div>
-        <div class="column">
-            <div class="checkout-table">
-                <div class="cart-resume-table">
-                    <table>
-                        <caption>Resumen de la compra</caption>
-                        <tr>
-                            <th>IVA</th>
-                            <th>Base imponible</th>
-                            <th>IVA a pagar</th>
-                            <th>Total</th>
-                        </tr>
-                        <tr>
-                            <td>{{$tax}} %</td>
-                            <td>{{$base_total}} €</td>
-                            <td>{{$tax_total}} €</td>
-                            <td>{{$total}} €</td>
-                        </tr>
-                    </table>
                 </div>
-                <div class="checkout-payment">
-                    <form class="radios-form" action="">
+            </div>
+            <div class="column">
+                <div class="checkout-table">
+                    <div class="cart-resume-table">
+                        <table>
+                            <caption>Resumen de la compra</caption>
+                            <tr>
+                                <th>IVA</th>
+                                <th>Base imponible</th>
+                                <th>IVA a pagar</th>
+                                <th>Total</th>
+                            </tr>
+                            <tr>
+                                <td>{{$tax}} %</td>
+                                <td>{{$base_total}} €</td>
+                                <td>{{$tax_total}} €</td>
+                                <td>{{$total}} €</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="checkout-payment">
                         <div class="checkout-payment-radio">
                             <input name="payment" type="radio"><label for="">Transferencia Bancaria</label>
                         </div>
@@ -109,12 +107,12 @@
                         <div class="checkout-payment-radio">
                             <input name="payment" type="radio"><label for="">Tarjeta de crédito</label>
                         </div>
-                    </form>
-                    <div class="purchase-button" data-url="{{route('front_checkout_ended')}}">
-                        <button>Pagar</button>
+                        <div class="purchase-button" data-url="{{route('front_checkout_ended')}}">
+                            <button>Pagar</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </form>
 </div>

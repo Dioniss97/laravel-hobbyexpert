@@ -138,9 +138,11 @@ class CartController extends Controller
         ]);
     }
 
-    public function remove($fingerprint, $price_id)
+    public function remove($price_id, $fingerprint)
     {
-        $cart = $this->cart->where('fingerprint', $fingerprint)->where('price_id', $price_id)->first()->delete();
+        $cart = $this->cart->where('fingerprint', $fingerprint)->where('price_id', $price_id)->first();
+        $cart->active = 0;
+        $cart->save();
 
         $carts = $this->cart->select(DB::raw('count(price_id) as amount'),'price_id')
             ->groupByRaw('price_id')
@@ -159,12 +161,22 @@ class CartController extends Controller
             ->select(DB::raw('sum(prices.base_price) as base_total'), DB::raw('sum(prices.base_price * taxes.multiplicator) as total') )
             ->first();
 
+        $taxes = $this->cart
+            ->where('carts.fingerprint', $fingerprint)
+            ->where('carts.active', 1)
+            ->where('carts.sell_id', null)
+            ->join('prices', 'prices.id', '=', 'carts.price_id')
+            ->join('taxes', 'taxes.id', '=', 'prices.tax_id')
+            ->select(DB::raw('taxes.type as tax'))
+            ->first();
+
         $sections = View::make('front.pages.cart.index')
             ->with('fingerprint', $fingerprint)
             ->with('carts', $carts)
             ->with('base_total', $totals->base_total)
             ->with('total', $totals->total)
             ->with('tax_total', ($totals->total - $totals->base_total))
+            ->with('tax', $taxes->tax)
             ->renderSections();
 
         return response()->json([

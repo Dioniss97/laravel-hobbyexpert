@@ -37,7 +37,7 @@
 @section('form')
     @if(isset($sell))
         <form class="admin-form">
-            <input type="hidden" name="id">
+            <input type="hidden" name="sell_id" value="{{$sell->id}}">
             <div class="panel-main">
                 <div class="panel-main-options">
                     <div class="filter-options">
@@ -96,7 +96,7 @@
                         <div class="column">
                             <div class="form-element">
                                 <label for="">Nombre cliente</label>
-                                <input type="text" name="name" value="{{isset($sell->name) ? $sell->name : ""}}" disabled>
+                                <input type="text" name="name" value="{{isset($sell->client->name) ? $sell->client->name : ""}}" disabled>
                             </div>
                         </div>
                     </div>
@@ -104,7 +104,7 @@
                         <div class="column">
                             <div class="form-element">
                                 <label for="">Apellidos</label>
-                                <input type="text" name="surnames" value="{{isset($sell->surnames) ? $sell->surnames : ""}}" disabled>
+                                <input type="text" name="surnames" value="{{isset($sell->client->surnames) ? $sell->client->surnames : ""}}" disabled>
                             </div>
                         </div>
                     </div>
@@ -112,7 +112,7 @@
                         <div class="column">
                             <div class="form-element">
                                 <label for="">Email</label>
-                                <input type="email" name="email" value="{{isset($sell->email) ? $sell->email : ""}}" disabled>
+                                <input type="email" name="email" value="{{isset($sell->client->email) ? $sell->client->email : ""}}" disabled>
                             </div>
                         </div>
                     </div>
@@ -120,7 +120,7 @@
                         <div class="column">
                             <div class="form-element">
                                 <label for="">Teléfono</label>
-                                <input type="tel" name="password" value="{{isset($sell->password) ? $sell->password : ""}}" disabled>
+                                <input type="tel" name="password" value="{{isset($sell->client->telephone) ? $sell->client->telephone : ""}}" disabled>
                             </div>
                         </div>
                     </div>
@@ -128,7 +128,7 @@
                         <div class="column">
                             <div class="form-element">
                                 <label for="">Dirección</label>
-                                <input type="text" name="address" value="{{isset($sell->address) ? $sell->address : ""}}" disabled>
+                                <input type="text" name="address" value="{{isset($sell->client->address) ? $sell->client->address : ""}}" disabled>
                             </div>
                         </div>
                     </div>
@@ -136,7 +136,7 @@
                         <div class="column">
                             <div class="form-element">
                                 <label for="">Código Postal</label>
-                                <input type="number" name="postal_code" value="{{isset($sell->postal_code) ? $sell->postal_code : ""}}" disabled>
+                                <input type="number" name="postal_code" value="{{isset($sell->client->postal_code) ? $sell->client->postal_code : ""}}" disabled>
                             </div>
                         </div>
                     </div>

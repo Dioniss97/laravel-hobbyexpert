@@ -1,5 +1,6 @@
 export let renderCart = () => {
 
+    let formContainer = document.querySelector('.form-container');
     let forms = document.querySelectorAll('.front-form');
     let form = document.querySelector('.front-form');
     let addToCartButton = document.querySelector('.add-to-cart-button');
@@ -13,10 +14,6 @@ export let renderCart = () => {
         renderCart();
     }), {once: true});
 
-    // Me falta construir el FormData del front-form del checkout,
-    // llevarme sus datos al controlador para que me funcionen los request
-    // y así ya se enviarían a la base de datos.
-
     if(buyButton) {
 
         // pluses.forEach(plus => {
@@ -28,12 +25,6 @@ export let renderCart = () => {
             // forms.forEach(form => { 
 
             let url = buyButton.dataset.url;
-
-            // let data = new FormData(form);
-
-            // for (var pair of data.entries()) {
-            //     console.log(pair[0]+ ', ' + pair[1]);
-            // }
 
             let sendPostRequest = async () => {
 
@@ -102,17 +93,22 @@ export let renderCart = () => {
             // forms.forEach(form => { 
 
             let url = purchaseButton.dataset.url;
+            let data = new FormData(form);
 
-            console.log(url);
+            for (var pair of data.entries()) {
+                console.log(pair[0]+ ', ' + pair[1]);
+            }
 
             let sendPostRequest = async () => {
 
                 let response = await fetch(url, {
 
                     headers: {
-                        'X-Requested-With': 'XMLHttpRequest',
+                        'Accept': 'application/json',
+                        'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content
                     },
-                    method: 'GET',
+                    method: 'POST',
+                    body: data
                 })
                 .then(response => {
                 
@@ -122,7 +118,7 @@ export let renderCart = () => {
                 })
                 .then(json => {
 
-                    mainContainer.innerHTML = json.content; // Aquí se renderiza el contenido del formulario
+                    mainContainer.innerHTML = json.content;
 
                     document.dispatchEvent(new CustomEvent('renderProductModules'));
 

@@ -12,6 +12,8 @@
                 @if(isset($carts))
                     @foreach($carts as $cart)
                         <form class="front-form" action="">
+                            <input type="hidden" name="fingerprint" value="{{$cart->fingerprint}}">
+                            <input type="hidden" name="price_id" value="{{$cart->price_id}}">
                             <td>
                                 <img class="desktop-only" src="img/machine-gun.webp" alt="">
                             </td>

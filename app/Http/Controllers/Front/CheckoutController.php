@@ -8,6 +8,7 @@ use App\Http\Requests\Front\ClientRequest;
 use App\Models\Checkout;
 use App\Models\Cart;
 use App\Models\Sell;
+use App\Models\Client;
 use Debugbar;
 use DB;
 
@@ -16,11 +17,12 @@ class CheckoutController extends Controller
 
     protected $checkout;
 
-    public function __construct(Checkout $checkout, Cart $cart, Sell $sell)
+    public function __construct(Checkout $checkout, Cart $cart, Sell $sell, Client $client)
     {
         $this->checkout = $checkout;
         $this->cart = $cart;
         $this->sell = $sell;
+        $this->client = $client;
     }
 
     public function index($fingerprint)
@@ -65,17 +67,7 @@ class CheckoutController extends Controller
     public function purchased(ClientRequest $request) 
     {
 
-    //     $product = $this->product->updateOrCreate([
-    //         'id' => request('id')],[ // We catch the 'id' from the request of the input field named 'id'
-    //         'name' => request('title'),
-    //         'title' => request('title'),
-    //         'description' => request('description'),
-    //         'specs' => request('specs'),
-    //         'category_id' => request('category_id'),
-    //         'visible' => 1,
-    //         'active' => 1,
-    //     ]
-    // );
+        DebugBar::info(request('id'));
 
         $client = $this->client->updateOrCreate([
             'id' => request('id')], [
@@ -101,9 +93,7 @@ class CheckoutController extends Controller
             ->where('carts.active', 1)
             ->where('carts.sell_id', null)
             ->create([
-                'sell_id' => $sell_id,
-                'fingerprint' => $fingerprint,
-                'active' => 1,
+                'sell_id' => $this->sell->id,
             ]);
     
 
@@ -121,25 +111,25 @@ class CheckoutController extends Controller
         return $view;
     }
 
-    // public function store(CheckoutRequest $request)
-    // {            
+    public function store(ClientRequest $request)
+    {            
+        // Use method create() to create a new entrance in the table carts on field sell_id with the value of the sell id
+        $cart = $this->cart
+            ->where('fingerprint', $request->fingerprint)
+            ->where('carts.active', 1)
+            ->where('carts.sell_id', null)
+            ->update([
+                'sell_id' => $request->sell_id,
+            ]);
 
-    //     $checkout = $this->checkout->Create( [
-    //         'name' => request('name'),
-    //         'surnames' => request('surnames'),
-    //         'email' => request('email'),
-    //         'phone' => request('phone'),
-    //         'province' => request('province'),
-    //         'postal_code' => request('postal_code'),
-    //         'address' => request('address'),
-    //         'active' => 1,
-    //     ]);
+        // Use method create() to create a new entrance in the table sells on field client_id with the value of the client id
+        $sell = $this->sell->create([
+            'client_id' => $request->client_id,
+            'active' => 1,
+            'visible' => 1,
+        ]);
 
-    //     $sections = View::make('front.pages.checkout.index')->renderSections();
-
-    //     return response()->json([
-    //         'content' => $sections['content'],
-    //     ]);
-    // }
-
+        // Prepare the view to show that the sell was created successfully
+        $view = View::make('front.pages.purchased.index');
+    }
 }
