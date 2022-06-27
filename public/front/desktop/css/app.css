@@ -1403,13 +1403,13 @@ footer ul li {
 .checkout .checkout-form select {
   padding: 0.12rem;
 }
-.checkout .checkout-payment .radios-form .checkout-payment-radio {
+.checkout .checkout-payment .checkout-payment-radio {
   margin: 1rem;
 }
-.checkout .checkout-payment .radios-form .checkout-payment-radio label {
+.checkout .checkout-payment .checkout-payment-radio label {
   color: hsl(0deg, 0%, 100%);
 }
-.checkout .checkout-payment .radios-form .checkout-payment-radio input {
+.checkout .checkout-payment .checkout-payment-radio input {
   margin: 1rem;
 }
 .checkout .checkout-payment button {

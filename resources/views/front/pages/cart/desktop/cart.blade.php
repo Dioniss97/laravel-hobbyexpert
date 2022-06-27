@@ -9,9 +9,9 @@
                 <th>Cantidad</th>
             </tr>
             <tr>
-                @if(isset($carts))
-                    @foreach($carts as $cart)
-                        <form class="front-form" action="">
+                <form class="front-form" action="">
+                    @if(isset($carts))
+                        @foreach($carts as $cart)
                             <input type="hidden" name="fingerprint" value="{{$cart->fingerprint}}">
                             <input type="hidden" name="price_id" value="{{$cart->price_id}}">
                             <td>
@@ -32,9 +32,9 @@
                                     </div>
                                 </div>
                             </td>
-                        </form>
-                    @endforeach
-                @endif
+                        @endforeach
+                    @endif
+                </form>
             </tr>
         </table>
     </div>

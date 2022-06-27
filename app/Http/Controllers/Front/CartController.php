@@ -140,7 +140,16 @@ class CartController extends Controller
 
     public function remove($price_id, $fingerprint)
     {
-        $cart = $this->cart->where('fingerprint', $fingerprint)->where('price_id', $price_id)->first();
+
+        DebugBar::info($price_id, $fingerprint);
+
+        $cart = $this->cart
+            ->where('fingerprint', $fingerprint)
+            ->where('price_id', $price_id)
+            ->where('sell_id', null)
+            ->where('active', 1)
+            ->first();
+        
         $cart->active = 0;
         $cart->save();
 
@@ -167,7 +176,7 @@ class CartController extends Controller
             ->where('carts.sell_id', null)
             ->join('prices', 'prices.id', '=', 'carts.price_id')
             ->join('taxes', 'taxes.id', '=', 'prices.tax_id')
-            ->select(DB::raw('taxes.type as tax'))
+            ->select(DB::raw('taxes.type as type'))
             ->first();
 
         $sections = View::make('front.pages.cart.index')
@@ -176,7 +185,7 @@ class CartController extends Controller
             ->with('base_total', $totals->base_total)
             ->with('total', $totals->total)
             ->with('tax_total', ($totals->total - $totals->base_total))
-            ->with('tax', $taxes->tax)
+            ->with('tax', $taxes->type)
             ->renderSections();
 
         return response()->json([

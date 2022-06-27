@@ -99,6 +99,8 @@ class ProductCategoryController extends Controller
 
         $view = View::make('front.pages.products.index')->with('products', $product_category->products->where('active', 1));
 
+        Debugbar::info($view);
+
         if(request()->ajax()) {
 
             $sections = $view->renderSections(); 

@@ -44,92 +44,78 @@ class CheckoutController extends Controller
             ->where('carts.sell_id', null)
             ->join('prices', 'prices.id', '=', 'carts.price_id')
             ->join('taxes', 'taxes.id', '=', 'prices.tax_id')
-            ->select(DB::raw('taxes.type as tax'))
+            ->select(DB::raw('taxes.type as type'))
             ->first();
 
         $sections = View::make('front.pages.checkout.index')
             ->with('fingerprint', $fingerprint)
-            ->with('tax', $taxes->tax)
             ->with('base_total', $totals->base_total)
             ->with('total', $totals->total)
             ->with('tax_total', ($totals->total - $totals->base_total))
+            ->with('type', $taxes->type)
             ->renderSections();
-
-        // if(request()->ajax()) {
             
             return response()->json([
                 'content' => $sections['content'],
             ]);
-
-        // }
     }
 
-    public function purchased(ClientRequest $request) 
+    public function store(ClientRequest $request)
     {
+        $client = $this->client->create([
+            'name' => request('name'),
+            'surnames' => request('surnames'),
+            'email' => request('email'),
+            'email_verified_at' => now(),
+            'telephone' => request('telephone'),
+            'address' => request('address'),
+            'province' => request('province'),
+            'postal_code' => request('postal_code'),
+            'country' => request('country'),
+            'active' => 1,
+            'visible' => 1,
+        ]);
 
-        DebugBar::info(request('id'));
+        Debugbar::info(request('total_price'));
+        Debugbar::info(request('total_base_price'));
+        Debugbar::info(request('total_tax_price'));
+        Debugbar::info(request('payment'));
+        
+        $sell = $this->sell->create([
+            'ticket_number' => '123456',
+            'date_emission' => date('Y-m-d'),
+            'time_emission' => date('H:i:s'),
+            'payment_method_id' => request('payment'),
+            'client_id' => $client->id,
 
-        $client = $this->client->updateOrCreate([
-            'id' => request('id')], [
-                'name' => request('name'),
-                'surnames' => request('surnames'),
-                'telephone' => request('telephone'),
-                'email' => request('email'),
-                'address' => request('address'),
-            ]
-        );
+            // Hidden imputs
+            'total_base_price' => request('total_base_price'),
+            'total_tax_price' => request('total_tax_price'),
+            'total_price' => request('total_price'),
 
-        $sell = $this->sell->updateOrCreate([
-            'id' => request('id')],[
-                'ticket_number' => '123456',
-                'client_id' => '1',
-                'active' => 1,
-                'visible' => 1,
+            'active' => 1,
             ]
         );
 
         $cart = $this->$cart
             ->where('fingerprint', $fingerprint)
-            ->where('carts.active', 1)
-            ->where('carts.sell_id', null)
-            ->create([
+            ->where('active', 1)
+            ->where('sell_id', null)
+            ->update([
                 'sell_id' => $this->sell->id,
             ]);
-    
 
-        $view = View::make('front.pages.purchased.index');
+    $view = View::make('front.pages.purchased.index');
 
-        if(request()->ajax()) {
-            
-            $sections = $view->renderSections(); 
+    if(request()->ajax()) {
+        
+        $sections = $view->renderSections(); 
 
-            return response()->json([
-                'content' => $sections['content'],
-            ]);
-        }
-
-        return $view;
+        return response()->json([
+            'content' => $sections['content'],
+        ]);
     }
 
-    public function store(ClientRequest $request)
-    {            
-        // Use method create() to create a new entrance in the table carts on field sell_id with the value of the sell id
-        $cart = $this->cart
-            ->where('fingerprint', $request->fingerprint)
-            ->where('carts.active', 1)
-            ->where('carts.sell_id', null)
-            ->update([
-                'sell_id' => $request->sell_id,
-            ]);
-
-        // Use method create() to create a new entrance in the table sells on field client_id with the value of the client id
-        $sell = $this->sell->create([
-            'client_id' => $request->client_id,
-            'active' => 1,
-            'visible' => 1,
-        ]);
-
-        // Prepare the view to show that the sell was created successfully
-        $view = View::make('front.pages.purchased.index');
+    return $view;
     }
 }

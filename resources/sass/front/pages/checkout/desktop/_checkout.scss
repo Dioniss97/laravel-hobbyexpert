@@ -26,19 +26,16 @@
     }
 
     .checkout-payment {
-
-        .radios-form {
             
-            .checkout-payment-radio {
+        .checkout-payment-radio {
+            margin: 1rem;
+
+            label {
+                color: hsl(0, 0%, 100%);
+            }
+
+            input {
                 margin: 1rem;
-
-                label {
-                    color: hsl(0, 0%, 100%);
-                }
-
-                input {
-                    margin: 1rem;
-                }
             }
         }
 
