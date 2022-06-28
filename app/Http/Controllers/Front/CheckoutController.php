@@ -76,22 +76,31 @@ class CheckoutController extends Controller
             'visible' => 1,
         ]);
 
-        Debugbar::info(request('total_price'));
-        Debugbar::info(request('total_base_price'));
-        Debugbar::info(request('total_tax_price'));
-        Debugbar::info(request('payment'));
-        
+        $sell = $this->sell
+            ->where('active', 1)
+            ->orderBy('id', 'desc')
+            ->first();
+
+        $todayDate = date('Y-m-d');
+
+        if(str_contains($sell->ticket_number, $todayDate)) {
+            $sell->ticket_number = $sell->ticket_number + 1;
+        } else if() {
+            $sell->ticket_number = $todayDate.'0001';
+        }
+
         $sell = $this->sell->create([
-            'ticket_number' => '123456',
+            'ticket_number' => $sell->ticket_number,
             'date_emission' => date('Y-m-d'),
             'time_emission' => date('H:i:s'),
             'payment_method_id' => request('payment'),
             'client_id' => $client->id,
 
-            // Hidden imputs
+        //----------- Hidden inputs ------------------------------------
             'total_base_price' => request('total_base_price'),
             'total_tax_price' => request('total_tax_price'),
             'total_price' => request('total_price'),
+        //--------------------------------------------------------------
 
             'active' => 1,
             ]

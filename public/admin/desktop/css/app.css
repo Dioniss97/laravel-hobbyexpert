@@ -1118,25 +1118,32 @@ footer ul li {
   margin: 2% 0;
 }
 .panel .panel-main-table {
-  border-top: 0.2rem solid hsl(46deg, 100%, 30%);
+  border: 0.2rem solid hsl(46deg, 100%, 30%);
 }
-.panel .panel-main-table .register {
-  border-left: 0.2rem solid hsl(46deg, 100%, 30%);
-  border-right: 0.2rem solid hsl(46deg, 100%, 30%);
+.panel .panel-main-table .registers {
   color: hsl(0deg, 0%, 100%);
-  margin: 0.4rem;
-  padding: 0 auto;
-  width: 90%;
+  display: flex;
+  flex-direction: column;
 }
-.panel .panel-main-table .register .register-items {
+.panel .panel-main-table .registers .register-items {
   background-color: hsl(46deg, 100%, 20%);
   border-radius: 0.4rem;
-  opacity: 70%;
+  margin: 0.4rem;
+  opacity: 90%;
   position: relative;
-  padding: 0.4rem;
+  padding: 0.2rem;
   z-index: 1;
 }
-.panel .panel-main-table .register .register-tools {
+.panel .panel-main-table .registers .register-items .register-item {
+  font-size: 0.8rem;
+}
+.panel .panel-main-table .registers .register-items .register-item span {
+  color: hsl(0deg, 0%, 70%);
+  font-size: 0.9rem;
+  font-weight: bold;
+  margin-right: 0.2rem;
+}
+.panel .panel-main-table .registers .register-tools {
   border-radius: 0.4rem;
   cursor: pointer;
   opacity: 70%;
@@ -1144,9 +1151,47 @@ footer ul li {
   padding: 0.4rem;
   z-index: 1;
 }
-.panel .panel-main-table .register .register-tools:hover svg {
+.panel .panel-main-table .registers .register-tools:hover svg {
   fill: hsl(46deg, 100%, 30%);
   transition: 0.4s translate;
+}
+.panel .panel-main-table .registers .counter {
+  display: flex;
+  justify-content: flex-end;
+}
+.panel .panel-main-table .registers .counter .counter-text {
+  background-color: hsl(46deg, 100%, 20%);
+  border-radius: 0.4rem;
+  color: hsl(0deg, 0%, 70%);
+  font-weight: bold;
+  margin: 0.4rem;
+  padding: 0.4rem;
+}
+.panel .panel-main-table .registers .counter .counter-text span {
+  color: hsl(0deg, 0%, 100%);
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+.panel .advice-container {
+  background-color: hsl(46deg, 100%, 20%);
+  border-radius: 0.4rem;
+  margin-top: 4rem;
+  opacity: 90%;
+}
+.panel .advice-container .advice-text {
+  background-color: hsl(46deg, 100%, 20%);
+  border-radius: 0.4rem;
+  color: hsl(0deg, 0%, 90%);
+  font-size: 1.2rem;
+  margin: auto;
+  padding: 0.4rem;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+.panel .advice-container .advice-text span {
+  color: hsl(0deg, 0%, 100%);
+  font-weight: bold;
 }
 .panel .panel-main ul {
   align-items: center;
@@ -1206,6 +1251,19 @@ footer ul li {
 .panel .panel-main .panel-main-form {
   margin: 0 5%;
   width: 90%;
+}
+.panel .panel-main .panel-main-form .sell-panel, .panel .panel-main .panel-main-form .client-panel {
+  background-color: hsl(240deg, 9%, 20%);
+  border-radius: 0.4rem;
+  margin: 1rem;
+  padding: 0.4rem;
+  width: 100%;
+}
+.panel .panel-main .panel-main-form .sell-panel h3, .panel .panel-main .panel-main-form .client-panel h3 {
+  color: hsl(46deg, 100%, 34%);
+  font-size: 1.6rem;
+  margin: 0.4rem 0;
+  text-decoration: underline;
 }
 .panel .panel-main .panel-main-form .form-element {
   display: flex;

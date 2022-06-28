@@ -9,25 +9,34 @@
     }
 
     .panel-main-table {
-        border-top: .2rem solid hsl(46, 100%, 30%);
+        border: .2rem solid hsl(46, 100%, 30%);
 
-        .register {
-            border-left: .2rem solid hsl(46, 100%, 30%);
-            border-right: .2rem solid hsl(46, 100%, 30%);
+        .registers {
             color: hsl(0, 0%, 100%);
-            margin: .4rem;
-            padding: 0 auto;
-            width: 90%;
+            display: flex;
+            flex-direction: column;
 
             .register-items {
                 background-color: hsl(46, 100%, 20%);
                 border-radius: .4rem;
-                opacity: 70%;
+                margin: .4rem;
+                opacity: 90%;
                 position: relative;
-                padding: .4rem;
+                padding: .2rem;
                 z-index: 1;
+
+                .register-item {
+                    font-size: .8rem;
+
+                    span {
+                        color: hsl(0, 0%, 70%);
+                        font-size: 0.9rem;
+                        font-weight: bold;
+                        margin-right: .2rem;
+                    }
+                }
             }
-            
+
             .register-tools {
                 border-radius: .4rem;
                 cursor: pointer;
@@ -43,6 +52,48 @@
                     fill: hsl(46, 100%, 30%);
                     transition: .4s translate;
                 }
+            }
+
+            .counter {
+                display: flex;
+                justify-content: flex-end;
+
+                .counter-text {
+                    background-color: hsl(46, 100%, 20%);
+                    border-radius: .4rem;
+                    color: hsl(0, 0%, 70%);
+                    font-weight: bold;
+                    margin: .4rem;
+                    padding: .4rem;
+
+                    span {
+                        color: hsl(0, 0%, 100%);
+                        font-size: 1.2rem;
+                        font-weight: bold;
+                    }
+                }
+            }
+        }
+    }
+
+    .advice-container {
+        background-color: hsl(46, 100%, 20%);
+        border-radius: .4rem;
+        margin-top: 4rem;
+        opacity: 90%;
+
+        .advice-text {
+            background-color: hsl(46, 100%, 20%);
+            border-radius: .4rem;
+            color: hsl(0, 0%, 90%);
+            font-size: 1.2rem;
+            margin: auto;
+            padding: .4rem;
+            width: fit-content;
+
+            span {
+                color: hsl(0, 0%, 100%);
+                font-weight: bold;
             }
         }
     }
@@ -128,6 +179,21 @@
         .panel-main-form {
             margin: 0 5%;
             width: 90%;
+
+            .sell-panel, .client-panel {
+                background-color: hsl(240, 9%, 20%);
+                border-radius: .4rem;
+                margin: 1rem;
+                padding: .4rem;
+                width: 100%;
+
+                h3 {
+                    color: hsl(46, 100%, 34%);
+                    font-size: 1.6rem;
+                    margin: .4rem 0;
+                    text-decoration: underline;
+                }
+            }
 
             .form-element {
                 display: flex;

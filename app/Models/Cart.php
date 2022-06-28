@@ -12,13 +12,11 @@ class Cart extends Model
 
     public function price() 
     {
-
         return $this->belongsTo(Price::class);
     }
 
     public function fingerPrint() 
     {
-
         return $this->belongsTo(FingerPrint::class);
     }
 

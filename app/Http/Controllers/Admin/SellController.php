@@ -5,8 +5,6 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Support\Facades\View;
 use App\Http\Controllers\Controller;
 use App\Models\Sell;
-use App\Http\Requests\Admin\SellRequest;
-use App\Models\Cart;
 use DB;
 use Debugbar;
 
@@ -15,23 +13,27 @@ class SellController extends Controller
 
     protected $sell;
 
-    public function __construct(Sell $sell, Cart $cart)
+    public function __construct(Sell $sell)
     {
         $this->sell = $sell;
-        $this->cart = $cart;
     }
-    
-    public function index()
+
+
+    public function index(Sell $sell)
     {
+
         $sells = $this->sell
-        ->where('active', 1)->get();
+            ->where('active', 1)->get();
+
+        $counter = $this->sell
+            ->where('active', 1)->count();
 
         $view = View::make('admin.pages.sells.index')
-            ->with('sells', $sells);
+            ->with('sells', $sells)
+            ->with('sell', null)
+            ->with('counter', $counter);
 
-            DebugBar::info($sells);
-
-        // if(request()->ajax()) {
+        if (request()->ajax()) {
 
             $sections = $view->renderSections(); 
 
@@ -39,7 +41,7 @@ class SellController extends Controller
                 'table' => $sections['table'],
                 'form' => $sections['form'],
             ]);
-        // }
+        }
 
         return $view;
     }
@@ -49,28 +51,32 @@ class SellController extends Controller
 
         Debugbar::info($sell->id);
 
-        $sell = $this->sell
-            ->select(DB::raw('count(sells.id) as sells_volume'))
-            ->where('client_id', 1)
-            ->get();
+        $counter = $this->sell
+            ->where('active', 1)->count();
+
+        $products = $this->sell
+            ->where('active', 1)
+            ->where('id', $sell->id)
+            ->join('carts', 'carts.sell_id', '=', 'sells.id')
+            ->join('prices', 'prices.id', '=', 'carts.price_id')
+            ->join('products', 'products.id', '=', 'prices.product_id')
+            ->select('products.id', 'products.name', 'sum(carts.id) as amount', 'prices.base_price', 'sum(prices.base_price as base_total')
 
         $view = View::make('admin.pages.sells.index')
-            ->with('sell', $sell->where('id', $sell->id))
-            ->with('sells', $this->sell->where('active', 1)->get());
+            ->with('sell', $sell)
+            ->with('sells', $this->sell->where('active', 1)->get())
+            ->with('counter', $counter)
+            ->with('products', $products)
+            ->with('base_total', $products->);
 
-        if(request()->ajax()) {
+        if (request()->ajax()) {
 
-            Debugbar::info($view);
+            $sections = $view->renderSections(); 
 
-            $sections = $view->renderSections();
-
-            Debugbar::info($sections);
-    
             return response()->json([
+                'table' => $sections['table'],
                 'form' => $sections['form'],
-            ]); 
+            ]);
         }
-
-        return $view;
     }
 }
