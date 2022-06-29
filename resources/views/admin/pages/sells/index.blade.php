@@ -199,17 +199,19 @@
                                 <tr>
                                     <th>Producto</th>
                                     <th>Cantidad</th>
-                                    <th>Precio</th>
+                                    <th>Precio base total</th>
+                                    <th>Impuesto total</th>
                                     <th>Total</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($sells as $sell_element)
+                                @foreach($carts as $cart)
                                     <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td>{{$product_name}}</td>
+                                        <td>{{$amount}}</td>
+                                        <td>{{$base_total}}</td>
+                                        <td>{{$tax_total}}</td>
+                                        <td>{{$total}}</td>
                                     </tr>
                                 @endforeach
                             </tbody>

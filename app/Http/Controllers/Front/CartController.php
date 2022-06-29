@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Front;
 use Illuminate\Support\Facades\View;
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
-use Request;
+use Illuminate\Http\Request;
 use DB;
 use Debugbar;
 
@@ -42,7 +42,7 @@ class CartController extends Controller
 
             $cart = $this->cart->create([
                 'price_id' => request('price_id'),
-                'fingerprint' => '1',
+                'fingerprint_id' => '1', // Falta indicar aquí la clave foranea del fingerprint
                 'client_id' => '1',
                 'active' => 1,
             ]);
@@ -51,13 +51,13 @@ class CartController extends Controller
         $carts = $this->cart->select(DB::raw('count(price_id) as amount'),'price_id')
             ->groupByRaw('price_id')
             ->where('active', 1)
-            ->where('carts.fingerprint', $cart->fingerprint)
+            ->where('carts.fingerprint', $request->cookie('fp'))
             ->where('sell_id', null)
             ->orderBy('price_id', 'desc')
             ->get();
 
         $totals = $this->cart
-            ->where('fingerprint', $cart->fingerprint)
+            ->where('fingerprint', $request->cookie('fp'))
             ->where('carts.active', 1)
             ->where('carts.sell_id', null)
             ->join('prices', 'prices.id', '=', 'carts.price_id')
@@ -66,7 +66,7 @@ class CartController extends Controller
             ->first();
 
         $taxes = $this->cart
-            ->where('carts.fingerprint', $cart->fingerprint)
+            ->where('carts.fingerprint', $request->cookie('fp'))
             ->where('carts.active', 1)
             ->where('carts.sell_id', null)
             ->join('prices', 'prices.id', '=', 'carts.price_id')
@@ -75,7 +75,7 @@ class CartController extends Controller
             ->first();
 
         $sections = View::make('front.pages.cart.index')
-            ->with('fingerprint', $cart->fingerprint)
+            ->with('fingerprint', $request->cookie('fp'))
             ->with('carts', $carts)
             ->with('tax', $taxes->tax)
             ->with('base_total', $totals->base_total)
@@ -88,12 +88,12 @@ class CartController extends Controller
         ]);
     }
 
-    public function add($price_id, $fingerprint)
+    public function add($price_id, Request $request)
     {
 
         $cart = $this->cart->create([
             'price_id' => $price_id,
-            'fingerprint' => $fingerprint,
+            'fingerprint' => $request->cookie('fp'),
             'client_id' => '1',
             'active' => 1,
         ]);
@@ -101,13 +101,13 @@ class CartController extends Controller
         $carts = $this->cart->select(DB::raw('count(price_id) as amount'),'price_id')
             ->groupByRaw('price_id')
             ->where('active', 1)
-            ->where('carts.fingerprint', $fingerprint)
+            ->where('carts.fingerprint', $request->cookie('fp'))
             ->where('sell_id', null)
             ->orderBy('price_id', 'desc')
             ->get();
 
         $totals = $this->cart
-            ->where('fingerprint', $fingerprint)
+            ->where('fingerprint', $request->cookie('fp'))
             ->where('carts.active', 1)
             ->where('carts.sell_id', null)
             ->join('prices', 'prices.id', '=', 'carts.price_id')
@@ -116,7 +116,7 @@ class CartController extends Controller
             ->first();
 
         $taxes = $this->cart
-            ->where('carts.fingerprint', $fingerprint)
+            ->where('carts.fingerprint', $request->cookie('fp'))
             ->where('carts.active', 1)
             ->where('carts.sell_id', null)
             ->join('prices', 'prices.id', '=', 'carts.price_id')
@@ -125,7 +125,7 @@ class CartController extends Controller
             ->first();
 
         $sections = View::make('front.pages.cart.index')
-            ->with('fingerprint', $fingerprint)
+            ->with('fingerprint', $request->cookie('fp'))
             ->with('carts', $carts)
             ->with('tax', $taxes->tax)
             ->with('base_total', $totals->base_total)
@@ -138,13 +138,11 @@ class CartController extends Controller
         ]);
     }
 
-    public function remove($price_id, $fingerprint)
+    public function remove($price_id, Request $request)
     {
 
-        DebugBar::info($price_id, $fingerprint);
-
         $cart = $this->cart
-            ->where('fingerprint', $fingerprint)
+            ->where('fingerprint', $request->cookie('fp'))
             ->where('price_id', $price_id)
             ->where('sell_id', null)
             ->where('active', 1)
@@ -156,13 +154,13 @@ class CartController extends Controller
         $carts = $this->cart->select(DB::raw('count(price_id) as amount'),'price_id')
             ->groupByRaw('price_id')
             ->where('active', 1)
-            ->where('carts.fingerprint', $fingerprint)
+            ->where('carts.fingerprint', $request->cookie('fp'))
             ->where('sell_id', null)
             ->orderBy('price_id', 'desc')
             ->get();
 
         $totals = $this->cart
-            ->where('fingerprint', $fingerprint)
+            ->where('fingerprint', $request->cookie('fp'))
             ->where('carts.active', 1)
             ->where('carts.sell_id', null)
             ->join('prices', 'prices.id', '=', 'carts.price_id')
@@ -171,7 +169,7 @@ class CartController extends Controller
             ->first();
 
         $taxes = $this->cart
-            ->where('carts.fingerprint', $fingerprint)
+            ->where('carts.fingerprint', $request->cookie('fp'))
             ->where('carts.active', 1)
             ->where('carts.sell_id', null)
             ->join('prices', 'prices.id', '=', 'carts.price_id')
@@ -180,7 +178,7 @@ class CartController extends Controller
             ->first();
 
         $sections = View::make('front.pages.cart.index')
-            ->with('fingerprint', $fingerprint)
+            ->with('fingerprint', $request->cookie('fp'))
             ->with('carts', $carts)
             ->with('base_total', $totals->base_total)
             ->with('total', $totals->total)

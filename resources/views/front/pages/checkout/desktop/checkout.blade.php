@@ -1,8 +1,6 @@
 <div class="checkout">
     <form class="front-form" action="">
-        <input type="hidden" name="total_tax_price" value="{{$tax_total}}">
-        <input type="hidden" name="total_base_price" value="{{$base_total}}">
-        <input type="hidden" name="total_price" value="{{$total}}">
+        <input type="hidden" name="fingerprint" value="{{$fingerprint}}">
         <div class="desktop-two-columns">
             <div class="column">
                 <div class="checkout-form">

@@ -10,6 +10,7 @@ use App\Models\Cart;
 use App\Models\Sell;
 use App\Models\Client;
 use Debugbar;
+use Request;
 use DB;
 
 class CheckoutController extends Controller
@@ -25,7 +26,7 @@ class CheckoutController extends Controller
         $this->client = $client;
     }
 
-    public function index($fingerprint)
+    public function index(Request $request)
     {
 
         $totals = $this->cart
@@ -55,13 +56,24 @@ class CheckoutController extends Controller
             ->with('type', $taxes->type)
             ->renderSections();
             
-            return response()->json([
-                'content' => $sections['content'],
-            ]);
+        return response()->json([
+            'content' => $sections['content'],
+        ]);
     }
 
-    public function store(ClientRequest $request)
+    public function store(ClientRequest $request, Request $request)
     {
+
+        $totals = $this->cart
+        ->where('carts.fingerprint', $request->cookie('fp'))
+        ->where('carts.active', 1)
+        ->where('carts.sell_id', null)
+        ->join('prices', 'prices.id', '=', 'carts.price_id')
+        ->join('taxes', 'taxes.id', '=', 'prices.tax_id')
+        ->select(DB::raw('sum(prices.base_price) as base_total'), 
+        DB::raw('sum(prices.base_price * taxes.multiplicator) as total'))
+        ->first();
+
         $client = $this->client->create([
             'name' => request('name'),
             'surnames' => request('surnames'),
@@ -81,50 +93,45 @@ class CheckoutController extends Controller
             ->orderBy('id', 'desc')
             ->first();
 
-        $todayDate = date('Y-m-d');
-
-        if(str_contains($sell->ticket_number, $todayDate)) {
-            $sell->ticket_number = $sell->ticket_number + 1;
-        } else if() {
-            $sell->ticket_number = $todayDate.'0001';
+        if(isset($sell->ticket_number) && str_contains($sell->ticket_number, date('Ymd'))) {
+            $ticket_number = $sell->ticket_number + 1;
+        } else {
+            $ticket_number = date('Ymd').'0001';
         }
 
         $sell = $this->sell->create([
-            'ticket_number' => $sell->ticket_number,
+            'ticket_number' => $ticket_number,
             'date_emission' => date('Y-m-d'),
             'time_emission' => date('H:i:s'),
             'payment_method_id' => request('payment'),
             'client_id' => $client->id,
-
-        //----------- Hidden inputs ------------------------------------
-            'total_base_price' => request('total_base_price'),
-            'total_tax_price' => request('total_tax_price'),
-            'total_price' => request('total_price'),
-        //--------------------------------------------------------------
-
+            'total_base_price' =>  $totals->base_total,
+            'total_tax_price' => $totals->total - $totals->base_total,
+            'total_price' => $totals->total,
             'active' => 1,
             ]
         );
 
-        $cart = $this->$cart
-            ->where('fingerprint', $fingerprint)
+        $cart = $this->cart
+            ->where('fingerprint', request('fingerprint'))
             ->where('active', 1)
             ->where('sell_id', null)
             ->update([
-                'sell_id' => $this->sell->id,
+                'sell_id' => $sell->id,
+                'client_id' => $client->id,
             ]);
 
-    $view = View::make('front.pages.purchased.index');
+        $view = View::make('front.pages.purchased.index');
 
-    if(request()->ajax()) {
-        
-        $sections = $view->renderSections(); 
+        if(request()->ajax()) {
+            
+            $sections = $view->renderSections(); 
 
-        return response()->json([
-            'content' => $sections['content'],
-        ]);
-    }
+            return response()->json([
+                'content' => $sections['content'],
+            ]);
+        }
 
-    return $view;
+        return $view;
     }
 }

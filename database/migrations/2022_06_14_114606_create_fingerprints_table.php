@@ -15,9 +15,13 @@ return new class extends Migration
     {
         Schema::create('fingerprints', function (Blueprint $table) {
             $table->id();
-            $table->string('finger_print');
-            $table->integer('client_id');
-            $table->boolean('active')->default(false);
+            $table->string('fingerprint');
+            $table->string('browser')->nullable();
+            $table->string('browser_version')->nullable();
+            $table->string('os')->nullable();
+            $table->string('os_version')->nullable();
+            $table->string('resolution')->nullable();
+            $table->integer('client_id')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('fingerprints');
+        //
     }
 };

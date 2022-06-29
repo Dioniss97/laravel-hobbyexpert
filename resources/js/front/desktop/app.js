@@ -9,6 +9,7 @@ import { renderTabs } from "./tabs.js";
 import { renderForm } from "./form.js";
 import { renderMenu } from "./menu.js";
 import { renderCart } from "./cart.js";
+import { renderFingerprint } from "./fingerprint.js";
 
 renderAccordion();
 renderAmount();
@@ -21,3 +22,4 @@ renderTabs();
 renderForm();
 renderMenu();
 renderCart();
+renderFingerprint();

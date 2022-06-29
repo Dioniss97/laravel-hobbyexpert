@@ -158,10 +158,12 @@ Route::group(['prefix' => 'productos'], function () {
 Route::group(['prefix' => 'carrito'], function () {
     Route::get('/', 'App\Http\Controllers\Front\CartController@index')->name('front_cart');
     Route::post('/añadido', 'App\Http\Controllers\Front\CartController@store')->name('front_cart_store');
-    Route::get('/add/{price_id}/{fingerprint}', 'App\Http\Controllers\Front\CartController@add')->name('front_cart_add');
-    Route::get('/remove/{price_id}/{fingerprint}', 'App\Http\Controllers\Front\CartController@remove')->name('front_cart_remove');
+    Route::get('/add/{price_id}', 'App\Http\Controllers\Front\CartController@add')->name('front_cart_add');
+    Route::get('/remove/{price_id}', 'App\Http\Controllers\Front\CartController@remove')->name('front_cart_remove');
 });
 
-Route::get('/checkout/{fingerprint}', 'App\Http\Controllers\Front\CheckoutController@index')->name('front_checkout');
+Route::get('/checkout', 'App\Http\Controllers\Front\CheckoutController@index')->name('front_checkout');
 
 Route::post('/comprado', 'App\Http\Controllers\Front\CheckoutController@store')->name('front_checkout_ended');
+
+Route::post('/fingerprint', 'App\Http\Controllers\Front\FingerprintController@store');

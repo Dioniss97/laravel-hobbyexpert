@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Support\Facades\View;
 use App\Http\Controllers\Controller;
 use App\Models\Sell;
+use App\Models\Cart;
 use DB;
 use Debugbar;
 
@@ -13,11 +14,11 @@ class SellController extends Controller
 
     protected $sell;
 
-    public function __construct(Sell $sell)
+    public function __construct(Sell $sell, Cart $cart)
     {
         $this->sell = $sell;
+        $this->cart = $cart;
     }
-
 
     public function index(Sell $sell)
     {
@@ -29,13 +30,13 @@ class SellController extends Controller
             ->where('active', 1)->count();
 
         $view = View::make('admin.pages.sells.index')
-            ->with('sells', $sells)
             ->with('sell', null)
+            ->with('sells', $sells)
             ->with('counter', $counter);
 
         if (request()->ajax()) {
 
-            $sections = $view->renderSections(); 
+            $sections = $view->renderSections();
 
             return response()->json([
                 'table' => $sections['table'],
@@ -46,37 +47,33 @@ class SellController extends Controller
         return $view;
     }
 
-    public function edit(Sell $sell)
+    public function edit(Sell $sell, Cart $cart)
     {
-
-        Debugbar::info($sell->id);
+        $carts = $this->cart
+            ->where('sell_id', $sell->id)
+            ->get();
 
         $counter = $this->sell
             ->where('active', 1)->count();
 
-        $products = $this->sell
-            ->where('active', 1)
-            ->where('id', $sell->id)
-            ->join('carts', 'carts.sell_id', '=', 'sells.id')
-            ->join('prices', 'prices.id', '=', 'carts.price_id')
-            ->join('products', 'products.id', '=', 'prices.product_id')
-            ->select('products.id', 'products.name', 'sum(carts.id) as amount', 'prices.base_price', 'sum(prices.base_price as base_total')
-
         $view = View::make('admin.pages.sells.index')
             ->with('sell', $sell)
-            ->with('sells', $this->sell->where('active', 1)->get())
+            ->with('carts', $carts)
             ->with('counter', $counter)
-            ->with('products', $products)
-            ->with('base_total', $products->);
+            ->with('amount', $totals->amount)
+            ->with('base_total', $totals->base_total)
+            ->with('tax_total', ($totals->total - $totals->base_total))
+            ->with('total', $totals->total);
 
         if (request()->ajax()) {
 
-            $sections = $view->renderSections(); 
+            $sections = $view->renderSections();
 
             return response()->json([
-                'table' => $sections['table'],
                 'form' => $sections['form'],
             ]);
         }
+
+        return $view;
     }
 }
