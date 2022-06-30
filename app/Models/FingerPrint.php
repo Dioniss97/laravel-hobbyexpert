@@ -14,4 +14,9 @@ class Fingerprint extends Model
     {
         return $this->belongsTo(Client::class);
     }
+
+    public function carts() 
+    {
+        return $this->hasMany(Cart::class);
+    }
 }

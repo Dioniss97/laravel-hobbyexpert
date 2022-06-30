@@ -9,8 +9,9 @@ use App\Models\Checkout;
 use App\Models\Cart;
 use App\Models\Sell;
 use App\Models\Client;
+use App\Models\Fingerprint;
 use Debugbar;
-use Request;
+use Illuminate\Http\Request;
 use DB;
 
 class CheckoutController extends Controller
@@ -18,29 +19,31 @@ class CheckoutController extends Controller
 
     protected $checkout;
 
-    public function __construct(Checkout $checkout, Cart $cart, Sell $sell, Client $client)
+    public function __construct(Checkout $checkout, Cart $cart, Sell $sell, Client $client, Fingerprint $fingerprint)
     {
+
         $this->checkout = $checkout;
         $this->cart = $cart;
         $this->sell = $sell;
         $this->client = $client;
+        $this->fingerprint = $fingerprint;
     }
 
     public function index(Request $request)
     {
 
         $totals = $this->cart
-            ->where('carts.fingerprint', $fingerprint)
+            ->where('carts.fingerprint', $request->cookie('fp'))
             ->where('carts.active', 1)
             ->where('carts.sell_id', null)
             ->join('prices', 'prices.id', '=', 'carts.price_id')
             ->join('taxes', 'taxes.id', '=', 'prices.tax_id')
-            ->select(DB::raw('sum(prices.base_price) as base_total'), 
+            ->select(DB::raw('sum(prices.base_price) as base_total'),
             DB::raw('sum(prices.base_price * taxes.multiplicator) as total'))
             ->first();
 
         $taxes = $this->cart
-            ->where('carts.fingerprint', $fingerprint)
+            ->where('carts.fingerprint', $request->cookie('fp'))
             ->where('carts.active', 1)
             ->where('carts.sell_id', null)
             ->join('prices', 'prices.id', '=', 'carts.price_id')
@@ -49,7 +52,7 @@ class CheckoutController extends Controller
             ->first();
 
         $sections = View::make('front.pages.checkout.index')
-            ->with('fingerprint', $fingerprint)
+            ->with('fingerprint', $request->cookie('fp'))
             ->with('base_total', $totals->base_total)
             ->with('total', $totals->total)
             ->with('tax_total', ($totals->total - $totals->base_total))
@@ -61,18 +64,18 @@ class CheckoutController extends Controller
         ]);
     }
 
-    public function store(ClientRequest $request, Request $request)
+    public function store(Request $request)
     {
 
         $totals = $this->cart
-        ->where('carts.fingerprint', $request->cookie('fp'))
-        ->where('carts.active', 1)
-        ->where('carts.sell_id', null)
-        ->join('prices', 'prices.id', '=', 'carts.price_id')
-        ->join('taxes', 'taxes.id', '=', 'prices.tax_id')
-        ->select(DB::raw('sum(prices.base_price) as base_total'), 
-        DB::raw('sum(prices.base_price * taxes.multiplicator) as total'))
-        ->first();
+            ->where('carts.fingerprint', $request->cookie('fp'))
+            ->where('carts.active', 1)
+            ->where('carts.sell_id', null)
+            ->join('prices', 'prices.id', '=', 'carts.price_id')
+            ->join('taxes', 'taxes.id', '=', 'prices.tax_id')
+            ->select(DB::raw('sum(prices.base_price) as base_total'), 
+            DB::raw('sum(prices.base_price * taxes.multiplicator) as total'))
+            ->first();
 
         $client = $this->client->create([
             'name' => request('name'),
@@ -86,6 +89,11 @@ class CheckoutController extends Controller
             'country' => request('country'),
             'active' => 1,
             'visible' => 1,
+        ]);
+
+        // update table fingerprints with client_id
+        $fingerprint = $this->fingerprint->where('fingerprint', $request->cookie('fp'))->update([
+            'client_id' => $client->id,
         ]);
 
         $sell = $this->sell
@@ -105,9 +113,9 @@ class CheckoutController extends Controller
             'time_emission' => date('H:i:s'),
             'payment_method_id' => request('payment'),
             'client_id' => $client->id,
-            'total_base_price' =>  $totals->base_total,
-            'total_tax_price' => $totals->total - $totals->base_total,
-            'total_price' => $totals->total,
+            'total_base_price' =>  ($totals->base_total), // Problemas para guardar los totals.
+            'total_tax_price' => ($totals->total - $totals->base_total),
+            'total_price' => ($totals->total),
             'active' => 1,
             ]
         );

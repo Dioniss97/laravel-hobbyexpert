@@ -76,7 +76,7 @@ __webpack_require__.r(__webpack_exports__);
 var renderAmount = function renderAmount() {
   var pluses = document.querySelectorAll(".plus");
   var minuses = document.querySelectorAll(".minus");
-  document.addEventListener("renderProductModules", function (event) {
+  document.addEventListener("products", function (event) {
     renderAmount();
   }, {
     once: true
@@ -91,9 +91,8 @@ var renderAmount = function renderAmount() {
   minuses.forEach(function (minus) {
     minus.addEventListener("click", function (event) {
       event.preventDefault();
-      var input = minus.parentNode.querySelector(".amount"); // if (input.value > 1) {
-
-      input.value = parseInt(input.value) - 1; // }
+      var input = minus.parentNode.querySelector(".amount");
+      input.value = parseInt(input.value) - 1;
     });
   });
 };
@@ -174,7 +173,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 var renderCart = function renderCart() {
   var formContainer = document.querySelector('.form-container');
-  var forms = document.querySelectorAll('.front-form');
   var form = document.querySelector('.front-form');
   var addToCartButton = document.querySelector('.add-to-cart-button');
   var mainContainer = document.querySelector('main');
@@ -182,20 +180,18 @@ var renderCart = function renderCart() {
   var minuses = document.querySelectorAll(".cart-minus");
   var buyButton = document.querySelector(".buy-button");
   var purchaseButton = document.querySelector(".purchase-button");
-  document.addEventListener("renderProductModules", function (event) {
+  document.addEventListener("cart", function (event) {
     renderCart();
   }, {
     once: true
   });
 
   if (buyButton) {
-    // pluses.forEach(plus => {
     buyButton.addEventListener("click", function (event) {
-      event.preventDefault(); // forms.forEach(form => { 
-
+      event.preventDefault();
       var url = buyButton.dataset.url;
 
-      var sendPostRequest = /*#__PURE__*/function () {
+      var sendGetRequest = /*#__PURE__*/function () {
         var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
           var response;
           return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
@@ -212,12 +208,9 @@ var renderCart = function renderCart() {
                     if (!response.ok) throw response;
                     return response.json();
                   }).then(function (json) {
-                    mainContainer.innerHTML = json.content; // Aquí se renderiza el contenido del formulario
-
-                    // Aquí se renderiza el contenido del formulario
-                    document.dispatchEvent(new CustomEvent('renderProductModules'));
+                    mainContainer.innerHTML = json.content;
+                    document.dispatchEvent(new CustomEvent('checkout'));
                   })["catch"](function (error) {
-                    // document.dispatchEvent(new CustomEvent('stopWait'));
                     if (error.status == '422') {
                       error.json().then(function (jsonError) {
                         var errors = jsonError.errors;
@@ -252,20 +245,18 @@ var renderCart = function renderCart() {
           }, _callee);
         }));
 
-        return function sendPostRequest() {
+        return function sendGetRequest() {
           return _ref.apply(this, arguments);
         };
       }();
 
-      sendPostRequest();
+      sendGetRequest();
     });
   }
 
   if (purchaseButton) {
-    // pluses.forEach(plus => {
     purchaseButton.addEventListener("click", function (event) {
-      event.preventDefault(); // forms.forEach(form => { 
-
+      event.preventDefault();
       var url = purchaseButton.dataset.url;
       var data = new FormData(form);
 
@@ -303,9 +294,8 @@ var renderCart = function renderCart() {
                     return response.json();
                   }).then(function (json) {
                     mainContainer.innerHTML = json.content;
-                    document.dispatchEvent(new CustomEvent('renderProductModules'));
+                    document.dispatchEvent(new CustomEvent('checkout'));
                   })["catch"](function (error) {
-                    // document.dispatchEvent(new CustomEvent('stopWait'));
                     if (error.status == '422') {
                       error.json().then(function (jsonError) {
                         var errors = jsonError.errors;
@@ -352,12 +342,11 @@ var renderCart = function renderCart() {
   if (pluses) {
     pluses.forEach(function (plus) {
       plus.addEventListener("click", function (event) {
-        event.preventDefault(); // forms.forEach(form => { 
-
+        event.preventDefault();
         var url = plus.dataset.url;
         console.log(url);
 
-        var sendPostRequest = /*#__PURE__*/function () {
+        var sendGetRequest = /*#__PURE__*/function () {
           var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
             var response;
             return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
@@ -374,12 +363,9 @@ var renderCart = function renderCart() {
                       if (!response.ok) throw response;
                       return response.json();
                     }).then(function (json) {
-                      mainContainer.innerHTML = json.content; // Aquí se renderiza el contenido del formulario
-
-                      // Aquí se renderiza el contenido del formulario
-                      document.dispatchEvent(new CustomEvent('renderProductModules'));
+                      mainContainer.innerHTML = json.content;
+                      document.dispatchEvent(new CustomEvent('cart'));
                     })["catch"](function (error) {
-                      // document.dispatchEvent(new CustomEvent('stopWait'));
                       if (error.status == '422') {
                         error.json().then(function (jsonError) {
                           var errors = jsonError.errors;
@@ -414,12 +400,12 @@ var renderCart = function renderCart() {
             }, _callee3);
           }));
 
-          return function sendPostRequest() {
+          return function sendGetRequest() {
             return _ref3.apply(this, arguments);
           };
         }();
 
-        sendPostRequest();
+        sendGetRequest();
       });
     });
   }
@@ -427,11 +413,10 @@ var renderCart = function renderCart() {
   if (minuses) {
     minuses.forEach(function (minus) {
       minus.addEventListener("click", function (event) {
-        event.preventDefault(); // forms.forEach(form => { 
-
+        event.preventDefault();
         var url = minus.dataset.url;
 
-        var sendPostRequest = /*#__PURE__*/function () {
+        var sendGetRequest = /*#__PURE__*/function () {
           var _ref4 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
             var response;
             return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
@@ -449,9 +434,8 @@ var renderCart = function renderCart() {
                       return response.json();
                     }).then(function (json) {
                       mainContainer.innerHTML = json.content;
-                      document.dispatchEvent(new CustomEvent('renderProductModules'));
+                      document.dispatchEvent(new CustomEvent('cart'));
                     })["catch"](function (error) {
-                      // document.dispatchEvent(new CustomEvent('stopWait'));
                       if (error.status == '422') {
                         error.json().then(function (jsonError) {
                           var errors = jsonError.errors;
@@ -486,104 +470,99 @@ var renderCart = function renderCart() {
             }, _callee4);
           }));
 
-          return function sendPostRequest() {
+          return function sendGetRequest() {
             return _ref4.apply(this, arguments);
           };
         }();
 
-        sendPostRequest();
+        sendGetRequest();
       });
     });
   }
 
   if (addToCartButton) {
     addToCartButton.addEventListener("click", function (event) {
+      console.log('addToCartButton');
       event.preventDefault();
-      forms.forEach(function (form) {
-        var data = new FormData(form);
-        var url = form.action;
+      var data = new FormData(form);
+      var url = form.action;
 
-        var _iterator2 = _createForOfIteratorHelper(data.entries()),
-            _step2;
+      var _iterator2 = _createForOfIteratorHelper(data.entries()),
+          _step2;
 
-        try {
-          for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
-            var pair = _step2.value;
-            console.log(pair[0] + ', ' + pair[1]);
-          }
-        } catch (err) {
-          _iterator2.e(err);
-        } finally {
-          _iterator2.f();
+      try {
+        for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+          var pair = _step2.value;
+          console.log(pair[0] + ', ' + pair[1]);
         }
+      } catch (err) {
+        _iterator2.e(err);
+      } finally {
+        _iterator2.f();
+      }
 
-        var sendPostRequest = /*#__PURE__*/function () {
-          var _ref5 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
-            var response;
-            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
-              while (1) {
-                switch (_context5.prev = _context5.next) {
-                  case 0:
-                    _context5.next = 2;
-                    return fetch(url, {
-                      headers: {
-                        'Accept': 'application/json',
-                        'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content
-                      },
-                      method: 'POST',
-                      body: data
-                    }).then(function (response) {
-                      if (!response.ok) throw response;
-                      return response.json();
-                    }).then(function (json) {
-                      mainContainer.innerHTML = json.content; // Aquí se renderiza el contenido del formulario
-
-                      // Aquí se renderiza el contenido del formulario
-                      document.dispatchEvent(new CustomEvent('renderProductModules'));
-                      document.dispatchEvent(new CustomEvent('renderCartModules'));
-                    })["catch"](function (error) {
-                      // document.dispatchEvent(new CustomEvent('stopWait'));
-                      if (error.status == '422') {
-                        error.json().then(function (jsonError) {
-                          var errors = jsonError.errors;
-                          var errorMessage = '';
-                          Object.keys(errors).forEach(function (key) {
-                            errorMessage += '<li>' + errors[key] + '</li>';
-                          });
-                          document.dispatchEvent(new CustomEvent('message', {
-                            detail: {
-                              message: errorMessage,
-                              type: 'error'
-                            }
-                          }));
+      var sendPostRequest = /*#__PURE__*/function () {
+        var _ref5 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
+          var response;
+          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
+            while (1) {
+              switch (_context5.prev = _context5.next) {
+                case 0:
+                  _context5.next = 2;
+                  return fetch(url, {
+                    headers: {
+                      'Accept': 'application/json',
+                      'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content
+                    },
+                    method: 'POST',
+                    body: data
+                  }).then(function (response) {
+                    if (!response.ok) throw response;
+                    return response.json();
+                  }).then(function (json) {
+                    mainContainer.innerHTML = json.content;
+                    document.dispatchEvent(new CustomEvent('cart'));
+                  })["catch"](function (error) {
+                    if (error.status == '422') {
+                      error.json().then(function (jsonError) {
+                        var errors = jsonError.errors;
+                        var errorMessage = '';
+                        Object.keys(errors).forEach(function (key) {
+                          errorMessage += '<li>' + errors[key] + '</li>';
                         });
-                      }
+                        document.dispatchEvent(new CustomEvent('message', {
+                          detail: {
+                            message: errorMessage,
+                            type: 'error'
+                          }
+                        }));
+                      });
+                    }
 
-                      if (error.status == '500') {
-                        console.log(error);
-                      }
+                    if (error.status == '500') {
+                      console.log(error);
+                    }
 
-                      ;
-                    });
+                    ;
+                  });
 
-                  case 2:
-                    response = _context5.sent;
+                case 2:
+                  response = _context5.sent;
 
-                  case 3:
-                  case "end":
-                    return _context5.stop();
-                }
+                case 3:
+                case "end":
+                  return _context5.stop();
               }
-            }, _callee5);
-          }));
+            }
+          }, _callee5);
+        }));
 
-          return function sendPostRequest() {
-            return _ref5.apply(this, arguments);
-          };
-        }();
+        return function sendPostRequest() {
+          return _ref5.apply(this, arguments);
+        };
+      }();
 
-        sendPostRequest();
-      });
+      sendPostRequest();
     });
   }
 };
@@ -900,26 +879,32 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _form__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./form */ "./resources/js/front/desktop/form.js");
+/* harmony import */ var _tabs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./tabs */ "./resources/js/front/desktop/tabs.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+
+
 var renderMenu = function renderMenu() {
-  var mainContainer = document.querySelector('main');
-  var menuItems = document.querySelectorAll('.menu-item');
-  document.addEventListener("renderMenu", function (event) {
+  var mainContent = document.querySelector('main');
+  var menuButtons = document.querySelectorAll('.menu-item');
+  document.addEventListener("loadMenu", function (event) {
     renderMenu();
   }, {
     once: true
   });
-  menuItems.forEach(function (menuItem) {
-    menuItem.addEventListener('click', function () {
-      var url = menuItem.dataset.url;
-      console.log(url);
+  menuButtons.forEach(function (menuButton) {
+    menuButton.addEventListener('click', function () {
+      var url = menuButton.dataset.url;
+      var section = menuButton.dataset.section;
+      var currentSection = document.querySelector('.page-section').id;
+      sessionStorage.setItem('lastSection', currentSection);
 
-      var sendGetRequest = /*#__PURE__*/function () {
+      var sendIndexRequest = /*#__PURE__*/function () {
         var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
           var response;
           return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
@@ -936,32 +921,19 @@ var renderMenu = function renderMenu() {
                     if (!response.ok) throw response;
                     return response.json();
                   }).then(function (json) {
-                    mainContainer.innerHTML = json.content;
-                    document.dispatchEvent(new CustomEvent('renderMenuModules'));
-                    document.dispatchEvent(new CustomEvent('renderProductModules'));
-                  })["catch"](function (error) {
-                    // document.dispatchEvent(new CustomEvent('stopWait'));
-                    if (error.status == '422') {
-                      error.json().then(function (jsonError) {
-                        var errors = jsonError.errors;
-                        var errorMessage = '';
-                        Object.keys(errors).forEach(function (key) {
-                          errorMessage += '<li>' + errors[key] + '</li>';
-                        });
-                        document.dispatchEvent(new CustomEvent('message', {
-                          detail: {
-                            message: errorMessage,
-                            type: 'error'
-                          }
-                        }));
-                      });
-                    }
+                    window.history.pushState('', '', url);
+                    mainContent.innerHTML = json.content;
+                    document.dispatchEvent(new CustomEvent('loadSection', {
+                      detail: {
+                        section: section // Colocar un if ()
 
+                      }
+                    }));
+                    document.dispatchEvent(new CustomEvent('loadMenu'));
+                  })["catch"](function (error) {
                     if (error.status == '500') {
                       console.log(error);
                     }
-
-                    ;
                   });
 
                 case 2:
@@ -975,13 +947,65 @@ var renderMenu = function renderMenu() {
           }, _callee);
         }));
 
-        return function sendGetRequest() {
+        return function sendIndexRequest() {
           return _ref.apply(this, arguments);
         };
       }();
 
-      sendGetRequest();
+      sendIndexRequest();
     });
+  });
+  window.addEventListener('popstate', function (event) {
+    var url = window.location.href;
+
+    var sendIndexRequest = /*#__PURE__*/function () {
+      var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return fetch(url, {
+                  headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                  },
+                  method: 'GET'
+                }).then(function (response) {
+                  if (!response.ok) throw response;
+                  return response.json();
+                }).then(function (json) {
+                  mainContent.innerHTML = json.content;
+                  document.dispatchEvent(new CustomEvent('loadSection', {
+                    detail: {
+                      section: sessionStorage.getItem('lastSection')
+                    }
+                  }));
+                  var currentSection = document.querySelector('.page-section').id;
+                  sessionStorage.setItem('lastSection', currentSection);
+                })["catch"](function (error) {
+                  if (error.status == '500') {
+                    console.log(error);
+                  }
+                });
+
+              case 2:
+                response = _context2.sent;
+
+              case 3:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }));
+
+      return function sendIndexRequest() {
+        return _ref2.apply(this, arguments);
+      };
+    }();
+
+    sendIndexRequest();
   });
 };
 
@@ -1037,8 +1061,13 @@ var renderProduct = function renderProduct() {
   var viewButtons = document.querySelectorAll(".product-view-button");
   var categoryTargets = document.querySelectorAll(".category-target");
   var orderBySelect = document.querySelector(".order-by-select");
-  document.addEventListener("renderProductModules", function (event) {
-    renderProduct();
+  document.addEventListener("cart", function (event) {
+    renderCart();
+  }, {
+    once: true
+  });
+  document.addEventListener("products", function (event) {
+    renderProducts();
   }, {
     once: true
   });
@@ -1066,9 +1095,9 @@ var renderProduct = function renderProduct() {
                       return response.json();
                     }).then(function (json) {
                       mainContainer.innerHTML = json.content;
-                      document.dispatchEvent(new CustomEvent("renderProductModules"));
+                      document.dispatchEvent(new CustomEvent('cart'));
+                      document.dispatchEvent(new CustomEvent('products'));
                     })["catch"](function (error) {
-                      // document.dispatchEvent(new CustomEvent('stopWait'));
                       if (error.status == '422') {
                         error.json().then(function (jsonError) {
                           var errors = jsonError.errors;
@@ -1116,10 +1145,6 @@ var renderProduct = function renderProduct() {
   if (categoryTargets) {
     categoryTargets.forEach(function (categoryTarget) {
       categoryTarget.addEventListener("click", function () {
-        // categoryTargets.forEach(categoryTarget => {
-        //     categoryTarget.classList.remove("active");
-        // });
-        // categoryTarget.classList.add("active");
         var url = categoryTarget.dataset.url;
 
         var sendGetRequest = /*#__PURE__*/function () {
@@ -1140,9 +1165,12 @@ var renderProduct = function renderProduct() {
                       return response.json();
                     }).then(function (json) {
                       mainContainer.innerHTML = json.content;
-                      document.dispatchEvent(new CustomEvent("renderProductModules"));
+                      document.dispatchEvent(new CustomEvent('loadSection', {
+                        detail: {
+                          section: 'products'
+                        }
+                      }));
                     })["catch"](function (error) {
-                      // document.dispatchEvent(new CustomEvent('stopWait'));
                       if (error.status == '422') {
                         error.json().then(function (jsonError) {
                           var errors = jsonError.errors;
@@ -1209,9 +1237,12 @@ var renderProduct = function renderProduct() {
                     return response.json();
                   }).then(function (json) {
                     mainContainer.innerHTML = json.content;
-                    document.dispatchEvent(new CustomEvent("renderProductModules"));
+                    document.dispatchEvent(new CustomEvent('loadSection', {
+                      detail: {
+                        section: 'products'
+                      }
+                    }));
                   })["catch"](function (error) {
-                    // document.dispatchEvent(new CustomEvent('stopWait'));
                     if (error.status == '422') {
                       error.json().then(function (jsonError) {
                         var errors = jsonError.errors;
@@ -1303,8 +1334,10 @@ __webpack_require__.r(__webpack_exports__);
 var renderTabs = function renderTabs() {
   var tabs = document.querySelectorAll(".tab");
   var contents = document.querySelectorAll(".content");
-  document.addEventListener("renderProductModules", function (event) {
-    renderTabs();
+  document.addEventListener("loadSection", function (event) {
+    if (event.detail.section.includes('products')) {
+      renderTabs();
+    }
   }, {
     once: true
   });

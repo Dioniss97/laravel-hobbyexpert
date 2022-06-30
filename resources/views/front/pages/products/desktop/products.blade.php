@@ -1,8 +1,7 @@
-<div class="products">
+<div class="products page-section" id="products">
     <div class="desktop-two-columns-aside">
         <div class="column-aside">
             <div class="products-categories">
-
                 <div class="products-categories-elements">
                     <div class="products-categories-title">
                         <h3>Roles de juego</h3>
@@ -64,3 +63,5 @@
                 @endif
             </div>
         </div>
+    </div>
+</div>

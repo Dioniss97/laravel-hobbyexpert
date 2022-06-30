@@ -41,6 +41,7 @@ class ProductController extends Controller
             ->where('products.visible', 1)
             ->join('prices', 'prices.product_id', '=', 'products.id')
             ->orderBy('prices.base_price', $order)
+            ->select('products.*', 'prices.base_price')
             ->get();
 
         $view = View::make('front.pages.products.index')->with('products', $products);

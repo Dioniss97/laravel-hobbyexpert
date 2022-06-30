@@ -1,4 +1,4 @@
-<div class="contact">
+<div class="contact page-section" id="contact">
     <div class="desktop-two-columns">
         <div class="column">
             <div class="contact-info">

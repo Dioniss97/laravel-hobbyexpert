@@ -5,8 +5,12 @@ export let renderProduct = () => {
     let categoryTargets = document.querySelectorAll(".category-target");
     let orderBySelect = document.querySelector(".order-by-select");
 
-    document.addEventListener("renderProductModules", (event => {
-        renderProduct();
+    document.addEventListener("cart", (event => {
+        renderCart();
+    }), {once: true});
+
+    document.addEventListener("products", (event => {
+        renderProducts();
     }), {once: true});
 
     if (viewButtons) {
@@ -37,11 +41,10 @@ export let renderProduct = () => {
 
                             mainContainer.innerHTML = json.content;
 
-                            document.dispatchEvent(new CustomEvent("renderProductModules"));
+                            document.dispatchEvent(new CustomEvent('cart'));
+                            document.dispatchEvent(new CustomEvent('products'));
                         })
                         .catch(error => {
-
-                            // document.dispatchEvent(new CustomEvent('stopWait'));
 
                             if (error.status == '422') {
 
@@ -80,13 +83,6 @@ export let renderProduct = () => {
 
             categoryTarget.addEventListener("click", () => {
 
-                // categoryTargets.forEach(categoryTarget => {
-
-                //     categoryTarget.classList.remove("active");
-                // });
-
-                // categoryTarget.classList.add("active");
-
                 let url = categoryTarget.dataset.url;
 
                 let sendGetRequest = async () => {
@@ -109,11 +105,13 @@ export let renderProduct = () => {
 
                             mainContainer.innerHTML = json.content;
 
-                            document.dispatchEvent(new CustomEvent("renderProductModules"));
+                            document.dispatchEvent(new CustomEvent('loadSection', {
+                                detail: {
+                                    section: 'products'
+                                }
+                            }));
                         })
                         .catch(error => {
-
-                            // document.dispatchEvent(new CustomEvent('stopWait'));
 
                             if (error.status == '422') {
 
@@ -172,11 +170,12 @@ export let renderProduct = () => {
 
                         mainContainer.innerHTML = json.content;
 
-                        document.dispatchEvent(new CustomEvent("renderProductModules"));
-                    })
-                    .catch(error => {
-
-                        // document.dispatchEvent(new CustomEvent('stopWait'));
+                        document.dispatchEvent(new CustomEvent('loadSection', {
+                            detail: {
+                                section: 'products'
+                            }
+                        }));
+                    }).catch(error => {
 
                         if (error.status == '422') {
 

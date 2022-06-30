@@ -42,7 +42,7 @@ class CartController extends Controller
 
             $cart = $this->cart->create([
                 'price_id' => request('price_id'),
-                'fingerprint_id' => '1', // Falta indicar aquí la clave foranea del fingerprint
+                'fingerprint' => $request->cookie('fp'), // Falta indicar aquí la clave foranea del fingerprint
                 'client_id' => '1',
                 'active' => 1,
             ]);
@@ -51,7 +51,7 @@ class CartController extends Controller
         $carts = $this->cart->select(DB::raw('count(price_id) as amount'),'price_id')
             ->groupByRaw('price_id')
             ->where('active', 1)
-            ->where('carts.fingerprint', $request->cookie('fp'))
+            ->where('fingerprint', $request->cookie('fp'))
             ->where('sell_id', null)
             ->orderBy('price_id', 'desc')
             ->get();
@@ -62,11 +62,12 @@ class CartController extends Controller
             ->where('carts.sell_id', null)
             ->join('prices', 'prices.id', '=', 'carts.price_id')
             ->join('taxes', 'taxes.id', '=', 'prices.tax_id')
-            ->select(DB::raw('sum(prices.base_price) as base_total'), DB::raw('sum(prices.base_price * taxes.multiplicator) as total') )
+            ->select(DB::raw('sum(prices.base_price) as base_total'), 
+            DB::raw('sum(prices.base_price * taxes.multiplicator) as total'))
             ->first();
 
         $taxes = $this->cart
-            ->where('carts.fingerprint', $request->cookie('fp'))
+            ->where('fingerprint', $request->cookie('fp'))
             ->where('carts.active', 1)
             ->where('carts.sell_id', null)
             ->join('prices', 'prices.id', '=', 'carts.price_id')
@@ -101,7 +102,7 @@ class CartController extends Controller
         $carts = $this->cart->select(DB::raw('count(price_id) as amount'),'price_id')
             ->groupByRaw('price_id')
             ->where('active', 1)
-            ->where('carts.fingerprint', $request->cookie('fp'))
+            ->where('fingerprint', $request->cookie('fp'))
             ->where('sell_id', null)
             ->orderBy('price_id', 'desc')
             ->get();
@@ -116,7 +117,7 @@ class CartController extends Controller
             ->first();
 
         $taxes = $this->cart
-            ->where('carts.fingerprint', $request->cookie('fp'))
+            ->where('fingerprint', $request->cookie('fp'))
             ->where('carts.active', 1)
             ->where('carts.sell_id', null)
             ->join('prices', 'prices.id', '=', 'carts.price_id')
@@ -154,7 +155,7 @@ class CartController extends Controller
         $carts = $this->cart->select(DB::raw('count(price_id) as amount'),'price_id')
             ->groupByRaw('price_id')
             ->where('active', 1)
-            ->where('carts.fingerprint', $request->cookie('fp'))
+            ->where('fingerprint', $request->cookie('fp'))
             ->where('sell_id', null)
             ->orderBy('price_id', 'desc')
             ->get();
@@ -169,7 +170,7 @@ class CartController extends Controller
             ->first();
 
         $taxes = $this->cart
-            ->where('carts.fingerprint', $request->cookie('fp'))
+            ->where('fingerprint', $request->cookie('fp'))
             ->where('carts.active', 1)
             ->where('carts.sell_id', null)
             ->join('prices', 'prices.id', '=', 'carts.price_id')

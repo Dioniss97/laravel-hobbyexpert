@@ -1,4 +1,4 @@
-<div class="home">
+<div class="home page-section" id="home">
     <div class="slider">
         <div class="slider-image desktop-only">
             <img src="img/home-img.webp" alt="Grupo">

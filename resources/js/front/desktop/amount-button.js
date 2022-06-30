@@ -3,7 +3,7 @@ export let renderAmount = () => {
     let pluses = document.querySelectorAll(".plus");
     let minuses = document.querySelectorAll(".minus");
 
-    document.addEventListener("renderProductModules", (event => {
+    document.addEventListener("products", (event => {
         renderAmount();
     }), {once: true});
 
@@ -27,10 +27,7 @@ export let renderAmount = () => {
 
             let input =(minus.parentNode.querySelector(".amount"));
 
-            // if (input.value > 1) {
-
                 input.value = parseInt(input.value) - 1;
-            // }
         });
     });
 }

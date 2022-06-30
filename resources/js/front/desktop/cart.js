@@ -1,7 +1,6 @@
 export let renderCart = () => {
 
     let formContainer = document.querySelector('.form-container');
-    let forms = document.querySelectorAll('.front-form');
     let form = document.querySelector('.front-form');
     let addToCartButton = document.querySelector('.add-to-cart-button');
     let mainContainer = document.querySelector('main');
@@ -10,23 +9,20 @@ export let renderCart = () => {
     let buyButton = document.querySelector(".buy-button");
     let purchaseButton = document.querySelector(".purchase-button");
 
-    document.addEventListener("renderProductModules",( event =>{
+    document.addEventListener("cart", (event => {
         renderCart();
     }), {once: true});
 
-    if(buyButton) {
 
-        // pluses.forEach(plus => {
+    if(buyButton) {
 
         buyButton.addEventListener("click", (event) => {
 
             event.preventDefault();
 
-            // forms.forEach(form => { 
-
             let url = buyButton.dataset.url;
 
-            let sendPostRequest = async () => {
+            let sendGetRequest = async () => {
 
                 let response = await fetch(url, {
 
@@ -43,14 +39,11 @@ export let renderCart = () => {
                 })
                 .then(json => {
 
-                    mainContainer.innerHTML = json.content; // Aquí se renderiza el contenido del formulario
+                    mainContainer.innerHTML = json.content;
 
-                    document.dispatchEvent(new CustomEvent('renderProductModules'));
-
+                    document.dispatchEvent(new CustomEvent('checkout'));
                 })
                 .catch ( error =>  {
-
-                    // document.dispatchEvent(new CustomEvent('stopWait'));
 
                     if(error.status == '422'){
     
@@ -78,19 +71,15 @@ export let renderCart = () => {
                 });
             };
     
-            sendPostRequest();
+            sendGetRequest();
         });
     }
 
     if(purchaseButton) {
 
-        // pluses.forEach(plus => {
-
         purchaseButton.addEventListener("click", (event) => {
 
             event.preventDefault();
-
-            // forms.forEach(form => { 
 
             let url = purchaseButton.dataset.url;
             let data = new FormData(form);
@@ -120,12 +109,9 @@ export let renderCart = () => {
 
                     mainContainer.innerHTML = json.content;
 
-                    document.dispatchEvent(new CustomEvent('renderProductModules'));
-
+                    document.dispatchEvent(new CustomEvent('checkout'));
                 })
                 .catch ( error =>  {
-
-                    // document.dispatchEvent(new CustomEvent('stopWait'));
 
                     if(error.status == '422'){
     
@@ -165,86 +151,11 @@ export let renderCart = () => {
 
             event.preventDefault();
 
-            // forms.forEach(form => { 
-
                 let url = plus.dataset.url;
 
                 console.log(url);
 
-                let sendPostRequest = async () => {
-
-                    // document.dispatchEvent(new CustomEvent('startWait'));
-
-                    let response = await fetch(url, {
-
-                        headers: {
-                            'X-Requested-With': 'XMLHttpRequest',
-                        },
-                        method: 'GET',
-                    })
-                    .then(response => {
-                    
-                        if (!response.ok) throw response;
-
-                        return response.json();
-                    })
-                    .then(json => {
-
-                        mainContainer.innerHTML = json.content; // Aquí se renderiza el contenido del formulario
-
-                        document.dispatchEvent(new CustomEvent('renderProductModules'));
-
-                    })
-                    .catch ( error =>  {
-
-                        // document.dispatchEvent(new CustomEvent('stopWait'));
-
-                        if(error.status == '422'){
-        
-                            error.json().then(jsonError => {
-
-                                let errors = jsonError.errors;      
-                                let errorMessage = '';
-            
-                                Object.keys(errors).forEach(function(key) {
-                                    errorMessage += '<li>' + errors[key] + '</li>';
-                                })
-                
-                                document.dispatchEvent(new CustomEvent('message', {
-                                    detail: {
-                                        message: errorMessage,
-                                        type: 'error'
-                                    }
-                                }));
-                            })   
-                        }
-
-                        if(error.status == '500'){
-                            console.log(error);
-                        };
-                    });
-                };
-        
-                sendPostRequest();
-            });
-        });
-    }
-
-    if(minuses) {
-
-        minuses.forEach(minus => {
-
-        minus.addEventListener("click", (event) => {
-
-            event.preventDefault();
-
-            // forms.forEach(form => { 
-
-                let url = minus.dataset.url;
-
-                let sendPostRequest = async () => {
-
-                    // document.dispatchEvent(new CustomEvent('startWait'));
+                let sendGetRequest = async () => {
 
                     let response = await fetch(url, {
 
@@ -263,12 +174,9 @@ export let renderCart = () => {
 
                         mainContainer.innerHTML = json.content;
 
-                        document.dispatchEvent(new CustomEvent('renderProductModules'));
-
+                        document.dispatchEvent(new CustomEvent('cart'));
                     })
                     .catch ( error =>  {
-
-                        // document.dispatchEvent(new CustomEvent('stopWait'));
 
                         if(error.status == '422'){
         
@@ -296,7 +204,71 @@ export let renderCart = () => {
                     });
                 };
         
-                sendPostRequest();
+                sendGetRequest();
+            });
+        });
+    }
+
+    if(minuses) {
+
+        minuses.forEach(minus => {
+
+        minus.addEventListener("click", (event) => {
+
+            event.preventDefault();
+
+                let url = minus.dataset.url;
+
+                let sendGetRequest = async () => {
+
+                    let response = await fetch(url, {
+
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest',
+                        },
+                        method: 'GET',
+                    })
+                    .then(response => {
+                    
+                        if (!response.ok) throw response;
+
+                        return response.json();
+                    })
+                    .then(json => {
+
+                        mainContainer.innerHTML = json.content;
+
+                        document.dispatchEvent(new CustomEvent('cart'));
+                    })
+                    .catch ( error =>  {
+
+                        if(error.status == '422'){
+        
+                            error.json().then(jsonError => {
+
+                                let errors = jsonError.errors;      
+                                let errorMessage = '';
+            
+                                Object.keys(errors).forEach(function(key) {
+                                    errorMessage += '<li>' + errors[key] + '</li>';
+                                })
+                
+                                document.dispatchEvent(new CustomEvent('message', {
+                                    detail: {
+                                        message: errorMessage,
+                                        type: 'error'
+                                    }
+                                }));
+                            })   
+                        }
+
+                        if(error.status == '500'){
+                            console.log(error);
+                        };
+                    });
+                };
+        
+                sendGetRequest();
             });
         });
     }
@@ -305,9 +277,9 @@ export let renderCart = () => {
 
         addToCartButton.addEventListener("click", (event) => {
 
-            event.preventDefault();
+            console.log('addToCartButton');
 
-            forms.forEach(form => { 
+            event.preventDefault();
 
                 let data = new FormData(form);
                 let url = form.action;
@@ -317,8 +289,6 @@ export let renderCart = () => {
                 }
 
                 let sendPostRequest = async () => {
-
-                    // document.dispatchEvent(new CustomEvent('startWait'));
 
                     let response = await fetch(url, {
 
@@ -337,16 +307,11 @@ export let renderCart = () => {
                     })
                     .then(json => {
 
-                        mainContainer.innerHTML = json.content; // Aquí se renderiza el contenido del formulario
+                        mainContainer.innerHTML = json.content;
 
-                        document.dispatchEvent(new CustomEvent('renderProductModules'));
-
-                        document.dispatchEvent(new CustomEvent('renderCartModules'));
-
+                        document.dispatchEvent(new CustomEvent('cart'));
                     })
                     .catch ( error =>  {
-
-                        // document.dispatchEvent(new CustomEvent('stopWait'));
 
                         if(error.status == '422'){
         
@@ -374,8 +339,7 @@ export let renderCart = () => {
                     });
                 };
         
-                sendPostRequest();
-            });
+            sendPostRequest();
         });
     }
 }

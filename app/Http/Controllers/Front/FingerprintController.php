@@ -8,12 +8,12 @@ use App\Models\Fingerprint;
 
 class FingerprintController extends Controller
 {
-    
+
     public function store(Request $request){
         
         $cookie_fingerprint = $request->cookie('fp');
 
-        if($cookie_fingerprint == null){
+        if($cookie_fingerprint == null) {
 
             $fingerprint = Fingerprint::create([
                 'fingerprint' => request('fingerprint'),
@@ -21,10 +21,11 @@ class FingerprintController extends Controller
                 'browser_version' => request('browser_version'),
                 'os' => request('os'),
                 'os_version' => request('os_version'),
-                'resolution' => request('resolution')
+                'resolution' => request('resolution'),
+                'client_id' => ,
             ]);
 
-        }else{
+        } else {
             $fingerprint = Fingerprint::where('fingerprint', $cookie_fingerprint)->first();
         }
 

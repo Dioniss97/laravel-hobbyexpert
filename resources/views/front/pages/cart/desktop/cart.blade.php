@@ -1,4 +1,4 @@
-<div class="cart">
+<div class="cart page-section" id="cart">
     <div class="cart-main-table">
         <table>
             <caption>Carrito de la compra</caption>
